@@ -1,6 +1,9 @@
-package io.github.some_example_name.lwjgl3;
+package io.github.some_example_name.lwjgl3.Entity;
 //kk
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import io.github.some_example_name.lwjgl3.Movement.iMovable;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
