@@ -1,3 +1,5 @@
+package core;
+
 public class Player extends Actor {
     private InputHandler inputHandler;
 

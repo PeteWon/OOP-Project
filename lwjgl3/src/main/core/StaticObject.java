@@ -1,3 +1,5 @@
+package core;
+
 public class StaticObject extends Entity {
     public StaticObject(float x, float y) {
         super(x, y);

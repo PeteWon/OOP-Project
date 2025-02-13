@@ -1,3 +1,5 @@
+package core;
+
 public class Actor extends MovableEntity {
     protected int health;
     protected int experience;

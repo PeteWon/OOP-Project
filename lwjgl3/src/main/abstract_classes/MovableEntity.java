@@ -1,3 +1,5 @@
+package abstract_classes;
+
 public abstract class MovableEntity extends Entity {
     protected float speed;
 

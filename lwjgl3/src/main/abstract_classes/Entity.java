@@ -1,4 +1,4 @@
-package lwjgl3.src.main.abstract_classes;
+package abstract_classes;
 
 public abstract class Entity {
     protected float x, y; // Position in the game world
