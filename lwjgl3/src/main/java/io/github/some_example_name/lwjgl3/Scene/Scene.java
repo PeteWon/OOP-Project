@@ -1,50 +1,31 @@
-package io.github.some_example_name.lwjgl3.Scene;
+package io.github.some_example_name.lwjgl3;
 
-public class Scene {
-    // Class attributes
-    private String name;
-    private String description;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+public abstract class Scene implements Screen {
+    protected final SceneManager game;
+    protected SpriteBatch batch;
+    protected Texture tex;
 
-    // Constructor
-    public Scene(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public Scene(SceneManager game, String texturePath){
+        this.game = game;
+        tex = new Texture(texturePath);
+        batch = new SpriteBatch();
+
     }
-
-    // Getter methods
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    // Setter methods
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    // Display scene details
-    public void displayScene() {
-        System.out.println("Scene: " + name);
-        System.out.println("Description: " + description);
-    }
-
-    // Predefined game scenes
-    public static Scene startScene() {
-        return new Scene("Start", "The game is about to begin.");
-    }
-
-    public static Scene pauseScene() {
-        return new Scene("Pause", "The game is paused.");
-    }
-
-    public static Scene endScene() {
-        return new Scene("End", "The game has ended.");
+    @Override
+    public abstract void render(float delta);
+    @Override
+    public void dispose(){
+        batch.dispose();
+        tex.dispose();
     }
 }
