@@ -1,6 +1,5 @@
 package io.github.some_example_name.lwjgl3.application;
 
-
 public class Player extends Actor {
     private float lastLoggedSpeed = -1; // ✅ Track previous speed to prevent spam logs
 
@@ -29,6 +28,15 @@ public class Player extends Actor {
     }
 
     public void increaseSpeed(float amount) {
-        setSpeed(getSpeed() + amount);
+        float newSpeed = getSpeed() + amount;
+        float MAX_SPEED = 10.0f; // ✅ Define a max speed limit
+        if (newSpeed > MAX_SPEED) {
+            newSpeed = MAX_SPEED;
+        }
+        setSpeed(newSpeed);
     }
+
+    // public void increaseSpeed(float amount) {
+    // setSpeed(getSpeed() + amount);
+    // }
 }

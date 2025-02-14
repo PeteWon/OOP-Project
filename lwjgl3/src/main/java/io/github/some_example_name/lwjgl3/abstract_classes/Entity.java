@@ -1,8 +1,6 @@
 package io.github.some_example_name.lwjgl3.abstract_classes;
-import io.github.some_example_name.lwjgl3.Movement.iMovable;
 
-
-public abstract class Entity implements iMovable{
+public abstract class Entity {
     protected float x, y; // Position in the game world
     protected boolean isActive; // Determines if the entity is currently active
 
@@ -40,9 +38,52 @@ public abstract class Entity implements iMovable{
     public abstract void update(float deltaTime);
 
     public abstract void draw();
-
-    @Override
-    public void moveAIControlled() {} // Empty by default
-    @Override
-    public void moveUserControlled() {} // Empty by default
 }
+
+// package io.github.some_example_name.lwjgl3.abstract_classes;
+// import io.github.some_example_name.lwjgl3.Movement.iMovable;
+
+// public abstract class Entity implements iMovable{
+// protected float x, y; // Position in the game world
+// protected boolean isActive; // Determines if the entity is currently active
+
+// public Entity(float x, float y) {
+// this.x = x;
+// this.y = y;
+// this.isActive = true; // Default to active when created
+// }
+
+// public float getX() {
+// return x;
+// }
+
+// public float getY() {
+// return y;
+// }
+
+// public void setX(float x) {
+// this.x = x;
+// }
+
+// public void setY(float y) {
+// this.y = y;
+// }
+
+// public boolean isActive() {
+// return isActive;
+// }
+
+// public void setActive(boolean active) {
+// this.isActive = active;
+// }
+
+// // Forces subclasses to implement their own behavior
+// public abstract void update(float deltaTime);
+
+// public abstract void draw();
+
+// @Override
+// public void moveAIControlled() {} // Empty by default
+// @Override
+// public void moveUserControlled() {} // Empty by default
+// }

@@ -8,7 +8,7 @@ public class SceneManager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
 
-    public SceneManager() { 
+    public SceneManager() {
         scenes = new HashMap<>();
         currentScene = null;
     }
@@ -19,32 +19,58 @@ public class SceneManager {
         }
     }
 
-    public void setScene(String name) {
-        Scene scene = scenes.get(name);
-        if (scene != null) {
-            if (currentScene != null) {
-                currentScene.dispose();  // Dispose of previous scene resources
-            }
-            currentScene = scene;
-            System.out.println("Current scene set to: " + name);
-            currentScene.show();  // Call show() for initialization
+    public void setScene(String sceneName) {
+        if (scenes.containsKey(sceneName)) {
+            System.out.println("✅ Switching to scene: " + sceneName);
+            currentScene = scenes.get(sceneName);
         } else {
-            System.out.println("Scene not found: " + name);
+            System.out.println("❌ Scene '" + sceneName + "' does not exist!");
         }
     }
 
-    public void renderScene(float delta) {
+    // public void setScene(String name) {
+    // Scene scene = scenes.get(name);
+    // if (scene != null) {
+    // if (currentScene != null) {
+    // currentScene.dispose(); // Dispose of previous scene resources
+    // }
+    // currentScene = scene;
+    // System.out.println("Current scene set to: " + name);
+    // currentScene.show(); // Call show() for initialization
+    // } else {
+    // System.out.println("Scene not found: " + name);
+    // }
+    // }
+
+    public void renderScene() {
+        renderScene(0.016f); // ✅ Calls the existing renderScene(float) with a default value
+    }
+
+    public void renderScene(float deltaTime) {
         if (currentScene != null) {
-            currentScene.render(delta);
-        } else {
-            System.out.println("No scene is currently set.");
+            currentScene.render(deltaTime);
         }
     }
+
+    // public void renderScene(float delta) {
+    // if (currentScene != null) {
+    // currentScene.render(delta);
+    // } else {
+    // System.out.println("No scene is currently set.");
+    // }
+    // }
 
     public void initializeScenes() {
         addScene("home", new MainMenuScene(this));
         addScene("play", new GameScene(this));
         addScene("stop", new StopScene(this));
-        setScene("home");  // Start at home scene
+        setScene("home"); // ✅ Automatically start in MainMenuScene
     }
+
+    // public void initializeScenes() {
+    // addScene("home", new MainMenuScene(this));
+    // addScene("play", new GameScene(this));
+    // addScene("stop", new StopScene(this));
+    // setScene("home"); // Start at home scene
+    // }
 }
