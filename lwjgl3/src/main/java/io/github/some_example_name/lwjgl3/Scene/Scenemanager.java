@@ -1,5 +1,6 @@
-package io.github.some_example_name.lwjgl3.Scene;
+package io.github.some_example_name.lwjgl3;
 
+import com.badlogic.gdx.Screen;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,53 +19,32 @@ public class Scenemanager {
         }
     }
 
-    public Scene getScene(String name) {
-        return scenes.get(name);
-    }
-
     public void setScene(String name) {
-        Scene scene = getScene(name);
+        Scene scene = scenes.get(name);
         if (scene != null) {
+            if (currentScene != null) {
+                currentScene.dispose();  // Dispose of previous scene resources
+            }
             currentScene = scene;
-            System.out.println("Current scene set to: " + scene.getName());
+            System.out.println("Current scene set to: " + name);
+            currentScene.show();  // Call show() for initialization
         } else {
             System.out.println("Scene not found: " + name);
         }
     }
 
-    public void renderScene() {
+    public void renderScene(float delta) {
         if (currentScene != null) {
-            System.out.println("Rendering current scene: " + currentScene.getName());
-            currentScene.displayScene();
+            currentScene.render(delta);
         } else {
             System.out.println("No scene is currently set.");
         }
     }
 
-    // Initializes the "home" scene
-    public void initializeHomeScene() {
-        if (!scenes.containsKey("home")) {
-            Scene homeScene = new Scene("home", "This is the home screen.");
-            addScene("home", homeScene);
-        }
-        setScene("home");
-    }
-
-    // Initializes the "play" scene
-    public void initializePlayScene() {
-        if (!scenes.containsKey("play")) {
-            Scene playScene = new Scene("play", "This is the gameplay scene.");
-            addScene("play", playScene);
-        }
-        setScene("play");
-    }
-
-    // Initializes the "stop" scene
-    public void initializeStopScene() {
-        if (!scenes.containsKey("stop")) {
-            Scene stopScene = new Scene("stop", "The game has stopped.");
-            addScene("stop", stopScene);
-        }
-        setScene("stop");
+    public void initializeScenes() {
+        addScene("home", new MainMenuScene(this));
+        addScene("play", new GameScene(this));
+        addScene("stop", new StopScene(this));
+        setScene("home");  // Start at home scene
     }
 }
