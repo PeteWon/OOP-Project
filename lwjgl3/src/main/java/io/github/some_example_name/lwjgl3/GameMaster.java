@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.Application;
+package io.github.some_example_name.lwjgl3;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -18,9 +18,9 @@ public class GameMaster extends ApplicationAdapter {
 	@Override
 	public void create() {
 
-		batch = new SpriteBatch();
-		shape = new ShapeRenderer();
-        entityManager = new EntityManager();
+		// batch = new SpriteBatch();
+		// shape = new ShapeRenderer();
+        // entityManager = new EntityManager();
 		}
 	
 	@Override
