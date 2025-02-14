@@ -18,7 +18,7 @@ public class GameScene extends Scene implements Screen {
     private TextButton backButton;
 
     public GameScene(SceneManager game) {
-        super(game, "image.png");  // Make sure "image.png" exists in the assets folder
+        super(game, "background.png");  // Make sure "image.png" exists in the assets folder
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);

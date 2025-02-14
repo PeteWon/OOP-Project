@@ -15,7 +15,7 @@ public class MainMenuScene extends Scene {
     private TextButton startButton;
 
     public MainMenuScene(SceneManager game) {
-        super(game, "main_menu_background.png");  // Change to your actual background image
+        super(game, "background.png");  // Change to your actual background image
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);

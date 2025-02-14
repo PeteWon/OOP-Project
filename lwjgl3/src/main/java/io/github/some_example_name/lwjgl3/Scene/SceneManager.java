@@ -4,7 +4,7 @@ import com.badlogic.gdx.Screen;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Scenemanager {
+public class SceneManager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
 

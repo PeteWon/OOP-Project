@@ -9,7 +9,7 @@ public class StopScene extends Scene {
     private Stage stage;
 
     public StopScene(SceneManager game) {
-        super(game, "stop_screen.png");  // Change to your actual image
+        super(game, "background.png");  // Change to your actual image
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
     }
