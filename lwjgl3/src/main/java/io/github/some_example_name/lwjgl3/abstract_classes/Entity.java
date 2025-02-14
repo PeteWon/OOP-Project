@@ -1,6 +1,8 @@
 package io.github.some_example_name.lwjgl3.abstract_classes;
+import io.github.some_example_name.lwjgl3.Movement.iMovable;
 
-public abstract class Entity {
+
+public abstract class Entity implements iMovable{
     protected float x, y; // Position in the game world
     protected boolean isActive; // Determines if the entity is currently active
 
@@ -38,4 +40,9 @@ public abstract class Entity {
     public abstract void update(float deltaTime);
 
     public abstract void draw();
+
+    @Override
+    public void moveAIControlled() {} // Empty by default
+    @Override
+    public void moveUserControlled() {} // Empty by default
 }

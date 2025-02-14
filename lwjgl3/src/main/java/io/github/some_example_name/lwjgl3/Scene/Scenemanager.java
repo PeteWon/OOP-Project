@@ -3,11 +3,11 @@ package io.github.some_example_name.lwjgl3.Scene;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SceneManager {
+public class Scenemanager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
 
-    public SceneManager() {
+    public Scenemanager() {
         scenes = new HashMap<>();
         currentScene = null;
     }
