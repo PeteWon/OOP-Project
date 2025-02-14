@@ -1,6 +1,5 @@
-package core.entities;
+package io.github.some_example_name.lwjgl3.application;
 
-import abstract_classes.Actor;
 
 public class Player extends Actor {
     private float lastLoggedSpeed = -1; // ✅ Track previous speed to prevent spam logs

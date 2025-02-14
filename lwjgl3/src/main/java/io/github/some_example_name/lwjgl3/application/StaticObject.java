@@ -1,6 +1,6 @@
-package core;
+package io.github.some_example_name.lwjgl3.application;
 
-import abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 
 public class StaticObject extends Entity {
     public StaticObject(float x, float y) {
