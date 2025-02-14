@@ -1,6 +1,6 @@
-package io.github.some_example_name.lwjgl3;
+package io.github.some_example_name.lwjgl3.Scene;
 
-import com.badlogic.gdx.Screen;
+// import com.badlogic.gdx.Screen;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +8,7 @@ public class SceneManager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
 
-    public Scenemanager() {
+    public SceneManager() { 
         scenes = new HashMap<>();
         currentScene = null;
     }

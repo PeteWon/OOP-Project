@@ -1,10 +1,10 @@
-package io.github.some_example_name.lwjgl3;
+package io.github.some_example_name.lwjgl3.Scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+// import com.badlogic.gdx.Screen;
+// import com.badlogic.gdx.graphics.GL20;
+// import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class GameScene extends Scene implements Screen {
+public class GameScene extends Scene{
     private Stage stage;
     private Skin skin;
     private TextButton backButton;

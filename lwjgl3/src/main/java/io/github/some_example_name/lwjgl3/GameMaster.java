@@ -5,13 +5,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
 import io.github.some_example_name.lwjgl3.IO.IOManager;
-import io.github.some_example_name.lwjgl3.Scene.Scenemanager;
+import io.github.some_example_name.lwjgl3.Scene.SceneManager;
 
 public class GameMaster extends ApplicationAdapter {
     private EntityManager entityManager;
     private CollisionManager collisionManager;
     private IOManager ioManager;
-    private Scenemanager scenemanager;
+    private SceneManager scenemanager;
 
 
     @Override
@@ -19,7 +19,7 @@ public class GameMaster extends ApplicationAdapter {
         entityManager = new EntityManager();
         collisionManager = new CollisionManager();
         ioManager = new IOManager();
-        scenemanager = new Scenemanager();
+        scenemanager = new SceneManager();
     }
 
     @Override
@@ -27,11 +27,11 @@ public class GameMaster extends ApplicationAdapter {
         ScreenUtils.clear(0, 0, 0.2f, 1);
     }
 
-    @Override
-    public void dispose() {
-		entityManager.dispose();
-		collisionManager.dispose();
-		ioManager.dispose();
-		scenemanager.dispose();
-    }
+    // @Override
+    // public void dispose() {
+	// 	entityManager.dispose();
+	// 	collisionManager.dispose();
+	// 	ioManager.dispose();
+	// 	scenemanager.dispose();
+    // }
 }
