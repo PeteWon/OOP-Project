@@ -2,33 +2,36 @@ package io.github.some_example_name.lwjgl3;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
-
+import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
-import io.github.some_example_name.lwjgl3.Entity.EntityManager;
 import io.github.some_example_name.lwjgl3.IO.IOManager;
-import io.github.some_example_name.lwjgl3.Scene.SceneManager;
+import io.github.some_example_name.lwjgl3.Scene.Scenemanager;
 
 public class GameMaster extends ApplicationAdapter {
     private EntityManager entityManager;
     private CollisionManager collisionManager;
     private IOManager ioManager;
-    private SceneManager sceneManager;
+    private Scenemanager scenemanager;
+
 
     @Override
     public void create() {
         entityManager = new EntityManager();
         collisionManager = new CollisionManager();
         ioManager = new IOManager();
-        sceneManager = new SceneManager();
+        scenemanager = new Scenemanager();
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0, 0, 0.2f, 1);
-		
     }
 
     @Override
     public void dispose() {
+		entityManager.dispose();
+		collisionManager.dispose();
+		ioManager.dispose();
+		scenemanager.dispose();
     }
 }
