@@ -16,5 +16,7 @@ public abstract class MovableEntity extends Entity {
         this.speed = speed;
     }
 
-    public abstract void move(float deltaTime);
+    public void move(float deltaTime) {
+        this.x += speed * deltaTime;
+    }
 }
