@@ -1,4 +1,4 @@
-package abstract_classes;
+package io.github.some_example_name.lwjgl3.abstract_classes;
 
 public abstract class GameLoop {
     private boolean running = false;
@@ -21,7 +21,7 @@ public abstract class GameLoop {
 
             frames++;
 
-            // ✅ Improved FPS control
+            // Improved FPS control
             long timeToSleep = (lastTime + NS_PER_FRAME) - System.nanoTime();
             if (timeToSleep > 0) {
                 try {

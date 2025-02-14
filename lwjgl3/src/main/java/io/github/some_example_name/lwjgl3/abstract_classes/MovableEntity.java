@@ -1,4 +1,4 @@
-package abstract_classes;
+package io.github.some_example_name.lwjgl3.abstract_classes;
 
 public abstract class MovableEntity extends Entity {
     protected float speed;

@@ -1,4 +1,4 @@
-package abstract_classes;
+package io.github.some_example_name.lwjgl3.abstract_classes;
 
 public abstract class Entity {
     protected float x, y; // Position in the game world
