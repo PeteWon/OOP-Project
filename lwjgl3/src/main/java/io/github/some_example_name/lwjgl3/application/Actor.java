@@ -1,6 +1,6 @@
-package abstract_classes;
+package io.github.some_example_name.lwjgl3.application;
 
-import abstract_classes.MovableEntity;
+import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 
 public abstract class Actor extends MovableEntity {
     public Actor(float x, float y, float speed) {
