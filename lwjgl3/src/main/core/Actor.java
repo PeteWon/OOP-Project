@@ -1,39 +1,11 @@
-package core;
+package abstract_classes;
 
-public class Actor extends MovableEntity {
-    protected int health;
-    protected int experience;
+import abstract_classes.MovableEntity;
 
-    public Actor(float x, float y, float speed, int health, int experience) {
+public abstract class Actor extends MovableEntity {
+    public Actor(float x, float y, float speed) {
         super(x, y, speed);
-        this.health = health;
-        this.experience = experience;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health <= 0) {
-            this.isActive = false;
-            System.out.println("Actor has died!");
-        }
-    }
-
-    @Override
-    public void move(float deltaTime) {
-        this.x += speed * deltaTime; // AI movement logic
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        move(deltaTime);
-    }
-
-    @Override
-    public void draw() {
-        System.out.println("Rendering NPC at (" + x + ", " + y + ")");
-    }
+    public abstract void performAction(); // Generic method for AI or player control
 }

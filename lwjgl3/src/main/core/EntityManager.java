@@ -1,5 +1,6 @@
 package core;
 
+import abstract_classes.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,9 @@ public class EntityManager {
     }
 
     public void addEntity(Entity entity) {
-        entities.add(entity);
+        if (!entities.contains(entity)) {
+            entities.add(entity);
+        }
     }
 
     public void removeEntity(Entity entity) {
@@ -20,7 +23,9 @@ public class EntityManager {
 
     public void updateEntities(float deltaTime) {
         for (Entity entity : entities) {
-            entity.update(deltaTime);
+            if (entity.isActive()) { // ✅ Check if entity is active before updating
+                entity.update(deltaTime);
+            }
         }
     }
 
