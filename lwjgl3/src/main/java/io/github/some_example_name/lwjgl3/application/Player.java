@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.Movement.iMovable;
 
@@ -60,6 +62,9 @@ public class Player extends Entity implements iMovable {
         }
     }
     
+    public Rectangle getBoundingBox() {
+    return new Rectangle(x, y, 50, 50); // Adjust width & height if needed
+}
     
 
     @Override

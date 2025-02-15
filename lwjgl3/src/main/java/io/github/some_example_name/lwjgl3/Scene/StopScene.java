@@ -74,11 +74,6 @@ public class StopScene extends Scene {
         stage.act(delta);
         stage.draw();
 
-        // Allow ESC key to resume the game
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            System.out.println("✅ Escape key pressed! Returning to game...");
-            game.setScene("play");
-        }
     }
 
     @Override
