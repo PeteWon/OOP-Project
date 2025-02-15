@@ -7,8 +7,8 @@ public abstract class SoundManager {
     public abstract float getVolume();
 
     //get-set for loop
-    public abstract void setLoop();
-    public abstract boolean getLoop(boolean loop);
+    public abstract void setLoop(boolean loop);
+    public abstract boolean getLoop();
 
     //audio controls
     public abstract void playMusic();
