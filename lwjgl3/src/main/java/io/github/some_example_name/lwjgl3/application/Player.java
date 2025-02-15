@@ -1,42 +1,61 @@
 package io.github.some_example_name.lwjgl3.application;
 
-public class Player extends Actor {
-    private float lastLoggedSpeed = -1; // ✅ Track previous speed to prevent spam logs
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.Movement.iMovable;
+
+public class Player extends Entity implements iMovable {
+    private float speed;  // ✅ Fix: Define speed
+    private Texture texture;
+    private float width = 50, height = 50; // Adjust size as needed
 
     public Player(float x, float y, float speed) {
-        super(x, y, speed);
+        super(x, y);
+        this.speed = speed;
+        texture = new Texture(Gdx.files.internal("player.png")); // ✅ Load player image
     }
 
     @Override
     public void update(float deltaTime) {
-        move(deltaTime);
+        moveUserControlled();
+    }
 
-        if (getSpeed() != lastLoggedSpeed) {
-            System.out.println("Player moving at speed: " + getSpeed());
-            lastLoggedSpeed = getSpeed();
+    @Override
+    public void draw() {  // ✅ Fix: Ensure correct method signature
+        // System.out.println("Drawing Player at (" + x + ", " + y + ")");
+    }
+
+    public void draw(SpriteBatch batch) {  // ✅ Draw player image
+        batch.draw(texture, x, y, width, height);
+    }
+
+    @Override
+    public void moveUserControlled() {
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            x -= speed * deltaTime;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            x += speed * deltaTime;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            y += speed * deltaTime;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            y -= speed * deltaTime;
         }
     }
 
     @Override
-    public void draw() {
-        System.out.println("Rendering Player at (" + x + ", " + y + ")");
+    public void moveAIControlled() {
+        // Not used for Player
     }
 
-    @Override
-    public void performAction() {
-        System.out.println("Player is performing an action!");
+    public void dispose() {
+        texture.dispose(); // Free memory when game exits
     }
-
-    public void increaseSpeed(float amount) {
-        float newSpeed = getSpeed() + amount;
-        float MAX_SPEED = 10.0f; // ✅ Define a max speed limit
-        if (newSpeed > MAX_SPEED) {
-            newSpeed = MAX_SPEED;
-        }
-        setSpeed(newSpeed);
-    }
-
-    // public void increaseSpeed(float amount) {
-    // setSpeed(getSpeed() + amount);
-    // }
 }
