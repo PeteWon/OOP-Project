@@ -22,14 +22,18 @@ public class SceneManager {
         if (scenes.containsKey(sceneName)) {
             System.out.println("✅ Switching to scene: " + sceneName);
             if (currentScene != null) {
-                currentScene.hide(); // Call hide() for the current scene
+                System.out.println("🔄 Hiding previous scene: " + currentScene.getClass().getSimpleName());
+                currentScene.hide();
             }
             currentScene = scenes.get(sceneName);
-            currentScene.show(); // Call show() for the new scene
+            System.out.println("🎬 New current scene: " + currentScene.getClass().getSimpleName());
+            currentScene.show();  // ✅ Make sure new scene is shown
         } else {
             System.out.println("❌ Scene '" + sceneName + "' does not exist!");
         }
     }
+    
+    
 
     public void renderScene() {
         renderScene(0.016f); // ✅ Calls the existing renderScene(float) with a default value

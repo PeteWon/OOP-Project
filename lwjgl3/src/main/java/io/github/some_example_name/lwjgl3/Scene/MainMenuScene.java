@@ -27,8 +27,8 @@ public class MainMenuScene extends Scene {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Start Button Clicked!"); // Debugging output
-                game.setScene("play"); // Switch to the game scene
+                System.out.println("✅ Start Button Clicked! Attempting to switch to play scene...");
+                game.setScene("play");  // ✅ Ensure correct scene transition
             }
         });
 
@@ -38,8 +38,14 @@ public class MainMenuScene extends Scene {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("Main menu shown");
+        System.out.println("✅ Main menu shown, input processor set");
+    
+        if (!stage.getActors().contains(startButton, true)) { 
+            System.out.println("🔄 Re-adding Start Button to MainMenuScene");
+            stage.addActor(startButton);
+        }
     }
+    
 
     @Override
     public void render(float delta) {
