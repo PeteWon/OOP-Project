@@ -6,6 +6,7 @@ import java.util.Map;
 public class SceneManager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
+    private String previousScene = "home";
 
     public SceneManager() {
         scenes = new HashMap<>();
@@ -31,6 +32,11 @@ public class SceneManager {
         } else {
             System.out.println("❌ Scene '" + sceneName + "' does not exist!");
         }
+        
+    }
+
+    public String getPreviousScene() {  // ✅ Fix: Add this method
+        return previousScene;
     }
     
     

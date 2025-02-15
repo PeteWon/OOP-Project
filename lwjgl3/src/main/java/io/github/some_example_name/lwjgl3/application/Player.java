@@ -35,25 +35,43 @@ public class Player extends Entity implements iMovable {
     @Override
     public void moveUserControlled() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+    
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            x -= speed * deltaTime;
+            if (x > 0) { // ✅ Prevent moving out of the left boundary
+                x -= speed * deltaTime;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            x += speed * deltaTime;
+            if (x + width < screenWidth) { // ✅ Prevent moving out of the right boundary
+                x += speed * deltaTime;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            y += speed * deltaTime;
+            if (y + height < screenHeight) { // ✅ Prevent moving out of the top boundary
+                y += speed * deltaTime;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            y -= speed * deltaTime;
+            if (y > 0) { // ✅ Prevent moving out of the bottom boundary
+                y -= speed * deltaTime;
+            }
         }
     }
+    
+    
 
     @Override
     public void moveAIControlled() {
         // Not used for Player
     }
+
+    public void setPosition(float x, float y) {  // ✅ Fix: Add this method
+        this.x = x;
+        this.y = y;
+    }
+    
 
     public void dispose() {
         texture.dispose(); // Free memory when game exits

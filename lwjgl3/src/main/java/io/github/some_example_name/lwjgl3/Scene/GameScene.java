@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.lwjgl3.application.Player;
+import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -21,6 +22,7 @@ public class GameScene extends Scene {
     private ImageButton pauseButton;
     private TextButton backToMenuButton;
     private Player player;
+    private Enemy enemy;
     private EntityManager entityManager;
     private SpriteBatch batch;  // ✅ Add SpriteBatch for rendering
 
@@ -64,15 +66,27 @@ public class GameScene extends Scene {
 
         // ✅ Initialize EntityManager and Player
         entityManager = new EntityManager();
-        player = new Player(400, 300, 200); // Spawn player in the center
+        player = new Player(200, 300, 200); // Spawn player in the center
         entityManager.addEntity(player);
+
+        enemy = new Enemy(100, 100, 200); 
+        entityManager.addEntity(enemy);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("✅ GameScene shown");
+    
+        // ✅ Fix: Reset player position ONLY when returning from the Main Menu
+        if (game.getPreviousScene().equals("home")) {
+            System.out.println("✅ Resetting Player Position (Restarted from Main Menu)");
+            player.setPosition(400, 300);
+        } else {
+            System.out.println("✅ Resuming Game (Player position remains)");
+        }
     }
+    
+    
 
     @Override
     public void render(float delta) {
@@ -81,6 +95,7 @@ public class GameScene extends Scene {
         batch.begin();
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); // Draw background
         player.draw(batch); // ✅ Draw player sprite
+        enemy.draw(batch);
         batch.end();
 
         // ✅ Update & Draw Player
