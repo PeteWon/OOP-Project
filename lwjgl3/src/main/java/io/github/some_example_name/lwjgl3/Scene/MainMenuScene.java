@@ -18,20 +18,17 @@ public class MainMenuScene extends Scene {
         super(game, "background.png"); // Change to your actual background image
 
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-
         skin = new Skin(Gdx.files.internal("uiskin.json")); // Make sure uiskin.json exists
-        // startButton = new TextButton("Start", skin); // ✅ Apply the skin to a button
 
         // Create Start Button
         startButton = new TextButton("Start Game", skin);
         startButton.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f);
-        // ✅ Add button click listener
+        // Add button click listener
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Start Button Clicked!"); // ✅ Debugging output
-                game.setScene("play"); // ✅ Switch to the game scene
+                System.out.println("Start Button Clicked!"); // Debugging output
+                game.setScene("play"); // Switch to the game scene
             }
         });
 
@@ -40,6 +37,7 @@ public class MainMenuScene extends Scene {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
         System.out.println("Main menu shown");
     }
 
@@ -51,10 +49,8 @@ public class MainMenuScene extends Scene {
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.end();
 
-        super.render(delta); // test
         stage.act(delta);
         stage.draw();
-
         // Allow "Enter" key to start the game
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             game.setScene("play");

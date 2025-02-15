@@ -32,7 +32,7 @@ public class GameScene extends Scene{
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScene("mainScene");
+                game.setScene("stop");
             }
         });
 
@@ -56,7 +56,7 @@ public class GameScene extends Scene{
         stage.draw();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.setScene("mainScene");
+            game.setScene("stop");
         }
     }
 
