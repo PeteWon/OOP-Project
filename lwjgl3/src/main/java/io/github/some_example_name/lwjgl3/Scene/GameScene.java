@@ -1,22 +1,24 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.some_example_name.lwjgl3.application.Player;
-import io.github.some_example_name.lwjgl3.application.Enemy;
-import io.github.some_example_name.lwjgl3.application.EntityManager;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import java.util.ArrayList;
-import java.util.List;
+import com.badlogic.gdx.utils.ScreenUtils;
+
+import io.github.some_example_name.lwjgl3.application.Enemy;
+import io.github.some_example_name.lwjgl3.application.EntityManager;
+import io.github.some_example_name.lwjgl3.application.Player;
 
 public class GameScene extends Scene {
     private Stage stage;
@@ -28,7 +30,7 @@ public class GameScene extends Scene {
     private List<Enemy> enemies; // ✅ Store multiple enemies
 
     public GameScene(SceneManager game) {
-        super(game, "background.png");
+        super(game, "background2.png");
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);

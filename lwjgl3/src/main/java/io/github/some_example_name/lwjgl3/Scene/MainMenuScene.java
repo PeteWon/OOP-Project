@@ -1,14 +1,14 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.some_example_name.lwjgl3.IO.Output.Audio;
@@ -22,7 +22,7 @@ public class MainMenuScene extends Scene {
     private ImageButton muteButton;
 
     public MainMenuScene(SceneManager game) {
-        super(game, "background.png");
+        super(game, "background2.png");
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
