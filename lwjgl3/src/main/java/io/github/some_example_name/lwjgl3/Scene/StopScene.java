@@ -36,7 +36,7 @@ public class StopScene extends Scene {
         });
 
         mainMenuButton = new TextButton("Main Menu", skin);
-        mainMenuButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 30);
+        mainMenuButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 50);
 
         // Add button click listener
         mainMenuButton.addListener(new ClickListener() {

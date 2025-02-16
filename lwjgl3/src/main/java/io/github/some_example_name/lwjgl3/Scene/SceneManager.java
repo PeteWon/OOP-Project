@@ -60,6 +60,7 @@ public class SceneManager {
         addScene("home", new MainMenuScene(this));
         addScene("play", new GameScene(this));
         addScene("stop", new StopScene(this));
+        addScene("settings", new SettingsScene(this)); // ✅ Add SettingsScene
         setScene("home"); // ✅ Automatically start in MainMenuScene
     }
 }

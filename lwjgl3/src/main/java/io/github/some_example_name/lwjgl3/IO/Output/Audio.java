@@ -3,16 +3,17 @@ package io.github.some_example_name.lwjgl3.IO.Output;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
+import io.github.some_example_name.lwjgl3.IO.IOManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.SoundManager;
 
-public class Audio extends SoundManager{
+public class Audio extends SoundManager {
 
     private Music gameMusic;
     private String music_name;
     private float volume;
     private boolean loop;
 
-    public Audio(){ // plays default music
+    public Audio() { // plays default music
         this.music_name = "Music/MainScreenMusic.mp3";
         this.volume = .1f;
         this.loop = true;
@@ -21,7 +22,7 @@ public class Audio extends SoundManager{
         this.gameMusic.setLooping(this.loop);
     }
 
-    public Audio(String music_name, float volume, boolean loop){ // plays selected music
+    public Audio(String music_name, float volume, boolean loop) { // plays selected music
         this.music_name = music_name;
         this.volume = volume;
         this.loop = loop;
@@ -30,46 +31,46 @@ public class Audio extends SoundManager{
         this.gameMusic.setLooping(this.loop);
     }
 
-    public void setMusicName(String music_name){
+    public void setMusicName(String music_name) {
         this.music_name = music_name;
         this.gameMusic = Gdx.audio.newMusic(Gdx.files.internal(this.music_name));
     }
 
-    public String getMusicName(){
+    public String getMusicName() {
         return this.music_name;
     }
 
-    public void setVolume(float volume){
+    public void setVolume(float volume) {
         this.volume = volume;
         this.gameMusic.setVolume(this.volume);
     }
 
-    public float getVolume(){
+    public float getVolume() {
         return this.volume;
     }
 
-    public void setLoop(boolean loop){
+    public void setLoop(boolean loop) {
         this.loop = loop;
         this.gameMusic.setLooping(this.loop);
     }
 
-    public boolean getLoop(){
+    public boolean getLoop() {
         return this.loop;
     }
 
-    public void playMusic(){
+    public void playMusic() {
         this.gameMusic.play();
     }
 
-    public void stopMusic(){
+    public void stopMusic() {
         this.gameMusic.stop();
     }
 
-    public boolean isPlayingMusic(){
+    public boolean isPlayingMusic() {
         return this.gameMusic.isPlaying();
     }
 
-    public void dispose(){
+    public void dispose() {
         this.gameMusic.dispose();
     }
 
