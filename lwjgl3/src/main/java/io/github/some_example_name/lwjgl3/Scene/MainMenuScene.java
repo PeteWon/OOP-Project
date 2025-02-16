@@ -31,7 +31,15 @@ public class MainMenuScene extends Scene {
         // ✅ Load & Play Background Music
         menuMusic = new Audio("Music/MainScreenMusic.mp3", 0.1f, true);
         menuMusic.playMusic();
+        startButton();
 
+        stage.addActor(startButton);
+
+        // ✅ Create Mute/Unmute Button
+        setupMuteButton();
+    }
+
+    private void startButton() {
         // ✅ Create Start Button
         startButton = new TextButton("Start Game", skin);
         startButton.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f);
@@ -39,14 +47,9 @@ public class MainMenuScene extends Scene {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("✅ Start Button Clicked! Switching to game scene...");
-                game.setScene("play");
+                game.setScene("play", true);
             }
         });
-
-        stage.addActor(startButton);
-
-        // ✅ Create Mute/Unmute Button
-        setupMuteButton();
     }
 
     private void setupMuteButton() {

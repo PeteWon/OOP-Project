@@ -54,6 +54,11 @@ public class GameScene extends Scene {
 
         stage.addActor(pauseButton);
 
+        initializeGame();
+
+    }
+
+    private void initializeGame() {
         // ✅ Initialize EntityManager and Player
         entityManager = new EntityManager();
         player = new Player(200, 300, 200);
@@ -68,6 +73,7 @@ public class GameScene extends Scene {
             enemies.add(enemy);
             entityManager.addEntity(enemy);
         }
+
     }
 
     @Override
@@ -100,7 +106,6 @@ public class GameScene extends Scene {
         }
     }
 
-
     // Collision detection between player and enemies
     private void checkCollisions() {
         for (Enemy enemy : enemies) {
@@ -114,7 +119,6 @@ public class GameScene extends Scene {
             }
         }
     }
-    
 
     @Override
     public void dispose() {

@@ -14,10 +14,9 @@ public class StopScene extends Scene {
     private TextButton resumeButton;
     private TextButton mainMenuButton;
 
-
     public StopScene(SceneManager game) {
-        super(game, "background2.png");  // Change to your actual background image
-        
+        super(game, "background2.png"); // Change to your actual background image
+
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -32,10 +31,9 @@ public class StopScene extends Scene {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("✅ Resume Button Clicked! Returning to game...");
-                game.setScene("play");  // ✅ Switch back to the game scene
+                game.setScene("play", false); // ✅ Switch back to the game scene
             }
         });
-        
 
         mainMenuButton = new TextButton("Main Menu", skin);
         mainMenuButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 30);
@@ -45,10 +43,9 @@ public class StopScene extends Scene {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("✅ Back to Main Menu Button Clicked! Returning to Main Menu...");
-                game.setScene("home");  // ✅ Switch back to the game scene
+                game.setScene("home"); // ✅ Switch back to the game scene
             }
         });
-
 
         // Add button to the stage
         stage.addActor(resumeButton);

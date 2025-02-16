@@ -20,26 +20,31 @@ public class SceneManager {
     }
 
     public void setScene(String sceneName) {
+        setScene(sceneName, false); // ✅ Default to `restart = false`
+    }
+
+    public void setScene(String sceneName, boolean restart) {
         if (scenes.containsKey(sceneName)) {
             System.out.println("✅ Switching to scene: " + sceneName);
             if (currentScene != null) {
                 System.out.println("🔄 Hiding previous scene: " + currentScene.getClass().getSimpleName());
                 currentScene.hide();
             }
+            if (restart && sceneName.equals("play")) { // ✅ Reset GameScene when restarting
+                scenes.put("play", new GameScene(this));
+            }
             currentScene = scenes.get(sceneName);
             System.out.println("🎬 New current scene: " + currentScene.getClass().getSimpleName());
-            currentScene.show();  // ✅ Make sure new scene is shown
+            currentScene.show(); // ✅ Make sure new scene is shown
         } else {
             System.out.println("❌ Scene '" + sceneName + "' does not exist!");
         }
-        
+
     }
 
-    public String getPreviousScene() {  // ✅ Fix: Add this method
+    public String getPreviousScene() { // ✅ Fix: Add this method
         return previousScene;
     }
-    
-    
 
     public void renderScene() {
         renderScene(0.016f); // ✅ Calls the existing renderScene(float) with a default value
