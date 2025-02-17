@@ -80,8 +80,11 @@ public class SceneManager {
     public void setBackgroundMusicVolume(float volume) {
         backgroundMusic.setVolume(volume);
     }
-
+    public float getBackgroundMusicVolume() {
+        return backgroundMusic.getVolume();
+    }
     public void dispose() {
         backgroundMusic.dispose(); // Dispose of the music when the game exits
     }
+
 }
