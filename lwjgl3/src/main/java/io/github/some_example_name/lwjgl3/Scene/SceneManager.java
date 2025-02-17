@@ -14,7 +14,7 @@ public class SceneManager {
     public SceneManager() {
         scenes = new HashMap<>();
         currentScene = null;
-        backgroundMusic = new Audio("Music/MainScreenMusic.mp3", 0.1f, true); // Load background music
+        backgroundMusic = new Audio("Music/MainScreenMusic.mp3", 0.5f, true); // Load background music
     }
 
     public void addScene(String name, Scene scene) {

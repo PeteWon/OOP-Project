@@ -3,7 +3,9 @@ package io.github.some_example_name.lwjgl3.IO.Output;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
+import io.github.some_example_name.lwjgl3.IO.IOManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.AudioHandler;
+//import io.github.some_example_name.lwjgl3.abstract_classes.SoundManager;
 
 public class Audio extends AudioHandler {
 
@@ -29,6 +31,9 @@ public class Audio extends AudioHandler {
         this.gameMusic.setVolume(this.volume);
         this.gameMusic.setLooping(this.loop);
     }
+    public static void setGlobalVolume(float volume) {
+    IOManager.setVolume(volume);
+}
 
     public void setMusicName(String music_name) {
         this.music_name = music_name;
@@ -73,4 +78,10 @@ public class Audio extends AudioHandler {
         this.gameMusic.dispose();
     }
 
+    public void pauseMusic() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pauseMusic'");
+    }
+    
+    
 }

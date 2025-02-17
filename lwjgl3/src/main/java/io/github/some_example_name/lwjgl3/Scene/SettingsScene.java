@@ -52,7 +52,7 @@ public class SettingsScene extends Scene {
     private float prevVolume = -1f; // Stores the last printed volume
 
     private void setupVolumeSlider(SceneManager game) {
-        volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
+        volumeSlider = new Slider(0f, 0.5f, 0.05f, false, skin);
         lastVolume = IOManager.getVolume(); // Retrieve last stored volume
         volumeSlider.setValue(isMuted ? 0f : lastVolume);
 
