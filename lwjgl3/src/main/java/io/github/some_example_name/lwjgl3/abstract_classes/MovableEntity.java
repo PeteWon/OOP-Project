@@ -28,7 +28,7 @@ public abstract class MovableEntity extends Entity implements iMovable {
     }
 
     @Override
-    public void moveUserControlled() {
+    public void moveUserControlled(float deltaTime) {
         System.out.println("User controlling movement...");
     }
 }
