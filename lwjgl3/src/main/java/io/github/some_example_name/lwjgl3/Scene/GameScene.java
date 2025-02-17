@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
 import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
@@ -101,9 +102,10 @@ public class GameScene extends Scene {
         stage.act(delta);
         stage.draw(); // Move this to the end
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.setScene("stop");
-        }
+        if (Keyboard.isKeyPressed(Input.Keys.ESCAPE)) {
+        game.setScene("stop");
+}
+
     }
 
     // Collision detection between player and enemies

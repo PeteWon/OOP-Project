@@ -27,4 +27,7 @@ public class Keyboard {
         }
         return 0;
     }
+    public static boolean isKeyPressed(int key) {
+        return Gdx.input.isKeyPressed(key);
+    }
 }
