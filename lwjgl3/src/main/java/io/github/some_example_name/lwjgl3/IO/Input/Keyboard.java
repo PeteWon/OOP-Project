@@ -6,11 +6,11 @@ import com.badlogic.gdx.Input;
 public class Keyboard {
     public static float getHorizontal() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            System.out.println("⌨️ Keyboard: Moving Left");
+            System.out.println("Keyboard: Moving Left");
             return -1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            System.out.println("⌨️ Keyboard: Moving Right");
+            System.out.println("Keyboard: Moving Right");
             return 1;
         }
         return 0;
@@ -18,11 +18,11 @@ public class Keyboard {
 
     public static float getVertical() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            System.out.println("⌨️ Keyboard: Moving Up");
+            System.out.println("Keyboard: Moving Up");
             return 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            System.out.println("⌨️ Keyboard: Moving Down");
+            System.out.println("Keyboard: Moving Down");
             return -1;
         }
         return 0;
