@@ -40,7 +40,11 @@ public class IOManager {
     }
 
     public static void detectInputType() {
-        useGamepad = controllerInput.isControllerConnected();
+        if (controllerInput.isControllerConnected()) {
+            useGamepad = true;
+        } else {
+            useGamepad = false;
+        }
     }
 
     public static float getMoveX() {

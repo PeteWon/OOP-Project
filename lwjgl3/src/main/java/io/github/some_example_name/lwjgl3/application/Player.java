@@ -8,17 +8,20 @@ import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.IO.IOManager;
+import io.github.some_example_name.lwjgl3.IO.Input.ControllerInput;
 import io.github.some_example_name.lwjgl3.Movement.iMovable;
 
 public class Player extends Entity implements iMovable {
     private float speed; // ✅ Fix: Define speed
     private Texture texture;
     private float width = 50, height = 50; // Adjust size as needed
+    private ControllerInput controllerInput;
 
     public Player(float x, float y, float speed) {
         super(x, y);
         this.speed = speed;
         texture = new Texture(Gdx.files.internal("player.png")); // ✅ Load player image
+        controllerInput = new ControllerInput(); // ✅ Initialize controller input
     }
 
     @Override
@@ -39,6 +42,9 @@ public class Player extends Entity implements iMovable {
     public void moveUserControlled(float deltaTime) {
         float horizontal = IOManager.getHorizontal(); // ✅ Uses IOManager for movement input
         float vertical = IOManager.getVertical();
+
+        // float horizontal = controllerInput.getLeftStickX(); // ✅ Get movement input
+        // float vertical = controllerInput.getLeftStickY();
 
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
