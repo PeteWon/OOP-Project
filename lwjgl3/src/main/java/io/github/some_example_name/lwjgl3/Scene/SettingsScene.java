@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -21,7 +22,8 @@ public class SettingsScene extends Scene {
     private Texture muteTexture, unmuteTexture;
     private boolean isMuted;
     private float lastVolume = 0.5f;
-    
+    private Table table;
+
     public SettingsScene(SceneManager game) {
         super(game, "background2.png");
 
@@ -31,35 +33,39 @@ public class SettingsScene extends Scene {
 
         // Load mute state
         isMuted = IOManager.isMuted();
-        
+
         setupVolumeSlider(game);
         setupMuteButton(game);
         setupBackButton(game);
 
-        // Add UI elements
-        stage.addActor(volumeSlider);
-        stage.addActor(muteButton);
-        stage.addActor(backButton);
+        // Create a table for layout
+        table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        // Add UI elements to the table
+        table.add(volumeSlider).padBottom(20).row();
+        table.add(muteButton).padBottom(20).row();
+        table.add(backButton).padBottom(20).row();
     }
 
     private void setupVolumeSlider(SceneManager game) {
         volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
         lastVolume = IOManager.getVolume(); // Retrieve last stored volume
         volumeSlider.setValue(isMuted ? 0f : lastVolume);
-        volumeSlider.setPosition(Gdx.graphics.getWidth() / 2f - 100, Gdx.graphics.getHeight() * 0.6f);
-    
+
         volumeSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, com.badlogic.gdx.scenes.scene2d.Actor actor) {
                 float volume = volumeSlider.getValue();
-    
+
                 if (volume == 0) {
                     isMuted = true;
                 } else {
                     isMuted = false;
                     lastVolume = volume; // Save the last non-zero volume
                 }
-    
+
                 IOManager.setVolume(volume);
                 IOManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(volume);
@@ -70,21 +76,19 @@ public class SettingsScene extends Scene {
 
     private void setupMuteButton(SceneManager game) {
         muteButton = new TextButton(isMuted ? "Unmute" : "Mute", skin);
-        muteButton.setWidth(150); // Adjust the width to fit the text
-        muteButton.setPosition(Gdx.graphics.getWidth() / 2f - muteButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.45f);
-    
+
         muteButton.addListener(new com.badlogic.gdx.scenes.scene2d.utils.ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 isMuted = !isMuted;
-    
+
                 if (isMuted) {
                     lastVolume = volumeSlider.getValue() > 0 ? volumeSlider.getValue() : lastVolume; // Save last volume before muting
                     IOManager.setVolume(0f);
                 } else {
                     IOManager.setVolume(lastVolume); // Restore last volume
                 }
-    
+
                 IOManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(isMuted ? 0f : lastVolume);
                 volumeSlider.setValue(isMuted ? 0f : lastVolume);
@@ -99,7 +103,6 @@ public class SettingsScene extends Scene {
 
     private void setupBackButton(SceneManager game) {
         backButton = new TextButton("Back", skin);
-        backButton.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() * 0.3f);
 
         backButton.addListener(new com.badlogic.gdx.scenes.scene2d.utils.ClickListener() {
             @Override
