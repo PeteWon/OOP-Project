@@ -1,11 +1,33 @@
 package io.github.some_example_name.lwjgl3.IO;
 
+import io.github.some_example_name.lwjgl3.IO.Input.ControllerInput;
+import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
+
 public class IOManager {
     private static float volume = 1.0f; // Default volume (1.0 = max)
+<<<<<<< HEAD
     private static boolean isMuted = false;
     
     public static boolean isMuted() {
         return isMuted;
+=======
+    private static Keyboard keyboard = new Keyboard();
+
+    public static float getHorizontal() {
+        float controllerX = controllerInput.getLeftStickX();
+        float keyboardX = keyboard.getHorizontal();
+        return controllerX != 0 ? controllerX : keyboardX; // ✅ Prioritizes controller if available
+    }
+
+    public static float getVertical() {
+        float controllerY = controllerInput.getLeftStickY();
+        float keyboardY = keyboard.getVertical();
+        return controllerY != 0 ? controllerY : keyboardY; // ✅ Prioritizes controller if available
+    }
+
+    public static boolean isButtonPressed(int buttonCode) {
+        return controllerInput.isButtonPressed(buttonCode);
+>>>>>>> 603bfe3a6b43beb20fb009278e0c4a3f9f3d26ad
     }
 
     
@@ -18,7 +40,43 @@ public class IOManager {
         System.out.println("🎵 Volume set to: " + volume);
     }
 
+<<<<<<< HEAD
     public static void setMuted(boolean muted) {
         isMuted = muted;
+=======
+    private static boolean useGamepad = false;
+    private static ControllerInput controllerInput;
+
+    public IOManager() {
+        controllerInput = new ControllerInput();
+    }
+
+    public static void detectInputType() {
+        useGamepad = controllerInput.isControllerConnected();
+    }
+
+    public static float getMoveX() {
+        detectInputType();
+
+        if (useGamepad) {
+            return controllerInput.getLeftStickX();
+        } else {
+            return Keyboard.getHorizontal();
+        }
+    }
+
+    public static float getMoveY() {
+        detectInputType();
+
+        if (useGamepad) {
+            return controllerInput.getLeftStickY();
+        } else {
+            return Keyboard.getVertical();
+        }
+    }
+
+    public static boolean isControllerButtonPressed(int buttonCode) {
+        return controllerInput.isButtonPressed(buttonCode);
+>>>>>>> 603bfe3a6b43beb20fb009278e0c4a3f9f3d26ad
     }
 }

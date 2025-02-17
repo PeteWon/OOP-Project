@@ -60,7 +60,7 @@ public class Enemy extends Entity implements iMovable {
     }
 
     @Override
-    public void moveUserControlled() {
+    public void moveUserControlled(float deltaTime) {
         // ✅ Enemy should not be controlled by the player, so leave this empty
     }
 
@@ -75,6 +75,7 @@ public class Enemy extends Entity implements iMovable {
     public void setCollided(boolean collided) {
         this.hasCollided = collided;
     }
+
     public void dispose() {
         texture.dispose();
     }
