@@ -33,7 +33,7 @@ public class MainMenuScene extends Scene {
         stage.addActor(startButton);
 
         // ✅ Create Mute/Unmute Button
-        setupMuteButton(game);
+        //setupMuteButton(game);
     }
 
     private void startButton() {
