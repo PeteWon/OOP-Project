@@ -1,6 +1,6 @@
 package io.github.some_example_name.lwjgl3.abstract_classes;
 
-public abstract class SoundManager {
+public abstract class AudioHandler {
     
     //get-set for volume
     public abstract void setVolume(float volume);

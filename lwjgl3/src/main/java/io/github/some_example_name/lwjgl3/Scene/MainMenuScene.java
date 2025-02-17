@@ -64,7 +64,7 @@ public class MainMenuScene extends Scene {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("✅ Main menu shown, input processor set");
+        // System.out.println("Main menu shown, input processor set");
 
         if (!stage.getActors().contains(startButton, true)) {
             stage.addActor(startButton);

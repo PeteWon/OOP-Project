@@ -3,9 +3,9 @@ package io.github.some_example_name.lwjgl3.IO.Output;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
-import io.github.some_example_name.lwjgl3.abstract_classes.SoundManager;
+import io.github.some_example_name.lwjgl3.abstract_classes.AudioHandler;
 
-public class Audio extends SoundManager {
+public class Audio extends AudioHandler {
 
     private Music gameMusic;
     private String music_name;
