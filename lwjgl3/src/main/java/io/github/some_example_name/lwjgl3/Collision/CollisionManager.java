@@ -37,14 +37,6 @@ public class CollisionManager {
                 + entityA.getClass().getSimpleName() + " and " + entityB.getClass().getSimpleName());
     }
 
-    // // Handles collision response between two entities
-    // private void handleCollision(iCollidable entityA, iCollidable entityB) {
-    // entityA.handleCollision(entityB);
-    // entityB.handleCollision(entityA);
-    // System.out.println("Collision occurred between: " + entityA + " and " +
-    // entityB);
-    // }
-
     private boolean isIntersecting(Rectangle boxA, Rectangle boxB) {
         return boxA.overlaps(boxB);
     }

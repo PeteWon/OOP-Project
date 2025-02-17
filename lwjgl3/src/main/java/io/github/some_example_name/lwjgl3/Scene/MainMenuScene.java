@@ -25,15 +25,13 @@ public class MainMenuScene extends Scene {
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        // ✅ Use centralized background music
+        // Use centralized background music
         game.playBackgroundMusic();
 
         startButton();
         settingsButton();
         stage.addActor(startButton);
 
-        // ✅ Create Mute/Unmute Button
-        //setupMuteButton(game);
     }
 
     private void startButton() {
@@ -56,40 +54,11 @@ public class MainMenuScene extends Scene {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("⚙ Opening Settings...");
-                game.setScene("settings"); // ✅ Go to settings scene
+                game.setScene("settings"); // Go to settings scene
             }
         });
 
         stage.addActor(settingsButton); // ✅ Add to stage
-    }
-
-    private void setupMuteButton(SceneManager game) {
-        Texture muteTexture = new Texture("Music/mute.png");
-        Texture unmuteTexture = new Texture("Music/unmute.png");
-
-        TextureRegionDrawable muteDrawable = new TextureRegionDrawable(muteTexture);
-        TextureRegionDrawable unmuteDrawable = new TextureRegionDrawable(unmuteTexture);
-
-        muteButton = new ImageButton(unmuteDrawable);
-        muteButton.setPosition(10, Gdx.graphics.getHeight() - 60); // Top-left corner
-        muteButton.setSize(50, 50);
-
-        // ✅ Toggle Audio when Clicked
-        muteButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                isMuted = !isMuted;
-                if (isMuted) {
-                    game.setBackgroundMusicVolume(0); // Mute audio
-                    muteButton.getStyle().imageUp = muteDrawable;
-                } else {
-                    game.setBackgroundMusicVolume(0.1f); // Restore volume
-                    muteButton.getStyle().imageUp = unmuteDrawable;
-                }
-            }
-        });
-
-        stage.addActor(muteButton);
     }
 
     @Override

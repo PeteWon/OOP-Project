@@ -43,8 +43,8 @@ public class StopScene extends Scene {
         restartButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Restart Game Button Clicked! Restarting game...");
-                game.setScene("play", true); // ✅ Switch back to the game scene
+                System.out.println("Restart Game Button Clicked! Restarting game...");
+                game.setScene("play", true); // Switch back to the game scene
             }
         });
     }
@@ -57,8 +57,8 @@ public class StopScene extends Scene {
         quitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Back to Main Menu Button Clicked! Returning to Main Menu...");
-                game.setScene("home"); // ✅ Switch back to the game scene
+                System.out.println("Back to Main Menu Button Clicked! Returning to Main Menu...");
+                game.setScene("home"); // Switch back to the game scene
             }
         });
     }
@@ -71,8 +71,8 @@ public class StopScene extends Scene {
         resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Resume Button Clicked! Returning to game...");
-                game.setScene("play", false); // ✅ Switch back to the game scene
+                System.out.println("Resume Button Clicked! Returning to game...");
+                game.setScene("play", false); // Switch back to the game scene
             }
         });
     }
@@ -80,7 +80,7 @@ public class StopScene extends Scene {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("✅ Stop Scene shown");
+        System.out.println("Stop Scene shown");
     }
 
     @Override

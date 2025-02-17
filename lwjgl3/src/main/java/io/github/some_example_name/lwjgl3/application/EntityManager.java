@@ -22,19 +22,11 @@ public class EntityManager {
     }
 
     public void updateEntities(float deltaTime) {
-        entities.removeIf(entity -> !entity.isActive()); // ✅ Removes inactive entities
+        entities.removeIf(entity -> !entity.isActive()); // Removes inactive entities
         for (Entity entity : entities) {
             entity.update(deltaTime);
         }
     }
-
-    // public void updateEntities(float deltaTime) {
-    // for (Entity entity : entities) {
-    // if (entity.isActive()) { // ✅ Check if entity is active before updating
-    // entity.update(deltaTime);
-    // }
-    // }
-    // }
 
     public void renderEntities() {
         for (Entity entity : entities) {

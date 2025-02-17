@@ -48,7 +48,6 @@ public abstract class Scene implements Screen {
 
     @Override
     public void show() {
-        // Default implementation (can be overridden by subclasses)
     }
 
     @Override
@@ -59,13 +58,6 @@ public abstract class Scene implements Screen {
             batch.end();
         }
     }
-
-    // @Override
-    // public void render(float delta) {
-    // batch.begin();
-    // batch.draw(tex, 0, 0);
-    // batch.end();
-    // }
 
     @Override
     public void resize(int width, int height) {

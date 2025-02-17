@@ -27,7 +27,7 @@ public class GameScene extends Scene {
     private Player player;
     private EntityManager entityManager;
     private SpriteBatch batch;
-    private List<Enemy> enemies; // ✅ Store multiple enemies
+    private List<Enemy> enemies; // Store multiple enemies
 
     public GameScene(SceneManager game) {
         super(game, "background2.png");
@@ -59,12 +59,12 @@ public class GameScene extends Scene {
     }
 
     private void initializeGame() {
-        // ✅ Initialize EntityManager and Player
+        // Initialize EntityManager and Player
         entityManager = new EntityManager();
         player = new Player(200, 300, 200);
         entityManager.addEntity(player);
 
-        // ✅ Initialize Enemies (Spawn 5 at random locations)
+        // Initialize Enemies (Spawn 5 at random locations)
         enemies = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             float enemyX = MathUtils.random(50, Gdx.graphics.getWidth() - 50);
@@ -84,22 +84,22 @@ public class GameScene extends Scene {
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         player.draw(batch);
 
-        // ✅ Draw all enemies
+        // Draw all enemies
         for (Enemy enemy : enemies) {
             enemy.draw(batch);
         }
         batch.end();
 
-        // ✅ Update & Move Entities
+        // Update & Move Entities
         entityManager.updateEntities(delta);
 
-        // ✅ Collision Detection
+        // Collision Detection
         checkCollisions();
 
         Gdx.input.setInputProcessor(stage);
-        // ✅ Ensure UI Elements (Buttons) Render Last
+        // Ensure UI Elements (Buttons) Render Last
         stage.act(delta);
-        stage.draw(); // ✅ Move this to the end
+        stage.draw(); // Move this to the end
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             game.setScene("stop");
@@ -110,12 +110,12 @@ public class GameScene extends Scene {
     private void checkCollisions() {
         for (Enemy enemy : enemies) {
             if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                if (!enemy.hasCollided()) { // ✅ Only print the first time collision happens
+                if (!enemy.hasCollided()) { // Only print the first time collision happens
                     System.out.println("Enemy collided with player!");
-                    enemy.setCollided(true); // ✅ Mark as collided
+                    enemy.setCollided(true); // Mark as collided
                 }
             } else {
-                enemy.setCollided(false); // ✅ Reset collision flag when separated
+                enemy.setCollided(false); // Reset collision flag when separated
             }
         }
     }

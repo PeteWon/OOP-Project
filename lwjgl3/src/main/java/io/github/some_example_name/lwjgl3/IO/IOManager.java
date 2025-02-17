@@ -15,13 +15,13 @@ public class IOManager {
     public static float getHorizontal() {
         float controllerX = controllerInput.getLeftStickX();
         float keyboardX = keyboard.getHorizontal();
-        return controllerX != 0 ? controllerX : keyboardX; // ✅ Prioritizes controller if available
+        return controllerX != 0 ? controllerX : keyboardX; // Prioritizes controller if available
     }
 
     public static float getVertical() {
         float controllerY = controllerInput.getLeftStickY();
         float keyboardY = keyboard.getVertical();
-        return controllerY != 0 ? controllerY : keyboardY; // ✅ Prioritizes controller if available
+        return controllerY != 0 ? controllerY : keyboardY; // Prioritizes controller if available
     }
 
     public static boolean isButtonPressed(int buttonCode) {
@@ -34,8 +34,8 @@ public class IOManager {
     }
 
     public static void setVolume(float newVolume) {
-        volume = Math.max(0, Math.min(newVolume, 1.0f)); // ✅ Ensure 0.0 to 1.0 range
-        System.out.println("🎵 Volume set to: " + volume);
+        volume = Math.max(0, Math.min(newVolume, 1.0f)); // Ensure 0.0 to 1.0 range
+        // System.out.println("🎵 Volume set to: " + volume);
     }
 
     public static void setMuted(boolean muted) {

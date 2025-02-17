@@ -9,12 +9,12 @@ public class SceneManager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
     private String previousScene = "home";
-    private Audio backgroundMusic; // ✅ Centralized background music
+    private Audio backgroundMusic; // Centralized background music
 
     public SceneManager() {
         scenes = new HashMap<>();
         currentScene = null;
-        backgroundMusic = new Audio("Music/MainScreenMusic.mp3", 0.1f, true); // ✅ Load background music
+        backgroundMusic = new Audio("Music/MainScreenMusic.mp3", 0.1f, true); // Load background music
     }
 
     public void addScene(String name, Scene scene) {
@@ -24,24 +24,24 @@ public class SceneManager {
     }
 
     public void setScene(String sceneName) {
-        setScene(sceneName, false); // ✅ Default to `restart = false`
+        setScene(sceneName, false); // Default to `restart = false`
     }
 
     public void setScene(String sceneName, boolean restart) {
         if (scenes.containsKey(sceneName)) {
-            System.out.println("✅ Switching to scene: " + sceneName);
+            System.out.println("Switching to scene: " + sceneName);
             if (currentScene != null) {
-                System.out.println("🔄 Hiding previous scene: " + currentScene.getClass().getSimpleName());
+                System.out.println("Hiding previous scene: " + currentScene.getClass().getSimpleName());
                 currentScene.hide();
             }
-            if (restart && sceneName.equals("play")) { // ✅ Reset GameScene when restarting
+            if (restart && sceneName.equals("play")) { // Reset GameScene when restarting
                 scenes.put("play", new GameScene(this));
             }
             currentScene = scenes.get(sceneName);
-            System.out.println("🎬 New current scene: " + currentScene.getClass().getSimpleName());
-            currentScene.show(); // ✅ Make sure new scene is shown
+            System.out.println("New current scene: " + currentScene.getClass().getSimpleName());
+            currentScene.show(); // Make sure new scene is shown
         } else {
-            System.out.println("❌ Scene '" + sceneName + "' does not exist!");
+            System.out.println("Scene '" + sceneName + "' does not exist!");
         }
     }
 
@@ -50,7 +50,7 @@ public class SceneManager {
     }
 
     public void renderScene() {
-        renderScene(0.016f); // ✅ Calls the existing renderScene(float) with a default value
+        renderScene(0.016f); // Calls the existing renderScene(float) with a default value
     }
 
     public void renderScene(float deltaTime) {
@@ -63,16 +63,15 @@ public class SceneManager {
         addScene("home", new MainMenuScene(this));
         addScene("play", new GameScene(this));
         addScene("stop", new StopScene(this));
-        addScene("settings", new SettingsScene(this)); // ✅ Add SettingsScene
-        setScene("home"); // ✅ Automatically start in MainMenuScene
+        addScene("settings", new SettingsScene(this)); // Add SettingsScene
+        setScene("home"); // Automatically start in MainMenuScene
     }
 
-    // ✅ Music control methods
+    // Music control methods
     public void playBackgroundMusic() {
         backgroundMusic.playMusic();
     }
 
-    
 
     public void stopBackgroundMusic() {
         backgroundMusic.stopMusic();
@@ -83,6 +82,6 @@ public class SceneManager {
     }
 
     public void dispose() {
-        backgroundMusic.dispose(); // ✅ Dispose of the music when the game exits
+        backgroundMusic.dispose(); // Dispose of the music when the game exits
     }
 }

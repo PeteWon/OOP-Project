@@ -9,7 +9,7 @@ public class StaticObject extends Entity {
 
     @Override
     public void update(float deltaTime) {
-        // ✅ Optional: If static objects should have behavior (e.g., doors opening)
+        // Optional: If static objects should have behavior (e.g., doors opening)
     }
 
     @Override
@@ -19,6 +19,6 @@ public class StaticObject extends Entity {
 
     @Override
     public boolean isActive() {
-        return true; // ✅ Always active unless explicitly changed
+        return true; // Always active unless explicitly changed
     }
 }

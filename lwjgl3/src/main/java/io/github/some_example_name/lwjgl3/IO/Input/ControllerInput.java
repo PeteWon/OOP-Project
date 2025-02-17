@@ -12,7 +12,7 @@ public class ControllerInput extends ControllerAdapter {
     private int leftStickXAxis = 0; // Default axis index
     private int leftStickYAxis = 1;
 
-    private static final float DEAD_ZONE = 0.2f; // ✅ Stick drift fix
+    private static final float DEAD_ZONE = 0.2f; // Stick drift fix
 
     public ControllerInput() {
         if (Controllers.getControllers().size > 0) {
@@ -35,7 +35,7 @@ public class ControllerInput extends ControllerAdapter {
         }
     }
 
-    // ✅ Get X movement (left/right)
+    // Get X movement (left/right)
     public float getLeftStickX() {
         if (activeController == null)
             return 0f;
@@ -43,7 +43,7 @@ public class ControllerInput extends ControllerAdapter {
         return Math.abs(value) > DEAD_ZONE ? value : 0f; // Apply dead zone
     }
 
-    // ✅ Get Y movement (up/down)
+    // Get Y movement (up/down)
     public float getLeftStickY() {
         if (activeController == null)
             return 0f;
@@ -51,7 +51,7 @@ public class ControllerInput extends ControllerAdapter {
         return Math.abs(value) > DEAD_ZONE ? value : 0f;
     }
 
-    // ✅ Check if a button is pressed
+    // Check if a button is pressed
     public boolean isButtonPressed(int button) {
         if (activeController == null)
             return false;

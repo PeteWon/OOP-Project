@@ -21,7 +21,7 @@ public class Enemy extends Entity implements iMovable {
         this.speed = speed;
         texture = new Texture(Gdx.files.internal("enemy.png"));
 
-        // ✅ Start moving in a random direction
+        // Start moving in a random direction
         directionX = random.nextBoolean() ? 1 : -1;
         directionY = random.nextBoolean() ? 1 : -1;
     }
@@ -37,7 +37,7 @@ public class Enemy extends Entity implements iMovable {
 
     @Override
     public void draw() {
-        // ✅ Required override, but not used
+        // Required override, but not used
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Enemy extends Entity implements iMovable {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
-        // ✅ Move in the current direction
+        // Move in the current direction
         x += directionX * speed * deltaTime;
         y += directionY * speed * deltaTime;
 
@@ -63,7 +63,7 @@ public class Enemy extends Entity implements iMovable {
 
     @Override
     public void moveUserControlled(float deltaTime) {
-        // ✅ Enemy should not be controlled by the player, so leave this empty
+        // Enemy should not be controlled by the player, so leave this empty
     }
 
     public Rectangle getBoundingBox() {

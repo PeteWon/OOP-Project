@@ -116,7 +116,7 @@ public class SettingsScene extends Scene {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("✅ Settings menu shown, input processor set");
+        System.out.println("Settings menu shown, input processor set");
     }
 
     @Override
