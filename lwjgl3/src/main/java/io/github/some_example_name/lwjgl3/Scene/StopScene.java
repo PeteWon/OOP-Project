@@ -12,7 +12,8 @@ public class StopScene extends Scene {
     private Stage stage;
     private Skin skin;
     private TextButton resumeButton;
-    private TextButton mainMenuButton;
+    private TextButton quitButton;
+    private TextButton restartButton;
 
     public StopScene(SceneManager game) {
         super(game, "background2.png"); // Change to your actual background image
@@ -23,6 +24,46 @@ public class StopScene extends Scene {
         // Load UI Skin (Ensure uiskin.json exists in your assets folder)
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
+        resumeButton();
+        quitGameButton();
+        restartButton();
+
+        // Add button to the stage
+        stage.addActor(resumeButton);
+        stage.addActor(quitButton);
+        stage.addActor(restartButton);
+
+    }
+
+    public void restartButton() {
+        restartButton = new TextButton("Restart Game", skin);
+        restartButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 50);
+
+        // Add button click listener
+        restartButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("✅ Restart Game Button Clicked! Restarting game...");
+                game.setScene("play", true); // ✅ Switch back to the game scene
+            }
+        });
+    }
+
+    public void quitGameButton() {
+        quitButton = new TextButton("Quit Game", skin);
+        quitButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 100);
+
+        // Add button click listener
+        quitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("✅ Back to Main Menu Button Clicked! Returning to Main Menu...");
+                game.setScene("home"); // ✅ Switch back to the game scene
+            }
+        });
+    }
+
+    public void resumeButton() {
         // Create "Resume Game" button
         resumeButton = new TextButton("Resume Game", skin);
         resumeButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f);
@@ -34,23 +75,6 @@ public class StopScene extends Scene {
                 game.setScene("play", false); // ✅ Switch back to the game scene
             }
         });
-
-        mainMenuButton = new TextButton("Main Menu", skin);
-        mainMenuButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 50);
-
-        // Add button click listener
-        mainMenuButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Back to Main Menu Button Clicked! Returning to Main Menu...");
-                game.setScene("home"); // ✅ Switch back to the game scene
-            }
-        });
-
-        // Add button to the stage
-        stage.addActor(resumeButton);
-        stage.addActor(mainMenuButton);
-
     }
 
     @Override
