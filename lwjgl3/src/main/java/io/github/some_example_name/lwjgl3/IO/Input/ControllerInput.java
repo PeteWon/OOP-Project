@@ -19,6 +19,8 @@ public class ControllerInput extends ControllerAdapter {
             activeController.addListener(this);
             System.out.println("🎮 Controller connected: " + activeController.getName());
         }
+        // 🔄 Listen for new controllers being connected/disconnected
+        Controllers.addListener(this);
     }
 
     public float getLeftStickX() {
@@ -51,6 +53,22 @@ public class ControllerInput extends ControllerAdapter {
             return value;
         }
         return 0f;
+    }
+
+    @Override
+    public void connected(Controller controller) {
+        if (activeController == null) {
+            activeController = controller;
+            System.out.println("✅ New Controller Connected: " + controller.getName());
+        }
+    }
+
+    @Override
+    public void disconnected(Controller controller) {
+        if (activeController == controller) {
+            System.out.println("❌ Controller Disconnected: " + controller.getName());
+            activeController = null; // Reset active controller
+        }
     }
 
     // // Get X movement (left/right)
