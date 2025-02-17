@@ -50,12 +50,14 @@ public class Enemy extends Entity implements iMovable {
         x += directionX * speed * deltaTime;
         y += directionY * speed * deltaTime;
 
-        // ✅ Bounce off walls
+        // Bounce off walls
         if (x <= 0 || x + width >= screenWidth) {
-            directionX *= -1; // ✅ Reverse horizontal direction
+            directionX *= -1; // Reverse horizontal direction
+            x = Math.max(0, Math.min(x, screenWidth - width)); // Ensure within bounds
         }
         if (y <= 0 || y + height >= screenHeight) {
-            directionY *= -1; // ✅ Reverse vertical direction
+            directionY *= -1; // Reverse vertical direction
+            y = Math.max(0, Math.min(y, screenHeight - height)); // Ensure within bounds
         }
     }
 
