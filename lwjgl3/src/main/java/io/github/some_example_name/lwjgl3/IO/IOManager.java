@@ -5,6 +5,11 @@ import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
 
 public class IOManager {
     private static float volume = 1.0f; // Default volume (1.0 = max)
+    private static boolean isMuted = false;
+    
+    public static boolean isMuted() {
+        return isMuted;
+    }
     private static Keyboard keyboard = new Keyboard();
 
     public static float getHorizontal() {
@@ -23,6 +28,7 @@ public class IOManager {
         return controllerInput.isButtonPressed(buttonCode);
     }
 
+    
     public static float getVolume() {
         return volume;
     }
@@ -32,6 +38,9 @@ public class IOManager {
         System.out.println("🎵 Volume set to: " + volume);
     }
 
+    public static void setMuted(boolean muted) {
+        isMuted = muted;
+    }
     private static boolean useGamepad = false;
     private static ControllerInput controllerInput;
 
