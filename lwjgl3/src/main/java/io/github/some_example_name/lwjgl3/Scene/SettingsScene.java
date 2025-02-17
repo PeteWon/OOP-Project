@@ -70,7 +70,8 @@ public class SettingsScene extends Scene {
 
     private void setupMuteButton(SceneManager game) {
         muteButton = new TextButton(isMuted ? "Unmute" : "Mute", skin);
-        muteButton.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() * 0.45f);
+        muteButton.setWidth(150); // Adjust the width to fit the text
+        muteButton.setPosition(Gdx.graphics.getWidth() / 2f - muteButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.45f);
     
         muteButton.addListener(new com.badlogic.gdx.scenes.scene2d.utils.ClickListener() {
             @Override
