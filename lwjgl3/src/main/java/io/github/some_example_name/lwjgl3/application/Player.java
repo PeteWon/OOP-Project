@@ -40,8 +40,8 @@ public class Player extends Entity implements iMovable {
 
     @Override
     public void moveUserControlled(float deltaTime) {
-        float horizontal = IOManager.getHorizontal(); // ✅ Uses IOManager for movement input
-        float vertical = IOManager.getVertical();
+        float horizontal = IOManager.getMoveX(); // ✅ Uses IOManager for movement input
+        float vertical = IOManager.getMoveY();
 
         // float horizontal = controllerInput.getLeftStickX(); // ✅ Get movement input
         // float vertical = controllerInput.getLeftStickY();

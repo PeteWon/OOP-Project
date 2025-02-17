@@ -49,6 +49,8 @@ public class SettingsScene extends Scene {
         table.add(backButton).padBottom(20).row();
     }
 
+    private float prevVolume = -1f; // Stores the last printed volume
+
     private void setupVolumeSlider(SceneManager game) {
         volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
         lastVolume = IOManager.getVolume(); // Retrieve last stored volume
@@ -70,9 +72,41 @@ public class SettingsScene extends Scene {
                 IOManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(volume);
                 updateMuteButton();
+
+                // 🔹 Print volume change only if it's different from previous volume
+                if (volume != prevVolume) {
+                    System.out.println("🔊 Volume changed to: " + volume);
+                    prevVolume = volume; // Update the previous volume value
+                }
             }
         });
     }
+
+    // private void setupVolumeSlider(SceneManager game) {
+    // volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
+    // lastVolume = IOManager.getVolume(); // Retrieve last stored volume
+    // volumeSlider.setValue(isMuted ? 0f : lastVolume);
+
+    // volumeSlider.addListener(new ChangeListener() {
+    // @Override
+    // public void changed(ChangeEvent event, com.badlogic.gdx.scenes.scene2d.Actor
+    // actor) {
+    // float volume = volumeSlider.getValue();
+
+    // if (volume == 0) {
+    // isMuted = true;
+    // } else {
+    // isMuted = false;
+    // lastVolume = volume; // Save the last non-zero volume
+    // }
+
+    // IOManager.setVolume(volume);
+    // IOManager.setMuted(isMuted);
+    // game.setBackgroundMusicVolume(volume);
+    // updateMuteButton();
+    // }
+    // });
+    // }
 
     private void setupMuteButton(SceneManager game) {
         muteButton = new TextButton(isMuted ? "Unmute" : "Mute", skin);
@@ -83,7 +117,8 @@ public class SettingsScene extends Scene {
                 isMuted = !isMuted;
 
                 if (isMuted) {
-                    lastVolume = volumeSlider.getValue() > 0 ? volumeSlider.getValue() : lastVolume; // Save last volume before muting
+                    lastVolume = volumeSlider.getValue() > 0 ? volumeSlider.getValue() : lastVolume; // Save last volume
+                                                                                                     // before muting
                     IOManager.setVolume(0f);
                 } else {
                     IOManager.setVolume(lastVolume); // Restore last volume
