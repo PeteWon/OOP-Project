@@ -11,13 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import io.github.some_example_name.lwjgl3.IO.Output.Audio;
-
 public class MainMenuScene extends Scene {
     private Stage stage;
     private Skin skin;
     private TextButton startButton;
-    private Audio menuMusic;
     private boolean isMuted = false;
     private ImageButton muteButton;
 
@@ -28,20 +25,18 @@ public class MainMenuScene extends Scene {
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        // ✅ Load & Play Background Music
-        menuMusic = new Audio("Music/MainScreenMusic.mp3", 0.1f, true);
-        menuMusic.playMusic();
+        // ✅ Use centralized background music
+        game.playBackgroundMusic();
+
         startButton();
         settingsButton();
-
         stage.addActor(startButton);
 
         // ✅ Create Mute/Unmute Button
-        setupMuteButton();
+        setupMuteButton(game);
     }
 
     private void startButton() {
-        // ✅ Create Start Button
         startButton = new TextButton("Start Game", skin);
         startButton.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f);
         startButton.addListener(new ClickListener() {
@@ -66,11 +61,9 @@ public class MainMenuScene extends Scene {
         });
 
         stage.addActor(settingsButton); // ✅ Add to stage
-
     }
 
-    private void setupMuteButton() {
-        // Load button textures
+    private void setupMuteButton(SceneManager game) {
         Texture muteTexture = new Texture("Music/mute.png");
         Texture unmuteTexture = new Texture("Music/unmute.png");
 
@@ -85,22 +78,18 @@ public class MainMenuScene extends Scene {
         muteButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                toggleAudio();
+                isMuted = !isMuted;
+                if (isMuted) {
+                    game.setBackgroundMusicVolume(0); // Mute audio
+                    muteButton.getStyle().imageUp = muteDrawable;
+                } else {
+                    game.setBackgroundMusicVolume(0.1f); // Restore volume
+                    muteButton.getStyle().imageUp = unmuteDrawable;
+                }
             }
         });
 
         stage.addActor(muteButton);
-    }
-
-    private void toggleAudio() {
-        if (isMuted) {
-            menuMusic.setVolume(0.1f); // Restore volume
-            muteButton.getStyle().imageUp = new TextureRegionDrawable(new Texture("Music/unmute.png"));
-        } else {
-            menuMusic.setVolume(0); // Mute audio
-            muteButton.getStyle().imageUp = new TextureRegionDrawable(new Texture("Music/mute.png"));
-        }
-        isMuted = !isMuted;
     }
 
     @Override
@@ -130,6 +119,5 @@ public class MainMenuScene extends Scene {
         super.dispose();
         stage.dispose();
         skin.dispose();
-        menuMusic.dispose();
     }
 }

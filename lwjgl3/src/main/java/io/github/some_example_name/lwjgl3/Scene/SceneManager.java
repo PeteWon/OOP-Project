@@ -3,14 +3,18 @@ package io.github.some_example_name.lwjgl3.Scene;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.some_example_name.lwjgl3.IO.Output.Audio;
+
 public class SceneManager {
     private Map<String, Scene> scenes;
     private Scene currentScene;
     private String previousScene = "home";
+    private Audio backgroundMusic; // ✅ Centralized background music
 
     public SceneManager() {
         scenes = new HashMap<>();
         currentScene = null;
+        backgroundMusic = new Audio("Music/MainScreenMusic.mp3", 0.1f, true); // ✅ Load background music
     }
 
     public void addScene(String name, Scene scene) {
@@ -39,10 +43,9 @@ public class SceneManager {
         } else {
             System.out.println("❌ Scene '" + sceneName + "' does not exist!");
         }
-
     }
 
-    public String getPreviousScene() { // ✅ Fix: Add this method
+    public String getPreviousScene() {
         return previousScene;
     }
 
@@ -62,5 +65,24 @@ public class SceneManager {
         addScene("stop", new StopScene(this));
         addScene("settings", new SettingsScene(this)); // ✅ Add SettingsScene
         setScene("home"); // ✅ Automatically start in MainMenuScene
+    }
+
+    // ✅ Music control methods
+    public void playBackgroundMusic() {
+        backgroundMusic.playMusic();
+    }
+
+    
+
+    public void stopBackgroundMusic() {
+        backgroundMusic.stopMusic();
+    }
+
+    public void setBackgroundMusicVolume(float volume) {
+        backgroundMusic.setVolume(volume);
+    }
+
+    public void dispose() {
+        backgroundMusic.dispose(); // ✅ Dispose of the music when the game exits
     }
 }

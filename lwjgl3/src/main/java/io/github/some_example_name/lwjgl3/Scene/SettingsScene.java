@@ -1,14 +1,13 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import io.github.some_example_name.lwjgl3.Scene.Scene;
-import io.github.some_example_name.lwjgl3.Scene.SceneManager;
+
 import io.github.some_example_name.lwjgl3.IO.IOManager;
 
 public class SettingsScene extends Scene {
@@ -18,7 +17,7 @@ public class SettingsScene extends Scene {
     private TextButton backButton;
 
     public SettingsScene(SceneManager game) {
-        super(game, "background.png");
+        super(game, "background2.png");
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -31,7 +30,9 @@ public class SettingsScene extends Scene {
         volumeSlider.setPosition(Gdx.graphics.getWidth() / 2f - 100, 300);
 
         volumeSlider.addListener(event -> {
-            IOManager.setVolume(volumeSlider.getValue()); // ✅ Update volume
+            float volume = volumeSlider.getValue();
+            IOManager.setVolume(volume); // ✅ Save volume
+            game.setBackgroundMusicVolume(volume); // ✅ Update centralized music volume
             return false;
         });
 
