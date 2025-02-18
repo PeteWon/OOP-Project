@@ -1,5 +1,7 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -66,23 +68,30 @@ public class GameScene extends Scene {
     private void initializeGame() {
         // Initialize EntityManager and Player
         entityManager = new EntityManager();
-        player = new Player(200, 300, 200);
-        entityManager.addEntity(player);
+        entityManager.spawnPlayers(4); // Spawn players using EntityManager
         entityManager.spawnEnemies(7); // Spawn enemies using EntityManager
 
     }
 
     private void checkCollisions() {
-        for (Entity entity : entityManager.getEntities()) { // Get all entities
-            if (entity instanceof Enemy) { // Only check collisions with enemies
-                Enemy enemy = (Enemy) entity;
-                if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                    if (!enemy.hasCollided()) { // Only print the first time collision happens
-                        System.out.println("Enemy collided with player!");
-                        enemy.setCollided(true); // Mark as collided
+        List<Player> players = entityManager.getPlayers(); // Get all players
+
+        for (int i = 0; i < players.size(); i++) { // Use index + 1 for correct player numbering
+            Player player = players.get(i);
+
+            for (Entity entity : entityManager.getEntities()) {
+                if (entity instanceof Enemy) {
+                    Enemy enemy = (Enemy) entity;
+
+                    if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
+                        if (!enemy.hasCollided()) {
+                            System.out.println("Enemy collided with Player " + (i + 1) + "!"); // Fix player
+                                                                                               // numbering
+                            enemy.setCollided(true);
+                        }
+                    } else {
+                        enemy.setCollided(false);
                     }
-                } else {
-                    enemy.setCollided(false); // Reset collision flag when separated
                 }
             }
         }
@@ -94,14 +103,13 @@ public class GameScene extends Scene {
 
         batch.begin();
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        player.draw(batch);
-
-        // Draw all entities, including enemies
+        // Draw all entities (Players & Enemies)
         for (Entity entity : entityManager.getEntities()) {
-            if (entity instanceof Enemy || entity instanceof Player) { // Only draw renderable entities
+            if (entity instanceof MovableEntity) {
                 ((MovableEntity) entity).draw(batch);
             }
         }
+
         batch.end();
 
         // Update & Move Entities
