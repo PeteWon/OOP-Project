@@ -18,7 +18,7 @@ public class GameMaster extends ApplicationAdapter {
     @Override
     public void create() {
         entityManager = new EntityManager();
-        collisionManager = new CollisionManager();
+        collisionManager = new CollisionManager(entityManager);
         inputManager = new InputManager();
         outputManager = new OutputManager();
         sceneManager = new SceneManager();

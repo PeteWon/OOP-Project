@@ -4,7 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 import com.badlogic.gdx.math.Rectangle;
 
+import io.github.some_example_name.lwjgl3.application.Enemy;
+import io.github.some_example_name.lwjgl3.application.EntityManager;
+import io.github.some_example_name.lwjgl3.application.Player;
+import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+
 public class CollisionManager {
+
+    private EntityManager entityManager;
+
+    public CollisionManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public void checkCollisions() {
+        List<Player> players = entityManager.getPlayers(); // Get all players
+
+        for (int i = 0; i < players.size(); i++) { // Iterate over all players
+            Player player = players.get(i);
+
+            for (Entity entity : entityManager.getEntities()) {
+                if (entity instanceof Enemy) {
+                    Enemy enemy = (Enemy) entity;
+
+                    if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
+                        if (!enemy.hasCollided()) {
+                            System.out.println("Enemy collided with Player " + (i + 1) + "!");
+                            enemy.setCollided(true);
+                        }
+                    } else {
+                        enemy.setCollided(false);
+                    }
+                }
+            }
+        }
+    }
 
     // Method to identify collisions in a list of game objects
     public void evaluateCollisions(List<iCollidable> gameElements) {

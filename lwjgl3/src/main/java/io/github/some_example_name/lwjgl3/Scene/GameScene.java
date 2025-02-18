@@ -1,7 +1,5 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,12 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
 import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
 import io.github.some_example_name.lwjgl3.IO.Output.Audio;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
-import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
 
@@ -31,6 +29,7 @@ public class GameScene extends Scene {
     private EntityManager entityManager;
     private SpriteBatch batch;
     private Audio audio;
+    private CollisionManager collisionManager;
 
     public GameScene(SceneManager game) {
         super(game, "background2.png");
@@ -68,33 +67,10 @@ public class GameScene extends Scene {
     private void initializeGame() {
         // Initialize EntityManager and Player
         entityManager = new EntityManager();
-        entityManager.spawnPlayers(4); // Spawn players using EntityManager
+        collisionManager = new CollisionManager(entityManager); // Initialize CollisionManager
+
+        entityManager.spawnPlayers(1); // Spawn players using EntityManager
         entityManager.spawnEnemies(7); // Spawn enemies using EntityManager
-
-    }
-
-    private void checkCollisions() {
-        List<Player> players = entityManager.getPlayers(); // Get all players
-
-        for (int i = 0; i < players.size(); i++) { // Use index + 1 for correct player numbering
-            Player player = players.get(i);
-
-            for (Entity entity : entityManager.getEntities()) {
-                if (entity instanceof Enemy) {
-                    Enemy enemy = (Enemy) entity;
-
-                    if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                        if (!enemy.hasCollided()) {
-                            System.out.println("Enemy collided with Player " + (i + 1) + "!"); // Fix player
-                                                                                               // numbering
-                            enemy.setCollided(true);
-                        }
-                    } else {
-                        enemy.setCollided(false);
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -116,7 +92,7 @@ public class GameScene extends Scene {
         entityManager.updateEntities(delta);
 
         // Collision Detection
-        checkCollisions();
+        collisionManager.checkCollisions();
 
         Gdx.input.setInputProcessor(stage);
         // Ensure UI Elements (Buttons) Render Last
@@ -136,5 +112,6 @@ public class GameScene extends Scene {
         skin.dispose();
         batch.dispose();
         entityManager.dispose();
+        collisionManager.dispose();
     }
 }
