@@ -40,4 +40,9 @@ public class CollisionManager {
     private boolean isIntersecting(Rectangle boxA, Rectangle boxB) {
         return boxA.overlaps(boxB);
     }
+
+    public void dispose() {
+        // Nothing to dispose for collision handling
+    }
+
 }

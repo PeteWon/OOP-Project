@@ -18,14 +18,27 @@ public class EntityManager {
     }
 
     public void removeEntity(Entity entity) {
+        entity.dispose(); // Dispose before removing
         entities.remove(entity);
     }
 
     public void updateEntities(float deltaTime) {
-        entities.removeIf(entity -> !entity.isActive()); // Removes inactive entities
+        entities.removeIf(entity -> {
+            if (!entity.isActive()) {
+                entity.dispose(); // Dispose of inactive entities
+                return true;
+            }
+            return false;
+        });
+
         for (Entity entity : entities) {
             entity.update(deltaTime);
         }
+
+        // entities.removeIf(entity -> !entity.isActive()); // Removes inactive entities
+        // for (Entity entity : entities) {
+        // entity.update(deltaTime);
+        // }
     }
 
     public void renderEntities() {
@@ -36,5 +49,12 @@ public class EntityManager {
 
     public List<Entity> getEntities() {
         return entities;
+    }
+
+    public void dispose() {
+        for (Entity entity : entities) {
+            entity.dispose();
+        }
+        entities.clear(); // Prevent memory leaks
     }
 }

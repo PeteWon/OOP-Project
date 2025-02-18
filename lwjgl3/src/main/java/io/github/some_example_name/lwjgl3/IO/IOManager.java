@@ -47,4 +47,8 @@ public class IOManager {
     public static void setVolume(float newVolume) {
         volume = Math.max(0, Math.min(newVolume, 1.0f)); // Ensure 0.0 to 1.0 range
     }
+
+    public void dispose() {
+    }
+
 }

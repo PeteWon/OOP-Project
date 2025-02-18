@@ -21,4 +21,9 @@ public class StaticObject extends Entity {
     public boolean isActive() {
         return true; // Always active unless explicitly changed
     }
+
+    @Override
+    public void dispose() {
+        // Nothing to dispose for static objects.
+    }
 }

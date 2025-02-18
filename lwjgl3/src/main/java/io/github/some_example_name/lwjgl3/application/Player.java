@@ -74,6 +74,8 @@ public class Player extends Entity implements iMovable {
     }
 
     public void dispose() {
-        texture.dispose(); // Free memory when game exits
+        if (texture != null) {
+            texture.dispose();
+        }
     }
 }

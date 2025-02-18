@@ -79,7 +79,9 @@ public class Enemy extends Entity implements iMovable {
     }
 
     public void dispose() {
-        texture.dispose();
+        if (texture != null) {
+            texture.dispose();
+        }
     }
 
 }

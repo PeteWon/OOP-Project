@@ -38,4 +38,7 @@ public abstract class Entity {
     public abstract void update(float deltaTime);
 
     public abstract void draw();
+
+    // New abstract dispose method
+    public abstract void dispose();
 }

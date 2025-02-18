@@ -27,4 +27,12 @@ public class GameMaster extends ApplicationAdapter {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         sceneManager.renderScene(); // Renders the current scene
     }
+
+    @Override
+    public void dispose() {
+        entityManager.dispose();
+        collisionManager.dispose();
+        ioManager.dispose();
+        sceneManager.dispose();
+    }
 }
