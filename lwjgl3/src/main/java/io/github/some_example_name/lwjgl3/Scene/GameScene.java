@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
+import io.github.some_example_name.lwjgl3.IO.Output.Audio;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
@@ -30,7 +31,8 @@ public class GameScene extends Scene {
     private EntityManager entityManager;
     private SpriteBatch batch;
     private List<Enemy> enemies; // Store multiple enemies
-
+    private Audio audio;
+    
     public GameScene(SceneManager game) {
         super(game, "background2.png");
 
@@ -41,6 +43,9 @@ public class GameScene extends Scene {
         // Load UI Skin
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
+        // Initialize Audio
+        audio = Audio.getInstance();
+
         // Load Pause Button
         pauseButton = new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("pause.png"))));
         pauseButton.setPosition(Gdx.graphics.getWidth() - 60, Gdx.graphics.getHeight() - 60);
@@ -50,6 +55,7 @@ public class GameScene extends Scene {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Pause Button Clicked! Opening StopScene...");
+                audio.pauseMusic();
                 game.setScene("stop");
             }
         });
