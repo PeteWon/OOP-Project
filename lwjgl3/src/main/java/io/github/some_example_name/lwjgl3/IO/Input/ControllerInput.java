@@ -48,20 +48,6 @@ public class ControllerInput extends ControllerAdapter {
         }
 
         return Math.abs(value) > DEAD_ZONE ? value : 0f;
-
-        // if (activeController == null)
-        // return 0f;
-
-        // float value = activeController.getAxis(leftStickXAxis);
-        // if (Math.abs(value) > DEAD_ZONE) {
-        // if (value > 0) {
-        // System.out.println("Controller: Moving Right");
-        // } else {
-        // System.out.println("Controller: Moving Left");
-        // }
-        // return value;
-        // }
-        // return 0f;
     }
 
     public float getLeftStickY() {
@@ -84,20 +70,6 @@ public class ControllerInput extends ControllerAdapter {
         }
 
         return Math.abs(value) > DEAD_ZONE ? value : 0f;
-
-        // if (activeController == null)
-        // return 0f;
-
-        // float value = -activeController.getAxis(leftStickYAxis); // Invert Y-Axis Fix
-        // if (Math.abs(value) > DEAD_ZONE) {
-        // if (value > 0) {
-        // System.out.println("Controller: Moving Up");
-        // } else {
-        // System.out.println("Controller: Moving Down");
-        // }
-        // return value;
-        // }
-        // return 0f;
     }
 
     @Override
