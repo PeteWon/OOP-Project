@@ -7,18 +7,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 import io.github.some_example_name.lwjgl3.IO.IOManager;
 import io.github.some_example_name.lwjgl3.IO.Input.ControllerInput;
 import io.github.some_example_name.lwjgl3.Movement.iMovable;
 
-public class Player extends Entity implements iMovable {
+public class Player extends MovableEntity {
     private float speed; // Fix: Define speed
     private Texture texture;
     private float width = 50, height = 50; // Adjust size as needed
     private ControllerInput controllerInput;
 
     public Player(float x, float y, float speed) {
-        super(x, y);
+        super(x, y, speed);
         this.speed = speed;
         texture = new Texture(Gdx.files.internal("player.png")); // Load player image
         controllerInput = new ControllerInput(); // Initialize controller input
@@ -32,17 +33,21 @@ public class Player extends Entity implements iMovable {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
-        // Move left/right
-        if (horizontal != 0) {
-            x += speed * deltaTime * horizontal;
-            x = Math.max(0, Math.min(x, screenWidth - width)); // Prevent going out of bounds
-        }
+        move(deltaTime, horizontal, vertical); // Reuse movement logic
 
-        // Move up/down
-        if (vertical != 0) {
-            y += speed * deltaTime * vertical;
-            y = Math.max(0, Math.min(y, screenHeight - height)); // Prevent going out of bounds
-        }
+        // // Move left/right
+        // if (horizontal != 0) {
+        // x += speed * deltaTime * horizontal;
+        // x = Math.max(0, Math.min(x, screenWidth - width)); // Prevent going out of
+        // bounds
+        // }
+
+        // // Move up/down
+        // if (vertical != 0) {
+        // y += speed * deltaTime * vertical;
+        // y = Math.max(0, Math.min(y, screenHeight - height)); // Prevent going out of
+        // bounds
+        // }
     }
 
     @Override
