@@ -12,7 +12,7 @@ public class Enemy extends Entity implements iMovable {
     private Texture texture;
     private float speed;
     private float width = 50, height = 50;
-    private float directionX, directionY; // ✅ Movement direction
+    private float directionX, directionY; // Movement direction
     private Random random = new Random();
     private boolean hasCollided = false;
 
@@ -24,20 +24,6 @@ public class Enemy extends Entity implements iMovable {
         // Start moving in a random direction
         directionX = random.nextBoolean() ? 1 : -1;
         directionY = random.nextBoolean() ? 1 : -1;
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        moveAIControlled();
-    }
-
-    public void draw(SpriteBatch batch) {
-        batch.draw(texture, x, y, width, height);
-    }
-
-    @Override
-    public void draw() {
-        // Required override, but not used
     }
 
     @Override
@@ -76,6 +62,20 @@ public class Enemy extends Entity implements iMovable {
 
     public void setCollided(boolean collided) {
         this.hasCollided = collided;
+    }
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(texture, x, y, width, height);
+    }
+
+    @Override
+    public void draw() {
+        // Required override, but not used
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        moveAIControlled();
     }
 
     public void dispose() {

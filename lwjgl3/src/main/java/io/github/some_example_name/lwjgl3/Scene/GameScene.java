@@ -48,7 +48,7 @@ public class GameScene extends Scene {
         pauseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Pause Button Clicked! Opening StopScene...");
+                System.out.println("Pause Button Clicked! Opening StopScene...");
                 game.setScene("stop");
             }
         });
@@ -77,6 +77,20 @@ public class GameScene extends Scene {
 
     }
 
+    // Collision detection between player and enemies
+    private void checkCollisions() {
+        for (Enemy enemy : enemies) {
+            if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
+                if (!enemy.hasCollided()) { // Only print the first time collision happens
+                    System.out.println("Enemy collided with player!");
+                    enemy.setCollided(true); // Mark as collided
+                }
+            } else {
+                enemy.setCollided(false); // Reset collision flag when separated
+            }
+        }
+    }
+
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -103,23 +117,9 @@ public class GameScene extends Scene {
         stage.draw(); // Move this to the end
 
         if (Keyboard.isKeyPressed(Input.Keys.ESCAPE)) {
-        game.setScene("stop");
-}
-
-    }
-
-    // Collision detection between player and enemies
-    private void checkCollisions() {
-        for (Enemy enemy : enemies) {
-            if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                if (!enemy.hasCollided()) { // Only print the first time collision happens
-                    System.out.println("Enemy collided with player!");
-                    enemy.setCollided(true); // Mark as collided
-                }
-            } else {
-                enemy.setCollided(false); // Reset collision flag when separated
-            }
+            game.setScene("stop");
         }
+
     }
 
     @Override

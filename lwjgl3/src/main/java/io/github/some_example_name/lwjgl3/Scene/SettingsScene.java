@@ -34,9 +34,9 @@ public class SettingsScene extends Scene {
         // Load mute state
         isMuted = IOManager.isMuted();
 
-        setupVolumeSlider(game);
-        setupMuteButton(game);
-        setupBackButton(game);
+        volumeSlider(game);
+        muteButton(game);
+        backButton(game);
 
         // Create a table for layout
         table = new Table();
@@ -51,7 +51,7 @@ public class SettingsScene extends Scene {
 
     private float prevVolume = -1f; // Stores the last printed volume
 
-    private void setupVolumeSlider(SceneManager game) {
+    private void volumeSlider(SceneManager game) {
         volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
 
         // 🔹 Get the current volume from SceneManager instead of IOManager
@@ -77,42 +77,16 @@ public class SettingsScene extends Scene {
                 game.setBackgroundMusicVolume(volume); // 🔹 Update SceneManager's volume
                 updateMuteButton();
 
-                // 🔹 Print volume change only if it's different from previous volume
+                // Print volume change only if it's different from previous volume
                 if (volume != prevVolume) {
-                    System.out.println("🔊 Volume changed to: " + volume);
+                    System.out.println("Volume changed to: " + volume);
                     prevVolume = volume; // Update the previous volume value
                 }
             }
         });
     }
 
-    // private void setupVolumeSlider(SceneManager game) {
-    // volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
-    // lastVolume = IOManager.getVolume(); // Retrieve last stored volume
-    // volumeSlider.setValue(isMuted ? 0f : lastVolume);
-
-    // volumeSlider.addListener(new ChangeListener() {
-    // @Override
-    // public void changed(ChangeEvent event, com.badlogic.gdx.scenes.scene2d.Actor
-    // actor) {
-    // float volume = volumeSlider.getValue();
-
-    // if (volume == 0) {
-    // isMuted = true;
-    // } else {
-    // isMuted = false;
-    // lastVolume = volume; // Save the last non-zero volume
-    // }
-
-    // IOManager.setVolume(volume);
-    // IOManager.setMuted(isMuted);
-    // game.setBackgroundMusicVolume(volume);
-    // updateMuteButton();
-    // }
-    // });
-    // }
-
-    private void setupMuteButton(SceneManager game) {
+    private void muteButton(SceneManager game) {
         muteButton = new TextButton(isMuted ? "Unmute" : "Mute", skin);
 
         muteButton.addListener(new com.badlogic.gdx.scenes.scene2d.utils.ClickListener() {
@@ -140,13 +114,13 @@ public class SettingsScene extends Scene {
         muteButton.setText(isMuted ? "Unmute" : "Mute");
     }
 
-    private void setupBackButton(SceneManager game) {
+    private void backButton(SceneManager game) {
         backButton = new TextButton("Back", skin);
 
         backButton.addListener(new com.badlogic.gdx.scenes.scene2d.utils.ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("🔙 Returning to Main Menu...");
+                System.out.println("Returning to Main Menu...");
                 game.setScene("home");
             }
         });

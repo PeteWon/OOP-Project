@@ -40,7 +40,7 @@ public class MainMenuScene extends Scene {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Start Button Clicked! Switching to game scene...");
+                System.out.println("Start Button Clicked! Switching to game scene...");
                 game.setScene("play", true);
             }
         });
@@ -58,7 +58,7 @@ public class MainMenuScene extends Scene {
             }
         });
 
-        stage.addActor(settingsButton); // ✅ Add to stage
+        stage.addActor(settingsButton); // Add to stage
     }
 
     @Override
