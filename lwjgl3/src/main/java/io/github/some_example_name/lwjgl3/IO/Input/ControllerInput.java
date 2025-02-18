@@ -36,10 +36,10 @@ public class ControllerInput extends ControllerAdapter {
 
         if (Math.abs(value) > DEAD_ZONE) {
             if (value < 0 && !leftStickLeftPressed) {
-                System.out.println("🎮 Controller: Moving Left");
+                System.out.println("Controller: Moving Left");
                 leftStickLeftPressed = true;
             } else if (value > 0 && !leftStickRightPressed) {
-                System.out.println("🎮 Controller: Moving Right");
+                System.out.println("Controller: Moving Right");
                 leftStickRightPressed = true;
             }
         } else {
@@ -58,10 +58,10 @@ public class ControllerInput extends ControllerAdapter {
 
         if (Math.abs(value) > DEAD_ZONE) {
             if (value < 0 && !leftStickDownPressed) {
-                System.out.println("🎮 Controller: Moving Down");
+                System.out.println("Controller: Moving Down");
                 leftStickDownPressed = true;
             } else if (value > 0 && !leftStickUpPressed) {
-                System.out.println("🎮 Controller: Moving Up");
+                System.out.println("Controller: Moving Up");
                 leftStickUpPressed = true;
             }
         } else {

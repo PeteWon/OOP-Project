@@ -34,11 +34,6 @@ public class EntityManager {
         for (Entity entity : entities) {
             entity.update(deltaTime);
         }
-
-        // entities.removeIf(entity -> !entity.isActive()); // Removes inactive entities
-        // for (Entity entity : entities) {
-        // entity.update(deltaTime);
-        // }
     }
 
     public void renderEntities() {

@@ -32,10 +32,6 @@ public abstract class MovableEntity extends Entity implements iMovable {
         this.y = Math.max(0, Math.min(this.y, Gdx.graphics.getHeight() - height));
     }
 
-    // public void move(float deltaTime) {
-    // this.x += speed * deltaTime;
-    // }
-
     @Override
     public void moveAIControlled() {
         System.out.println("AI moving entity...");

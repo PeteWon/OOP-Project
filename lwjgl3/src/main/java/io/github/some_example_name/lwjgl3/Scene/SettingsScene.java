@@ -24,6 +24,7 @@ public class SettingsScene extends Scene {
     private boolean isMuted;
     private float lastVolume = 0.5f;
     private Table table;
+    private float prevVolume = -1f; // Stores the last printed volume
 
     public SettingsScene(SceneManager game) {
         super(game, "background2.png");
@@ -50,12 +51,10 @@ public class SettingsScene extends Scene {
         table.add(backButton).padBottom(20).row();
     }
 
-    private float prevVolume = -1f; // Stores the last printed volume
-
     private void volumeSlider(SceneManager game) {
         volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
 
-        // 🔹 Get the current volume from SceneManager instead of IOManager
+        // Get the current volume from SceneManager instead of IOManager
         lastVolume = game.getBackgroundMusicVolume();
         isMuted = (lastVolume == 0f);
 
@@ -75,7 +74,7 @@ public class SettingsScene extends Scene {
 
                 IOManager.setVolume(volume); // Persist volume
                 IOManager.setMuted(isMuted);
-                game.setBackgroundMusicVolume(volume); // 🔹 Update SceneManager's volume
+                game.setBackgroundMusicVolume(volume); // Update SceneManager's volume
                 updateMuteButton();
 
                 // Print volume change only if it's different from previous volume

@@ -53,7 +53,7 @@ public class MainMenuScene extends Scene {
         settingsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("⚙ Opening Settings...");
+                System.out.println("Opening Settings...");
                 game.setScene("settings"); // Go to settings scene
             }
         });

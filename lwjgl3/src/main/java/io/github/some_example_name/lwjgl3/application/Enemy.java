@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
-import io.github.some_example_name.lwjgl3.Movement.iMovable;
 import java.util.Random;
 
 public class Enemy extends MovableEntity {
     private Texture texture;
-    private float speed;
     private float width = 50, height = 50;
     private float directionX, directionY; // Movement direction
     private Random random = new Random();
@@ -30,10 +27,8 @@ public class Enemy extends MovableEntity {
     @Override
     public void moveAIControlled() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
 
-        move(deltaTime, directionX, directionY); // ✅ Reuse movement logic
+        move(deltaTime, directionX, directionY); // Reuse movement logic
 
         // Randomly change direction when hitting the screen edge
         if (x <= 0 || x + width >= Gdx.graphics.getWidth()) {
@@ -43,19 +38,6 @@ public class Enemy extends MovableEntity {
             directionY *= -1;
         }
 
-        // // Move in the current direction
-        // x += directionX * speed * deltaTime;
-        // y += directionY * speed * deltaTime;
-
-        // // Bounce off walls
-        // if (x <= 0 || x + width >= screenWidth) {
-        // directionX *= -1; // Reverse horizontal direction
-        // x = Math.max(0, Math.min(x, screenWidth - width)); // Ensure within bounds
-        // }
-        // if (y <= 0 || y + height >= screenHeight) {
-        // directionY *= -1; // Reverse vertical direction
-        // y = Math.max(0, Math.min(y, screenHeight - height)); // Ensure within bounds
-        // }
     }
 
     @Override
