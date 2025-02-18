@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import io.github.some_example_name.lwjgl3.IO.IOManager;
+import io.github.some_example_name.lwjgl3.IO.OutputManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 
 public class SettingsScene extends Scene {
@@ -34,7 +34,7 @@ public class SettingsScene extends Scene {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
         // Load mute state
-        isMuted = IOManager.isMuted();
+        isMuted = OutputManager.isMuted();
 
         volumeSlider(game);
         muteButton(game);
@@ -72,8 +72,8 @@ public class SettingsScene extends Scene {
                     lastVolume = volume; // Store last non-zero volume
                 }
 
-                IOManager.setVolume(volume); // Persist volume
-                IOManager.setMuted(isMuted);
+                OutputManager.setVolume(volume); // Persist volume
+                OutputManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(volume); // Update SceneManager's volume
                 updateMuteButton();
 
@@ -97,12 +97,12 @@ public class SettingsScene extends Scene {
                 if (isMuted) {
                     lastVolume = volumeSlider.getValue() > 0 ? volumeSlider.getValue() : lastVolume; // Save last volume
                                                                                                      // before muting
-                    IOManager.setVolume(0f);
+                    OutputManager.setVolume(0f);
                 } else {
-                    IOManager.setVolume(lastVolume); // Restore last volume
+                    OutputManager.setVolume(lastVolume); // Restore last volume
                 }
 
-                IOManager.setMuted(isMuted);
+                OutputManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(isMuted ? 0f : lastVolume);
                 volumeSlider.setValue(isMuted ? 0f : lastVolume);
                 updateMuteButton();

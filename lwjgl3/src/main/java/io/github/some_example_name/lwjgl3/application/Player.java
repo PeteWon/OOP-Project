@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
-import io.github.some_example_name.lwjgl3.IO.IOManager;
+import io.github.some_example_name.lwjgl3.IO.InputManager;
 import io.github.some_example_name.lwjgl3.IO.Input.ControllerInput;
 
 public class Player extends MovableEntity {
@@ -23,8 +23,8 @@ public class Player extends MovableEntity {
 
     @Override
     public void moveUserControlled(float deltaTime) {
-        float horizontal = IOManager.getMoveX(); // Uses IOManager for movement input
-        float vertical = IOManager.getMoveY();
+        float horizontal = InputManager.getMoveX(); // Uses IOManager for movement input
+        float vertical = InputManager.getMoveY();
 
         move(deltaTime, horizontal, vertical); // Reuse movement logic
     }

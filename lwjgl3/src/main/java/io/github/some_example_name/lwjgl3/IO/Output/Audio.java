@@ -3,7 +3,7 @@ package io.github.some_example_name.lwjgl3.IO.Output;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
-import io.github.some_example_name.lwjgl3.IO.IOManager;
+import io.github.some_example_name.lwjgl3.IO.OutputManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.AudioHandler;
 
 public class Audio extends AudioHandler {
@@ -47,7 +47,7 @@ public class Audio extends AudioHandler {
     }
 
     public static void setGlobalVolume(float volume) {
-        IOManager.setVolume(volume);
+        OutputManager.setVolume(volume);
     }
 
     public void setMusicName(String music_name) {
