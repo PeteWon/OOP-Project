@@ -15,8 +15,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
 import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
 import io.github.some_example_name.lwjgl3.IO.Output.Audio;
-import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
-import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
@@ -79,12 +77,8 @@ public class GameScene extends Scene {
 
         batch.begin();
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        // Draw all entities (Players & Enemies)
-        for (Entity entity : entityManager.getEntities()) {
-            if (entity instanceof MovableEntity) {
-                ((MovableEntity) entity).draw(batch);
-            }
-        }
+
+        entityManager.renderEntities(batch); // Delegates drawing to EntityManager
 
         batch.end();
 

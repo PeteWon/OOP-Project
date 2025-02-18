@@ -1,10 +1,13 @@
 package io.github.some_example_name.lwjgl3.application;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
 public class EntityManager {
@@ -80,9 +83,11 @@ public class EntityManager {
         }
     }
 
-    public void renderEntities() {
+    public void renderEntities(SpriteBatch batch) {
         for (Entity entity : entities) {
-            entity.draw();
+            if (entity instanceof MovableEntity) {
+                ((MovableEntity) entity).draw(batch);
+            }
         }
     }
 
