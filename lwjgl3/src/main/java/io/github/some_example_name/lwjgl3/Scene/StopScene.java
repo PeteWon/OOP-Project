@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
+
 public class StopScene extends Scene {
     private Stage stage;
     private Skin skin;

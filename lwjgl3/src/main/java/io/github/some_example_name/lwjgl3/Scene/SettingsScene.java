@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.some_example_name.lwjgl3.IO.IOManager;
+import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 
 public class SettingsScene extends Scene {
     private Stage stage;

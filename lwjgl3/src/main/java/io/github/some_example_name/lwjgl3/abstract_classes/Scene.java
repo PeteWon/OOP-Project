@@ -1,8 +1,10 @@
-package io.github.some_example_name.lwjgl3.Scene;
+package io.github.some_example_name.lwjgl3.abstract_classes;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import io.github.some_example_name.lwjgl3.Scene.SceneManager;
 
 public abstract class Scene implements Screen {
     protected final SceneManager game;

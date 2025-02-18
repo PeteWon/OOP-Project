@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.github.some_example_name.lwjgl3.IO.Output.Audio;
+import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 
 public class SceneManager {
     private Map<String, Scene> scenes;

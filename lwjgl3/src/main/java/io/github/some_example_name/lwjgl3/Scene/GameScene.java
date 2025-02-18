@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
+import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
