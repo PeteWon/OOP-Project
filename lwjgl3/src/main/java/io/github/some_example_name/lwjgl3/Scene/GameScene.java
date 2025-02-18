@@ -1,13 +1,9 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -18,6 +14,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
 import io.github.some_example_name.lwjgl3.IO.Output.Audio;
+import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
@@ -30,9 +28,8 @@ public class GameScene extends Scene {
     private Player player;
     private EntityManager entityManager;
     private SpriteBatch batch;
-    private List<Enemy> enemies; // Store multiple enemies
     private Audio audio;
-    
+
     public GameScene(SceneManager game) {
         super(game, "background2.png");
 
@@ -71,29 +68,22 @@ public class GameScene extends Scene {
         entityManager = new EntityManager();
         player = new Player(200, 300, 200);
         entityManager.addEntity(player);
-
-        // Initialize Enemies (Spawn 5 at random locations)
-        enemies = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            float enemyX = MathUtils.random(50, Gdx.graphics.getWidth() - 50);
-            float enemyY = MathUtils.random(50, Gdx.graphics.getHeight() - 50);
-            Enemy enemy = new Enemy(enemyX, enemyY, 200);
-            enemies.add(enemy);
-            entityManager.addEntity(enemy);
-        }
+        entityManager.spawnEnemies(7); // Spawn enemies using EntityManager
 
     }
 
-    // Collision detection between player and enemies
     private void checkCollisions() {
-        for (Enemy enemy : enemies) {
-            if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                if (!enemy.hasCollided()) { // Only print the first time collision happens
-                    System.out.println("Enemy collided with player!");
-                    enemy.setCollided(true); // Mark as collided
+        for (Entity entity : entityManager.getEntities()) { // Get all entities
+            if (entity instanceof Enemy) { // Only check collisions with enemies
+                Enemy enemy = (Enemy) entity;
+                if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
+                    if (!enemy.hasCollided()) { // Only print the first time collision happens
+                        System.out.println("Enemy collided with player!");
+                        enemy.setCollided(true); // Mark as collided
+                    }
+                } else {
+                    enemy.setCollided(false); // Reset collision flag when separated
                 }
-            } else {
-                enemy.setCollided(false); // Reset collision flag when separated
             }
         }
     }
@@ -106,9 +96,11 @@ public class GameScene extends Scene {
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         player.draw(batch);
 
-        // Draw all enemies
-        for (Enemy enemy : enemies) {
-            enemy.draw(batch);
+        // Draw all entities, including enemies
+        for (Entity entity : entityManager.getEntities()) {
+            if (entity instanceof Enemy || entity instanceof Player) { // Only draw renderable entities
+                ((MovableEntity) entity).draw(batch);
+            }
         }
         batch.end();
 
@@ -135,5 +127,6 @@ public class GameScene extends Scene {
         stage.dispose();
         skin.dispose();
         batch.dispose();
+        entityManager.dispose();
     }
 }
