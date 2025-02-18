@@ -19,15 +19,13 @@ public class ControllerInput extends ControllerAdapter {
     private static boolean leftStickDownPressed = false;
 
     public ControllerInput() {
-        updateControllers(); // Initialize controllers dynamically
-        // Controllers.addListener(this); // Listen for new controller connections
-        // if (Controllers.getControllers().size > 0) {
-        // activeController = Controllers.getControllers().first();
-        // activeController.addListener(this);
-        // System.out.println("🎮 Controller connected: " + activeController.getName());
-        // }
-        // // Listen for new controllers being connected/disconnected
-        // Controllers.addListener(this);
+        if (Controllers.getControllers().size > 0) {
+            activeController = Controllers.getControllers().first();
+            activeController.addListener(this);
+            System.out.println("Controller connected: " + activeController.getName());
+        }
+        // Listen for new controllers being connected/disconnected
+        Controllers.addListener(this);
     }
 
     public float getLeftStickX() {
@@ -100,16 +98,6 @@ public class ControllerInput extends ControllerAdapter {
         // return value;
         // }
         // return 0f;
-    }
-
-    public void updateControllers() {
-        if (Controllers.getControllers().size > 0) {
-            activeController = Controllers.getControllers().first();
-            activeController.addListener(this);
-            System.out.println("Controller connected: " + activeController.getName());
-        }
-        // Listen for new controllers being connected/disconnected
-        Controllers.addListener(this);
     }
 
     @Override
