@@ -8,7 +8,7 @@ public class IOManager {
     private static float volume = 1.0f; // Default volume
     private static boolean isMuted = false;
     private static boolean useGamepad = false;
-
+    private static Keyboard keyboard = new Keyboard();
     private static ControllerInput controllerInput = new ControllerInput();
 
     public static boolean isMuted() {

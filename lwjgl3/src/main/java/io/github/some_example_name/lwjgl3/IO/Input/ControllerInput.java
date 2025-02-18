@@ -13,15 +13,17 @@ public class ControllerInput extends ControllerAdapter {
     private int leftStickXAxis = 0;
     private int leftStickYAxis = 1;
 
-    // public ControllerInput() {
-    // if (Controllers.getControllers().size > 0) {
-    // activeController = Controllers.getControllers().first();
-    // activeController.addListener(this);
-    // System.out.println("🎮 Controller connected: " + activeController.getName());
-    // }
-    // // Listen for new controllers being connected/disconnected
-    // Controllers.addListener(this);
-    // }
+    public ControllerInput() {
+        updateControllers(); // Initialize controllers dynamically
+        Controllers.addListener(this); // Listen for new controller connections
+        // if (Controllers.getControllers().size > 0) {
+        // activeController = Controllers.getControllers().first();
+        // activeController.addListener(this);
+        // System.out.println("🎮 Controller connected: " + activeController.getName());
+        // }
+        // // Listen for new controllers being connected/disconnected
+        // Controllers.addListener(this);
+    }
 
     public float getLeftStickX() {
         if (activeController == null)
