@@ -13,9 +13,14 @@ public class ControllerInput extends ControllerAdapter {
     private int leftStickXAxis = 0;
     private int leftStickYAxis = 1;
 
+    private static boolean leftStickLeftPressed = false;
+    private static boolean leftStickRightPressed = false;
+    private static boolean leftStickUpPressed = false;
+    private static boolean leftStickDownPressed = false;
+
     public ControllerInput() {
         updateControllers(); // Initialize controllers dynamically
-        Controllers.addListener(this); // Listen for new controller connections
+        // Controllers.addListener(this); // Listen for new controller connections
         // if (Controllers.getControllers().size > 0) {
         // activeController = Controllers.getControllers().first();
         // activeController.addListener(this);
@@ -26,35 +31,75 @@ public class ControllerInput extends ControllerAdapter {
     }
 
     public float getLeftStickX() {
+
         if (activeController == null)
             return 0f;
-
         float value = activeController.getAxis(leftStickXAxis);
+
         if (Math.abs(value) > DEAD_ZONE) {
-            if (value > 0) {
-                System.out.println("Controller: Moving Right");
-            } else {
-                System.out.println("Controller: Moving Left");
+            if (value < 0 && !leftStickLeftPressed) {
+                System.out.println("🎮 Controller: Moving Left");
+                leftStickLeftPressed = true;
+            } else if (value > 0 && !leftStickRightPressed) {
+                System.out.println("🎮 Controller: Moving Right");
+                leftStickRightPressed = true;
             }
-            return value;
+        } else {
+            leftStickLeftPressed = false;
+            leftStickRightPressed = false;
         }
-        return 0f;
+
+        return Math.abs(value) > DEAD_ZONE ? value : 0f;
+
+        // if (activeController == null)
+        // return 0f;
+
+        // float value = activeController.getAxis(leftStickXAxis);
+        // if (Math.abs(value) > DEAD_ZONE) {
+        // if (value > 0) {
+        // System.out.println("Controller: Moving Right");
+        // } else {
+        // System.out.println("Controller: Moving Left");
+        // }
+        // return value;
+        // }
+        // return 0f;
     }
 
     public float getLeftStickY() {
+
         if (activeController == null)
             return 0f;
+        float value = -activeController.getAxis(leftStickYAxis);
 
-        float value = -activeController.getAxis(leftStickYAxis); // Invert Y-Axis Fix
         if (Math.abs(value) > DEAD_ZONE) {
-            if (value > 0) {
-                System.out.println("Controller: Moving Up");
-            } else {
-                System.out.println("Controller: Moving Down");
+            if (value < 0 && !leftStickDownPressed) {
+                System.out.println("🎮 Controller: Moving Down");
+                leftStickDownPressed = true;
+            } else if (value > 0 && !leftStickUpPressed) {
+                System.out.println("🎮 Controller: Moving Up");
+                leftStickUpPressed = true;
             }
-            return value;
+        } else {
+            leftStickUpPressed = false;
+            leftStickDownPressed = false;
         }
-        return 0f;
+
+        return Math.abs(value) > DEAD_ZONE ? value : 0f;
+
+        // if (activeController == null)
+        // return 0f;
+
+        // float value = -activeController.getAxis(leftStickYAxis); // Invert Y-Axis Fix
+        // if (Math.abs(value) > DEAD_ZONE) {
+        // if (value > 0) {
+        // System.out.println("Controller: Moving Up");
+        // } else {
+        // System.out.println("Controller: Moving Down");
+        // }
+        // return value;
+        // }
+        // return 0f;
     }
 
     public void updateControllers() {

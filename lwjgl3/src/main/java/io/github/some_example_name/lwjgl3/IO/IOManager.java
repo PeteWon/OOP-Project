@@ -20,15 +20,11 @@ public class IOManager {
     }
 
     public static void detectInputType() {
-
-        controllerInput.updateControllers(); // Ensure we check for new controllers
-        useGamepad = controllerInput.isControllerConnected();
-
-        // if (controllerInput.isControllerConnected()) {
-        // useGamepad = true;
-        // } else {
-        // useGamepad = false;
-        // }
+        if (controllerInput.isControllerConnected()) {
+            useGamepad = true;
+        } else {
+            useGamepad = false;
+        }
     }
 
     public static float getMoveX() {
