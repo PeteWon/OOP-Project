@@ -14,10 +14,6 @@ public class Keyboard {
         boolean leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
         boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
 
-        // if (leftPressed && !lastLeftPressed) {
-        // System.out.println("Left key pressed");
-        // }
-        // lastLeftPressed = leftPressed;
         if (leftPressed && !lastLeftPressed) {
             System.out.println("Keyboard: Moving Left");
         }
