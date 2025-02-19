@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+
+import io.github.some_example_name.lwjgl3.Collision.iCollidable;
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 import java.util.Random;
 
@@ -64,6 +66,7 @@ public class Enemy extends MovableEntity {
         move(Gdx.graphics.getDeltaTime(), directionX, directionY);
     }
 
+    
     public Rectangle getBoundingBox() {
         return new Rectangle(x, y, width, height);
     }
@@ -84,6 +87,14 @@ public class Enemy extends MovableEntity {
         return height;
     }
 
+    @Override
+    public void handleCollision(iCollidable other) {
+        if (other instanceof Player) {
+            System.out.println("Enemy collided with Player!");
+        } else if (other instanceof Tree) {
+            System.out.println("Enemy collided with a tree!");
+        }
+    }
     public void dispose() {
         if (texture != null) {
             texture.dispose();

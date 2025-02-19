@@ -17,6 +17,7 @@ public class Audio extends AudioHandler {
     private Music gameMusic;
 
     private String music_name;
+
     private float volume;
     private boolean loop;
 
