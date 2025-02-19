@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
+import io.github.some_example_name.lwjgl3.Collision.iCollidable;
 import io.github.some_example_name.lwjgl3.IO.InputManager;
 import io.github.some_example_name.lwjgl3.IO.Input.ControllerInput;
 
@@ -57,6 +58,13 @@ public class Player extends MovableEntity {
         this.y = y;
     }
 
+    @Override
+    public void handleCollision(iCollidable other) {
+        if (other instanceof Tree) {
+            System.out.println("Player collided with a tree!");
+        }
+    }
+    
     public void dispose() {
         if (texture != null) {
             texture.dispose();

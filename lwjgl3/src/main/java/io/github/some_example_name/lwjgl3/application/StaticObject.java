@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 
+import io.github.some_example_name.lwjgl3.Collision.iCollidable;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 
 public class StaticObject extends Entity {
@@ -36,6 +37,9 @@ public class StaticObject extends Entity {
 
     public Rectangle getBoundingBox() {
         return boundingBox; // Ensure bounding box can be accessed for collisions
+    }
+    @Override
+    public void handleCollision(iCollidable other) {
     }
 
     @Override

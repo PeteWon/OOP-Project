@@ -1,11 +1,8 @@
 package io.github.some_example_name.lwjgl3.Collision;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-
 import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
@@ -13,7 +10,6 @@ import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.application.Tree;
 
 public class CollisionManager {
-
     private EntityManager entityManager;
 
     public CollisionManager(EntityManager entityManager) {
@@ -34,7 +30,7 @@ public class CollisionManager {
 
                     if (enemy.getBoundingBox().overlaps(player.getBoundingBox())) {
                         if (!enemy.hasCollided()) { // Print only the first time per new collision
-                            System.out.println("Enemy collided with Player " + (i + 1) + "!"); // Print player number
+                            enemy.handleCollision(player);  // This will print "Enemy collided with Player!"
                             enemy.setCollided(true);
                         }
                         hasCollidedWithPlayer = true;
@@ -42,8 +38,7 @@ public class CollisionManager {
                     }
                 }
 
-                // Reset `hasCollided` only when the enemy is no longer colliding with any
-                // player
+                // Reset `hasCollided` only when the enemy is no longer colliding with any player
                 if (!hasCollidedWithPlayer) {
                     enemy.setCollided(false);
                 }
@@ -59,7 +54,7 @@ public class CollisionManager {
                     isColliding = true; // Player is colliding
 
                     if (!player.hasCollided()) { // Only print the first time per new collision
-                        System.out.println("Player collided with a tree!");
+                        player.handleCollision(tree);  // This will print "Player collided with a tree!"
                         player.setCollided(true); // Mark as colliding
                     }
 
@@ -82,105 +77,54 @@ public class CollisionManager {
                 Enemy enemy = (Enemy) entity;
 
                 for (Tree tree : trees) {
-                    if (enemy.getBoundingBox().overlaps(tree.getBoundingBox()))
-                        if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
-                            System.out.println("Enemy collided with a tree!");
+                    if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
+                        enemy.handleCollision(tree);  // This will print "Enemy collided with a tree!"
 
-                            // Reverse movement direction (bounce effect)
-                            float newX = enemy.getPreviousX();
-                            float newY = enemy.getPreviousY();
+                        // Reverse movement direction (bounce effect)
+                        float newX = enemy.getPreviousX();
+                        float newY = enemy.getPreviousY();
 
-                            enemy.setX(newX);
-                            enemy.setY(newY);
+                        enemy.setX(newX);
+                        enemy.setY(newY);
 
-                            collisionBounce(enemy, trees);
-
-                        }
+                        collisionBounce(enemy, trees);
+                    }
                 }
             }
         }
     }
 
     public void collisionBounce(Enemy enemy, List<Tree> trees) {
-        // System.out.println("Checking collision for Enemy at: " + enemy.getX() + ", "
-        // + enemy.getY());
-
-        // FIRST, Check if enemy is hitting screen edges
         boolean bounced = false;
 
         if (enemy.getX() <= 0 || enemy.getX() + enemy.getWidth() >= Gdx.graphics.getWidth()) {
             enemy.reverseXDirection();
             bounced = true;
-            // System.out.println("Enemy bounced off X wall.");
         }
         if (enemy.getY() <= 0 || enemy.getY() + enemy.getHeight() >= Gdx.graphics.getHeight()) {
             enemy.reverseYDirection();
             bounced = true;
-            // System.out.println("Enemy bounced off Y wall.");
         }
 
-        // THEN, Check if enemy collides with trees
         for (Tree tree : trees) {
             if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
-                System.out.println("Enemy collided with a tree!");
-
-                // Reverse direction like hitting a wall
                 if (Math.abs(enemy.getPreviousX() - tree.getX()) < Math.abs(enemy.getPreviousY() - tree.getY())) {
                     enemy.reverseYDirection();
                 } else {
                     enemy.reverseXDirection();
                 }
 
-                // Move away from the tree slightly to prevent getting stuck
                 enemy.setX(enemy.getPreviousX());
                 enemy.setY(enemy.getPreviousY());
                 bounced = true;
             }
         }
 
-        // If enemy bounced, ensure its movement direction updates properly
         if (bounced) {
             enemy.updateDirection();
         }
     }
 
-    // Method to identify collisions in a list of game objects
-    public void evaluateCollisions(List<iCollidable> gameElements) {
-        for (int i = 0; i < gameElements.size(); i++) {
-            iCollidable entityA = gameElements.get(i);
-            Rectangle boundsA = entityA.getBoundingBox();
-
-            for (int j = i + 1; j < gameElements.size(); j++) {
-                iCollidable entityB = gameElements.get(j);
-                Rectangle boundsB = entityB.getBoundingBox();
-
-                if (isIntersecting(boundsA, boundsB)) {
-                    handleCollision(entityA, entityB);
-                }
-            }
-        }
-    }
-
-    // Merges two lists of collidable entities and checks for collisions
-    public void mergeAndEvaluate(List<iCollidable> players, List<iCollidable> obstacles) {
-        List<iCollidable> collidableList = new ArrayList<>(players);
-        collidableList.addAll(obstacles);
-        evaluateCollisions(collidableList);
-    }
-
-    private void handleCollision(iCollidable entityA, iCollidable entityB) {
-        entityA.handleCollision(entityB);
-        entityB.handleCollision(entityA);
-        System.out.println("Collision detected between: "
-                + entityA.getClass().getSimpleName() + " and " + entityB.getClass().getSimpleName());
-    }
-
-    private boolean isIntersecting(Rectangle boxA, Rectangle boxB) {
-        return boxA.overlaps(boxB);
-    }
-
     public void dispose() {
-        // Nothing to dispose for collision handling
     }
-
 }
