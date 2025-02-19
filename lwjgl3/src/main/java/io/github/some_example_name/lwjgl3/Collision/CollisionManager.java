@@ -36,7 +36,7 @@ public class CollisionManager {
                     if (enemy.getBoundingBox().overlaps(player.getBoundingBox())) {
                         if (!enemy.hasCollided()) { // Print only the first time per new collision
                             System.out.println("Enemy collided with Player " + (i + 1) + "!"); // Print player number
-                            Audio.getInstance("Music/collisioneffect.mp3", 0.5f, false).playMusic(); // Play sound effect
+                            //Audio.getInstance("Music/collisioneffect.mp3", 0.5f, false).playMusic(); // Play sound effect
                             enemy.setCollided(true);
                         }
                         hasCollidedWithPlayer = true;
@@ -62,6 +62,7 @@ public class CollisionManager {
 
                     if (!player.hasCollided()) { // Only print the first time per new collision
                         System.out.println("Player collided with a tree!");
+                        //Audio.getInstance("Music/tree.mp3", 0.5f, false).playMusic();
                         player.setCollided(true); // Mark as colliding
                     }
 
@@ -182,7 +183,7 @@ public class CollisionManager {
     }
 
     public void dispose() {
-        // Nothing to dispose for collision handling
+        Audio.getInstance().dispose();
     }
 
 }
