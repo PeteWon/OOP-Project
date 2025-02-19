@@ -11,6 +11,7 @@ import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.application.Tree;
+import io.github.some_example_name.lwjgl3.IO.Output.Audio;
 
 public class CollisionManager {
 
@@ -35,6 +36,7 @@ public class CollisionManager {
                     if (enemy.getBoundingBox().overlaps(player.getBoundingBox())) {
                         if (!enemy.hasCollided()) { // Print only the first time per new collision
                             System.out.println("Enemy collided with Player " + (i + 1) + "!"); // Print player number
+                            Audio.getInstance("Music/collisioneffect.mp3", 0.5f, false).playMusic(); // Play sound effect
                             enemy.setCollided(true);
                         }
                         hasCollidedWithPlayer = true;

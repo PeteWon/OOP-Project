@@ -9,8 +9,10 @@ import io.github.some_example_name.lwjgl3.abstract_classes.AudioHandler;
 public class Audio extends AudioHandler {
 
     private static Audio instance;
+
     private Music gameMusic;
     private String music_name;
+
     private float volume;
     private boolean loop;
 
