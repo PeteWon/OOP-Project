@@ -1,8 +1,12 @@
 package io.github.some_example_name.lwjgl3.abstract_classes;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
 public abstract class Entity {
     protected float x, y; // Position in the game world
     protected boolean isActive; // Determines if the entity is currently active
+    protected float width = 50, height = 50;
 
     public Entity(float x, float y) {
         this.x = x;
@@ -37,7 +41,14 @@ public abstract class Entity {
     // Forces subclasses to implement their own behavior
     public abstract void update(float deltaTime);
 
+    // For collision detection
+    public Rectangle getBoundingBox() {
+        return new Rectangle(x, y, width, height);
+    }
+
     public abstract void draw();
+
+    public abstract void draw(SpriteBatch batch);
 
     // New abstract dispose method
     public abstract void dispose();

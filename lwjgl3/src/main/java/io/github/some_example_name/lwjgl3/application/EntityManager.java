@@ -1,22 +1,25 @@
 package io.github.some_example_name.lwjgl3.application;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
-import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 
 public class EntityManager {
     private List<Entity> entities;
     private List<Player> players; // New list to track multiple players
+    private List<Tree> trees;
 
     public EntityManager() {
         this.entities = new ArrayList<>();
         this.players = new ArrayList<>();
+        this.trees = new ArrayList<>();
     }
 
     public void addEntity(Entity entity) {
@@ -69,6 +72,47 @@ public class EntityManager {
         }
     }
 
+    public void spawnTrees(int count) {
+        Random random = new Random();
+        int maxWidth = Gdx.graphics.getWidth();
+        int maxHeight = Gdx.graphics.getHeight();
+        int treeSize = 50;
+
+        for (int i = 0; i < count; i++) {
+            float x, y;
+            boolean validPosition;
+
+            do {
+                validPosition = true;
+                x = random.nextInt(maxWidth - treeSize);
+                y = random.nextInt(maxHeight - treeSize);
+                Rectangle newTreeBounds = new Rectangle(x, y, treeSize, treeSize);
+
+                // ✅ Check if tree overlaps with any existing players or enemies
+                for (Entity entity : entities) {
+                    if (newTreeBounds.overlaps(entity.getBoundingBox())) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+            } while (!validPosition); // ✅ Keep retrying until a valid position is found
+
+            Tree tree = new Tree(x, y);
+            trees.add(tree);
+            addEntity(tree);
+        }
+    }
+
+    // // Add a method to spawn trees
+    // public void spawnTrees() {
+    // trees.add(new Tree(400, 300)); // Tree at fixed location
+    // trees.add(new Tree(600, 400)); // Another tree
+
+    // for (Tree tree : trees) {
+    // addEntity(tree); // Add to entity list
+    // }
+    // }
+
     public void updateEntities(float deltaTime) {
         entities.removeIf(entity -> {
             if (!entity.isActive()) {
@@ -85,10 +129,13 @@ public class EntityManager {
 
     public void renderEntities(SpriteBatch batch) {
         for (Entity entity : entities) {
-            if (entity instanceof MovableEntity) {
-                ((MovableEntity) entity).draw(batch);
-            }
+            entity.draw(batch); // Now draws ALL entities, including StaticObjects (Trees)
         }
+        // for (Entity entity : entities) {
+        // if (entity instanceof MovableEntity) {
+        // ((MovableEntity) entity).draw(batch);
+        // }
+        // }
     }
 
     public List<Entity> getEntities() {
@@ -98,6 +145,10 @@ public class EntityManager {
     // Provide access to the list of players
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public List<Tree> getTrees() {
+        return trees;
     }
 
     public void dispose() {

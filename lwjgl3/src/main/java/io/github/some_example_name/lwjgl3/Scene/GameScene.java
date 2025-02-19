@@ -69,6 +69,7 @@ public class GameScene extends Scene {
 
         entityManager.spawnPlayers(1); // Spawn players using EntityManager
         entityManager.spawnEnemies(7); // Spawn enemies using EntityManager
+        entityManager.spawnTrees(3); // Spawn trees using EntityManager
     }
 
     @Override

@@ -8,6 +8,7 @@ import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.application.Tree;
 
 public class CollisionManager {
 
@@ -19,6 +20,7 @@ public class CollisionManager {
 
     public void checkCollisions() {
         List<Player> players = entityManager.getPlayers(); // Get all players
+        List<Tree> trees = entityManager.getTrees();
 
         for (int i = 0; i < players.size(); i++) { // Iterate over all players
             Player player = players.get(i);
@@ -27,14 +29,49 @@ public class CollisionManager {
                 if (entity instanceof Enemy) {
                     Enemy enemy = (Enemy) entity;
 
-                    if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                        if (!enemy.hasCollided()) {
-                            System.out.println("Enemy collided with Player " + (i + 1) + "!");
-                            enemy.setCollided(true);
+                    enemy.collisionBounce(trees);
+
+                    // if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
+                    // if (!enemy.hasCollided()) {
+                    // System.out.println("Enemy collided with Player " + (i + 1) + "!");
+                    // enemy.setCollided(true);
+                    // }
+                    // } else {
+                    // enemy.setCollided(false);
+                    // }
+                }
+            }
+        }
+
+        // Prevent players from moving into trees
+        for (Player player : players) {
+            for (Tree tree : trees) {
+                if (player.getBoundingBox().overlaps(tree.getBoundingBox())) {
+                    System.out.println("Player collided with a tree!");
+                    player.setX(player.getPreviousX()); // Move back to previous position
+                    player.setY(player.getPreviousY());
+                }
+            }
+        }
+
+        for (Entity entity : entityManager.getEntities()) {
+            if (entity instanceof Enemy) {
+                Enemy enemy = (Enemy) entity;
+
+                for (Tree tree : trees) {
+                    if (enemy.getBoundingBox().overlaps(tree.getBoundingBox()))
+                        if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
+                            System.out.println("❌ Enemy collided with a tree!");
+
+                            // ✅ Reverse movement direction (bounce effect)
+                            float newX = enemy.getPreviousX();
+                            float newY = enemy.getPreviousY();
+
+                            enemy.setX(newX);
+                            enemy.setY(newY);
+
+                            enemy.collisionBounce(trees); // ✅ Ensure enemy moves away
                         }
-                    } else {
-                        enemy.setCollided(false);
-                    }
                 }
             }
         }

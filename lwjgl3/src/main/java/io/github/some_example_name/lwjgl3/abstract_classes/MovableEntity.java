@@ -9,9 +9,13 @@ public abstract class MovableEntity extends Entity implements iMovable {
     protected float speed;
     protected float width = 50, height = 50;
 
+    protected float previousX, previousY;
+
     public MovableEntity(float x, float y, float speed) {
         super(x, y);
         this.speed = speed;
+        this.previousX = x; // Initialize previous positions
+        this.previousY = y;
     }
 
     public float getSpeed() {
@@ -24,12 +28,23 @@ public abstract class MovableEntity extends Entity implements iMovable {
 
     // Extracted common movement logic
     protected void move(float deltaTime, float directionX, float directionY) {
+        this.previousX = this.x; // Store last position before movement
+        this.previousY = this.y;
+
         this.x += speed * deltaTime * directionX;
         this.y += speed * deltaTime * directionY;
 
         // Ensure entity stays within screen bounds
         this.x = Math.max(0, Math.min(this.x, Gdx.graphics.getWidth() - width));
         this.y = Math.max(0, Math.min(this.y, Gdx.graphics.getHeight() - height));
+    }
+
+    public float getPreviousX() {
+        return previousX;
+    }
+
+    public float getPreviousY() {
+        return previousY;
     }
 
     @Override
