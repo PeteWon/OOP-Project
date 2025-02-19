@@ -19,10 +19,11 @@ public class Audio extends AudioHandler {
 
     // Music object for playback
     private Music gameMusic;
+
     private String music_name;
 
-    // Hash Map for sound effects
     private Map<String, Sound> soundEffects;
+    private Map<String, Float> soundEffectVolumes;
 
     private float volume;
     private boolean loop;
@@ -41,6 +42,7 @@ public class Audio extends AudioHandler {
         this.gameMusic.setLooping(this.loop);
 
         this.soundEffects = new HashMap<>();
+        this.soundEffectVolumes = new HashMap<>();
 
         System.out.println("Music started: " + this.music_name);
     }
@@ -130,7 +132,7 @@ public class Audio extends AudioHandler {
         return this.gameMusic.isPlaying();
     }
 
-    // Load sound effect into memory
+    // Load a sound effect into memory
     public void loadSoundEffect(String key, String filePath) {
         if (!soundEffects.containsKey(key)) {
             Sound sound = Gdx.audio.newSound(Gdx.files.internal(filePath));
@@ -143,28 +145,21 @@ public class Audio extends AudioHandler {
     public void playSoundEffect(String key) {
         Sound sound = soundEffects.get(key);
         if (sound != null) {
-            sound.play();
+            float volume = soundEffectVolumes.getOrDefault(key, 0.5f); // Get the volume, default is 1.0
+            sound.play(volume);
             System.out.println("Playing sound effect: " + key);
         } else {
             System.out.println("Sound effect not found: " + key);
         }
     }
 
-    // Stop a specific sound effect
-    public void stopSoundEffect(String key) {
-        Sound sound = soundEffects.get(key);
-        if (sound != null) {
-            sound.stop();
-            System.out.println("Stopped sound effect: " + key);
-        }
-    }
-
     // Set the volume of a specific sound effect
     public void setSoundEffectVolume(String key, float volume) {
-        Sound sound = soundEffects.get(key);
-        if (sound != null) {
-            sound.play(volume); // Play at given volume (LibGDX doesn't support direct volume control for Sound)
-            System.out.println("Set sound effect volume: " + key + " to " + volume);
+        if (soundEffects.containsKey(key)) {
+            soundEffectVolumes.put(key, volume);
+        } 
+        else {
+            System.out.println("Sound effect not found: " + key);
         }
     }
 
