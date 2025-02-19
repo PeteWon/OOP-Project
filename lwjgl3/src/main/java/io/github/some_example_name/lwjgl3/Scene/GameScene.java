@@ -68,7 +68,7 @@ public class GameScene extends Scene {
         collisionManager = new CollisionManager(entityManager); // Initialize CollisionManager
 
         entityManager.spawnPlayers(1); // Spawn players using EntityManager
-        entityManager.spawnEnemies(7); // Spawn enemies using EntityManager
+        entityManager.spawnEnemies(2); // Spawn enemies using EntityManager
         entityManager.spawnTrees(3); // Spawn trees using EntityManager
     }
 

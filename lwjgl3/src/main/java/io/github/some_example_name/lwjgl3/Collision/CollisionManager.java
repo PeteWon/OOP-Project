@@ -31,28 +31,61 @@ public class CollisionManager {
 
                     enemy.collisionBounce(trees);
 
-                    // if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                    // if (!enemy.hasCollided()) {
-                    // System.out.println("Enemy collided with Player " + (i + 1) + "!");
-                    // enemy.setCollided(true);
-                    // }
-                    // } else {
-                    // enemy.setCollided(false);
-                    // }
+                    if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
+                        if (!enemy.hasCollided()) {
+                            System.out.println("Enemy collided with Player " + (i + 1) + "!");
+                            enemy.setCollided(true);
+                        }
+                    } else {
+                        enemy.setCollided(false);
+                    }
                 }
             }
         }
 
         // Prevent players from moving into trees
         for (Player player : players) {
+            boolean isColliding = false; // ✅ Track if the player is colliding
+
             for (Tree tree : trees) {
                 if (player.getBoundingBox().overlaps(tree.getBoundingBox())) {
-                    System.out.println("Player collided with a tree!");
-                    player.setX(player.getPreviousX()); // Move back to previous position
+                    isColliding = true; // ✅ Player is colliding
+
+                    if (!player.hasCollided()) { // ✅ Only print the first time per new collision
+                        System.out.println("Player collided with a tree!");
+                        player.setCollided(true); // ✅ Mark as colliding
+                    }
+
+                    // ✅ Move player back to prevent moving into the tree
+                    player.setX(player.getPreviousX());
                     player.setY(player.getPreviousY());
+
+                    break; // ✅ No need to check further trees if already colliding
                 }
             }
+
+            // ✅ Reset `hasCollided` only when the player moves away from all trees
+            if (!isColliding && player.hasCollided()) {
+                player.setCollided(false);
+            }
         }
+
+        // // Prevent players from moving into trees
+        // for (Player player : players) {
+        // for (Tree tree : trees) {
+        // if (player.getBoundingBox().overlaps(tree.getBoundingBox())) {
+        // if (!player.hasCollided()) { // Only print once per instance
+        // } else {
+        // if (player.hasCollided()) {
+        // player.setCollided(false); // Reset when no longer colliding
+        // }
+        // }
+        // System.out.println("Player collided with a tree!");
+        // player.setX(player.getPreviousX()); // Move back to previous position
+        // player.setY(player.getPreviousY());
+        // }
+        // }
+        // }
 
         for (Entity entity : entityManager.getEntities()) {
             if (entity instanceof Enemy) {
@@ -61,7 +94,7 @@ public class CollisionManager {
                 for (Tree tree : trees) {
                     if (enemy.getBoundingBox().overlaps(tree.getBoundingBox()))
                         if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
-                            System.out.println("❌ Enemy collided with a tree!");
+                            System.out.println("Enemy collided with a tree!");
 
                             // ✅ Reverse movement direction (bounce effect)
                             float newX = enemy.getPreviousX();
@@ -70,7 +103,7 @@ public class CollisionManager {
                             enemy.setX(newX);
                             enemy.setY(newY);
 
-                            enemy.collisionBounce(trees); // ✅ Ensure enemy moves away
+                            enemy.collisionBounce(trees); // Ensure enemy moves away
                         }
                 }
             }

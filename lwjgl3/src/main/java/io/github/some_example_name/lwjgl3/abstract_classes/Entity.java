@@ -7,11 +7,20 @@ public abstract class Entity {
     protected float x, y; // Position in the game world
     protected boolean isActive; // Determines if the entity is currently active
     protected float width = 50, height = 50;
+    protected boolean hasCollided = false;
 
     public Entity(float x, float y) {
         this.x = x;
         this.y = y;
         this.isActive = true; // Default to active when created
+    }
+
+    public boolean hasCollided() {
+        return hasCollided;
+    }
+
+    public void setCollided(boolean collided) {
+        this.hasCollided = collided;
     }
 
     public float getX() {
