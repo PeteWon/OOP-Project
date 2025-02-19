@@ -18,16 +18,16 @@ public abstract class Scene implements Screen {
     }
 
     @Override
-    public void show() {
-    }
-
-    @Override
     public void render(float delta) {
         if (batch != null) {
             batch.begin();
             batch.draw(tex, 0, 0);
             batch.end();
         }
+    }
+
+    @Override
+    public void show() {
     }
 
     @Override

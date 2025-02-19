@@ -45,47 +45,30 @@ public class CollisionManager {
 
         // Prevent players from moving into trees
         for (Player player : players) {
-            boolean isColliding = false; // ✅ Track if the player is colliding
+            boolean isColliding = false; // Track if the player is colliding
 
             for (Tree tree : trees) {
                 if (player.getBoundingBox().overlaps(tree.getBoundingBox())) {
-                    isColliding = true; // ✅ Player is colliding
+                    isColliding = true; // Player is colliding
 
-                    if (!player.hasCollided()) { // ✅ Only print the first time per new collision
+                    if (!player.hasCollided()) { // Only print the first time per new collision
                         System.out.println("Player collided with a tree!");
-                        player.setCollided(true); // ✅ Mark as colliding
+                        player.setCollided(true); // Mark as colliding
                     }
 
-                    // ✅ Move player back to prevent moving into the tree
+                    // Move player back to prevent moving into the tree
                     player.setX(player.getPreviousX());
                     player.setY(player.getPreviousY());
 
-                    break; // ✅ No need to check further trees if already colliding
+                    break; // No need to check further trees if already colliding
                 }
             }
 
-            // ✅ Reset `hasCollided` only when the player moves away from all trees
+            // Reset `hasCollided` only when the player moves away from all trees
             if (!isColliding && player.hasCollided()) {
                 player.setCollided(false);
             }
         }
-
-        // // Prevent players from moving into trees
-        // for (Player player : players) {
-        // for (Tree tree : trees) {
-        // if (player.getBoundingBox().overlaps(tree.getBoundingBox())) {
-        // if (!player.hasCollided()) { // Only print once per instance
-        // } else {
-        // if (player.hasCollided()) {
-        // player.setCollided(false); // Reset when no longer colliding
-        // }
-        // }
-        // System.out.println("Player collided with a tree!");
-        // player.setX(player.getPreviousX()); // Move back to previous position
-        // player.setY(player.getPreviousY());
-        // }
-        // }
-        // }
 
         for (Entity entity : entityManager.getEntities()) {
             if (entity instanceof Enemy) {
@@ -96,7 +79,7 @@ public class CollisionManager {
                         if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
                             System.out.println("Enemy collided with a tree!");
 
-                            // ✅ Reverse movement direction (bounce effect)
+                            // Reverse movement direction (bounce effect)
                             float newX = enemy.getPreviousX();
                             float newY = enemy.getPreviousY();
 

@@ -62,16 +62,6 @@ public class GameScene extends Scene {
 
     }
 
-    private void initializeGame() {
-        // Initialize EntityManager and Player
-        entityManager = new EntityManager();
-        collisionManager = new CollisionManager(entityManager); // Initialize CollisionManager
-
-        entityManager.spawnPlayers(1); // Spawn players using EntityManager
-        entityManager.spawnEnemies(2); // Spawn enemies using EntityManager
-        entityManager.spawnTrees(3); // Spawn trees using EntityManager
-    }
-
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -98,6 +88,16 @@ public class GameScene extends Scene {
             game.setScene("stop");
         }
 
+    }
+
+    private void initializeGame() {
+        // Initialize EntityManager and Player
+        entityManager = new EntityManager();
+        collisionManager = new CollisionManager(entityManager); // Initialize CollisionManager
+
+        entityManager.spawnPlayers(1); // Spawn players using EntityManager
+        entityManager.spawnEnemies(2); // Spawn enemies using EntityManager
+        entityManager.spawnTrees(3); // Spawn trees using EntityManager
     }
 
     @Override

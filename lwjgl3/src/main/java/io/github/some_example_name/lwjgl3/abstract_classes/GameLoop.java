@@ -5,6 +5,10 @@ public abstract class GameLoop {
     private final int TARGET_FPS = 60;
     private final long NS_PER_FRAME = 1000000000 / TARGET_FPS;
 
+    protected abstract void update(double deltaTime);
+
+    protected abstract void render();
+
     public void start() {
         running = true;
         long lastTime = System.nanoTime();
@@ -42,8 +46,4 @@ public abstract class GameLoop {
     public void stop() {
         running = false;
     }
-
-    protected abstract void update(double deltaTime);
-
-    protected abstract void render();
 }

@@ -21,7 +21,7 @@ public class StopScene extends Scene {
 
     public StopScene(SceneManager game) {
         super(game, "background2.png");
-        
+
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -38,6 +38,24 @@ public class StopScene extends Scene {
         stage.addActor(resumeButton);
         stage.addActor(quitButton);
         stage.addActor(restartButton);
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+        System.out.println("Stop Scene shown");
+    }
+
+    @Override
+    public void render(float delta) {
+        ScreenUtils.clear(0.1f, 0.1f, 0.1f, 1);
+
+        batch.begin();
+        batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
+        stage.act(delta);
+        stage.draw();
     }
 
     public void resumeButton() {
@@ -85,24 +103,6 @@ public class StopScene extends Scene {
                 game.setScene("play", true); // Switch back to the game scene
             }
         });
-    }
-
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-        System.out.println("Stop Scene shown");
-    }
-
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(0.1f, 0.1f, 0.1f, 1);
-
-        batch.begin();
-        batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.end();
-
-        stage.act(delta);
-        stage.draw();
     }
 
     @Override

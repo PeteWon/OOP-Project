@@ -72,6 +72,13 @@ public class ControllerInput extends ControllerAdapter {
         return Math.abs(value) > DEAD_ZONE ? value : 0f;
     }
 
+    // Check if a button is pressed
+    public boolean isButtonPressed(int button) {
+        if (activeController == null)
+            return false;
+        return activeController.getButton(button);
+    }
+
     @Override
     public void connected(Controller controller) {
         if (activeController == null) {
@@ -86,13 +93,6 @@ public class ControllerInput extends ControllerAdapter {
             System.out.println("Controller Disconnected: " + controller.getName());
             activeController = null; // Reset active controller
         }
-    }
-
-    // Check if a button is pressed
-    public boolean isButtonPressed(int button) {
-        if (activeController == null)
-            return false;
-        return activeController.getButton(button);
     }
 
     public Controller getActiveController() {

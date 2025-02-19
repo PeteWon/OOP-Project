@@ -15,12 +15,32 @@ public abstract class Entity {
         this.isActive = true; // Default to active when created
     }
 
+    public abstract void draw();
+
+    public abstract void draw(SpriteBatch batch);
+
+    // Forces subclasses to implement their own behavior
+    public abstract void update(float deltaTime);
+
     public boolean hasCollided() {
         return hasCollided;
     }
 
     public void setCollided(boolean collided) {
         this.hasCollided = collided;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        this.isActive = active;
+    }
+
+    // For collision detection
+    public Rectangle getBoundingBox() {
+        return new Rectangle(x, y, width, height);
     }
 
     public float getX() {
@@ -38,26 +58,6 @@ public abstract class Entity {
     public void setY(float y) {
         this.y = y;
     }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        this.isActive = active;
-    }
-
-    // Forces subclasses to implement their own behavior
-    public abstract void update(float deltaTime);
-
-    // For collision detection
-    public Rectangle getBoundingBox() {
-        return new Rectangle(x, y, width, height);
-    }
-
-    public abstract void draw();
-
-    public abstract void draw(SpriteBatch batch);
 
     // New abstract dispose method
     public abstract void dispose();

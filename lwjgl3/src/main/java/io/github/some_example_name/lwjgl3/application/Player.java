@@ -22,6 +22,20 @@ public class Player extends MovableEntity {
     }
 
     @Override
+    public void draw() { // Fix: Ensure correct method signature
+        // System.out.println("Drawing Player at (" + x + ", " + y + ")");
+    }
+
+    public void draw(SpriteBatch batch) { // Draw player image
+        batch.draw(texture, x, y, width, height);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        moveUserControlled(deltaTime);
+    }
+
+    @Override
     public void moveUserControlled(float deltaTime) {
         float horizontal = InputManager.getMoveX(); // Uses IOManager for movement input
         float vertical = InputManager.getMoveY();
@@ -41,20 +55,6 @@ public class Player extends MovableEntity {
     public void setPosition(float x, float y) { // Fix: Add this method
         this.x = x;
         this.y = y;
-    }
-
-    @Override
-    public void draw() { // Fix: Ensure correct method signature
-        // System.out.println("Drawing Player at (" + x + ", " + y + ")");
-    }
-
-    public void draw(SpriteBatch batch) { // Draw player image
-        batch.draw(texture, x, y, width, height);
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        moveUserControlled(deltaTime);
     }
 
     public void dispose() {

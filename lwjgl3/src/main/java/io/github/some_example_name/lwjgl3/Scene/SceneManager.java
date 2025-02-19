@@ -18,6 +18,16 @@ public class SceneManager {
         backgroundMusic = Audio.getInstance("Music/MainScreenMusic.mp3", 0.5f, true); // Load background music
     }
 
+    public void renderScene() {
+        renderScene(0.016f); // Calls the existing renderScene(float) with a default value
+    }
+
+    public void renderScene(float deltaTime) {
+        if (currentScene != null) {
+            currentScene.render(deltaTime);
+        }
+    }
+
     public void addScene(String name, Scene scene) {
         if (!scenes.containsKey(name)) {
             scenes.put(name, scene);
@@ -46,20 +56,6 @@ public class SceneManager {
         }
     }
 
-    public String getPreviousScene() {
-        return previousScene;
-    }
-
-    public void renderScene() {
-        renderScene(0.016f); // Calls the existing renderScene(float) with a default value
-    }
-
-    public void renderScene(float deltaTime) {
-        if (currentScene != null) {
-            currentScene.render(deltaTime);
-        }
-    }
-
     public void initializeScenes() {
         addScene("home", new MainMenuScene(this));
         addScene("play", new GameScene(this));
@@ -73,7 +69,6 @@ public class SceneManager {
         backgroundMusic.playMusic();
     }
 
-
     public void stopBackgroundMusic() {
         backgroundMusic.stopMusic();
     }
@@ -81,9 +76,15 @@ public class SceneManager {
     public void setBackgroundMusicVolume(float volume) {
         backgroundMusic.setVolume(volume);
     }
+
     public float getBackgroundMusicVolume() {
         return backgroundMusic.getVolume();
     }
+
+    public String getPreviousScene() {
+        return previousScene;
+    }
+
     public void dispose() {
         backgroundMusic.dispose(); // Dispose of the music when the game exits
     }

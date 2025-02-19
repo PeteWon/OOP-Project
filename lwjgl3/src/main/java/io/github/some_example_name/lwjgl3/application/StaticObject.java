@@ -14,11 +14,11 @@ public class StaticObject extends Entity {
     public StaticObject(float x, float y, float width, float height, String texturePath) {
         super(x, y);
         this.texture = new Texture(Gdx.files.internal(texturePath));
-        this.boundingBox = new Rectangle(x, y, width, height); // ✅ Create bounding box for collisions
+        this.boundingBox = new Rectangle(x, y, width, height); // Create bounding box for collisions
     }
 
     @Override
-    public void draw(SpriteBatch batch) { // ✅ Implementing the abstract method correctly
+    public void draw(SpriteBatch batch) { // Implementing the abstract method correctly
         if (texture != null) {
             batch.draw(texture, x, y, boundingBox.width, boundingBox.height);
         }
@@ -35,7 +35,7 @@ public class StaticObject extends Entity {
     }
 
     public Rectangle getBoundingBox() {
-        return boundingBox; // ✅ Ensure bounding box can be accessed for collisions
+        return boundingBox; // Ensure bounding box can be accessed for collisions
     }
 
     @Override
@@ -45,29 +45,3 @@ public class StaticObject extends Entity {
         }
     }
 }
-
-// public class StaticObject extends Entity {
-// public StaticObject(float x, float y) {
-// super(x, y);
-// }
-
-// @Override
-// public void update(float deltaTime) {
-// // Optional: If static objects should have behavior (e.g., doors opening)
-// }
-
-// @Override
-// public void draw() {
-// System.out.println("Drawing static object at (" + x + ", " + y + ")");
-// }
-
-// @Override
-// public boolean isActive() {
-// return true; // Always active unless explicitly changed
-// }
-
-// @Override
-// public void dispose() {
-// // Nothing to dispose for static objects.
-// }
-// }

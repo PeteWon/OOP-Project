@@ -34,6 +34,28 @@ public class MainMenuScene extends Scene {
 
     }
 
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+        // System.out.println("Main menu shown, input processor set");
+
+        if (!stage.getActors().contains(startButton, true)) {
+            stage.addActor(startButton);
+        }
+    }
+
+    @Override
+    public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0, 1);
+
+        batch.begin();
+        batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
+        stage.act(delta);
+        stage.draw();
+    }
+
     private void startButton() {
         startButton = new TextButton("Start Game", skin);
         startButton.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f);
@@ -59,28 +81,6 @@ public class MainMenuScene extends Scene {
         });
 
         stage.addActor(settingsButton); // Add to stage
-    }
-
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-        // System.out.println("Main menu shown, input processor set");
-
-        if (!stage.getActors().contains(startButton, true)) {
-            stage.addActor(startButton);
-        }
-    }
-
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-
-        batch.begin();
-        batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.end();
-
-        stage.act(delta);
-        stage.draw();
     }
 
     @Override

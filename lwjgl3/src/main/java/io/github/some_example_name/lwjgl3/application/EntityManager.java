@@ -15,11 +15,32 @@ public class EntityManager {
     private List<Entity> entities;
     private List<Player> players; // New list to track multiple players
     private List<Tree> trees;
+    private Random random = new Random();
 
     public EntityManager() {
         this.entities = new ArrayList<>();
         this.players = new ArrayList<>();
         this.trees = new ArrayList<>();
+    }
+
+    public void updateEntities(float deltaTime) {
+        entities.removeIf(entity -> {
+            if (!entity.isActive()) {
+                entity.dispose(); // Dispose of inactive entities
+                return true;
+            }
+            return false;
+        });
+
+        for (Entity entity : entities) {
+            entity.update(deltaTime);
+        }
+    }
+
+    public void renderEntities(SpriteBatch batch) {
+        for (Entity entity : entities) {
+            entity.draw(batch); // Now draws ALL entities, including StaticObjects (Trees)
+        }
     }
 
     public void addEntity(Entity entity) {
@@ -73,7 +94,6 @@ public class EntityManager {
     }
 
     public void spawnTrees(int count) {
-        Random random = new Random();
         int maxWidth = Gdx.graphics.getWidth();
         int maxHeight = Gdx.graphics.getHeight();
         int treeSize = 50;
@@ -88,54 +108,19 @@ public class EntityManager {
                 y = random.nextInt(maxHeight - treeSize);
                 Rectangle newTreeBounds = new Rectangle(x, y, treeSize, treeSize);
 
-                // ✅ Check if tree overlaps with any existing players or enemies
+                // Check if tree overlaps with any existing players or enemies
                 for (Entity entity : entities) {
                     if (newTreeBounds.overlaps(entity.getBoundingBox())) {
                         validPosition = false;
                         break;
                     }
                 }
-            } while (!validPosition); // ✅ Keep retrying until a valid position is found
+            } while (!validPosition); // Keep retrying until a valid position is found
 
             Tree tree = new Tree(x, y);
             trees.add(tree);
             addEntity(tree);
         }
-    }
-
-    // // Add a method to spawn trees
-    // public void spawnTrees() {
-    // trees.add(new Tree(400, 300)); // Tree at fixed location
-    // trees.add(new Tree(600, 400)); // Another tree
-
-    // for (Tree tree : trees) {
-    // addEntity(tree); // Add to entity list
-    // }
-    // }
-
-    public void updateEntities(float deltaTime) {
-        entities.removeIf(entity -> {
-            if (!entity.isActive()) {
-                entity.dispose(); // Dispose of inactive entities
-                return true;
-            }
-            return false;
-        });
-
-        for (Entity entity : entities) {
-            entity.update(deltaTime);
-        }
-    }
-
-    public void renderEntities(SpriteBatch batch) {
-        for (Entity entity : entities) {
-            entity.draw(batch); // Now draws ALL entities, including StaticObjects (Trees)
-        }
-        // for (Entity entity : entities) {
-        // if (entity instanceof MovableEntity) {
-        // ((MovableEntity) entity).draw(batch);
-        // }
-        // }
     }
 
     public List<Entity> getEntities() {

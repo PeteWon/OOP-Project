@@ -46,40 +46,6 @@ public class Audio extends AudioHandler {
         return instance;
     }
 
-    public static void setGlobalVolume(float volume) {
-        OutputManager.setVolume(volume);
-    }
-
-    public void setMusicName(String music_name) {
-        this.music_name = music_name;
-        this.gameMusic = Gdx.audio.newMusic(Gdx.files.internal(this.music_name));
-        this.gameMusic.setVolume(this.volume);
-        this.gameMusic.setLooping(this.loop);
-        System.out.println("Music started: " + this.music_name);
-    }
-
-    public String getMusicName() {
-        return this.music_name;
-    }
-
-    public void setVolume(float volume) {
-        this.volume = volume;
-        this.gameMusic.setVolume(this.volume);
-    }
-
-    public float getVolume() {
-        return this.volume;
-    }
-
-    public void setLoop(boolean loop) {
-        this.loop = loop;
-        this.gameMusic.setLooping(this.loop);
-    }
-
-    public boolean getLoop() {
-        return this.loop;
-    }
-
     public void playMusic() {
         this.gameMusic.play();
         System.out.println("Music playing: " + this.music_name);
@@ -88,10 +54,6 @@ public class Audio extends AudioHandler {
     public void stopMusic() {
         this.gameMusic.stop();
         System.out.println("Music stopped: " + this.music_name);
-    }
-
-    public boolean isPlayingMusic() {
-        return this.gameMusic.isPlaying();
     }
 
     public void pauseMusic() {
@@ -110,6 +72,44 @@ public class Audio extends AudioHandler {
         } else {
             System.out.println("Music is already playing.");
         }
+    }
+
+    public static void setGlobalVolume(float volume) {
+        OutputManager.setVolume(volume);
+    }
+
+    public void setMusicName(String music_name) {
+        this.music_name = music_name;
+        this.gameMusic = Gdx.audio.newMusic(Gdx.files.internal(this.music_name));
+        this.gameMusic.setVolume(this.volume);
+        this.gameMusic.setLooping(this.loop);
+        System.out.println("Music started: " + this.music_name);
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
+        this.gameMusic.setVolume(this.volume);
+    }
+
+    public void setLoop(boolean loop) {
+        this.loop = loop;
+        this.gameMusic.setLooping(this.loop);
+    }
+
+    public String getMusicName() {
+        return this.music_name;
+    }
+
+    public float getVolume() {
+        return this.volume;
+    }
+
+    public boolean getLoop() {
+        return this.loop;
+    }
+
+    public boolean isPlayingMusic() {
+        return this.gameMusic.isPlaying();
     }
 
     public void dispose() {

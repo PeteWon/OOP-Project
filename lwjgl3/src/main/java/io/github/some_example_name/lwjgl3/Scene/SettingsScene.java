@@ -51,6 +51,23 @@ public class SettingsScene extends Scene {
         table.add(backButton).padBottom(20).row();
     }
 
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+        System.out.println("Settings menu shown, input processor set");
+    }
+
+    @Override
+    public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0, 1);
+
+        batch.begin();
+        batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+        stage.act(delta);
+        stage.draw();
+    }
+
     private void volumeSlider(SceneManager game) {
         volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
 
@@ -124,23 +141,6 @@ public class SettingsScene extends Scene {
                 game.setScene("home");
             }
         });
-    }
-
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-        System.out.println("Settings menu shown, input processor set");
-    }
-
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-
-        batch.begin();
-        batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.end();
-        stage.act(delta);
-        stage.draw();
     }
 
     @Override

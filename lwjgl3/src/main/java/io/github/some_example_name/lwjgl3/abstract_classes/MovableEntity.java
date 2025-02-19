@@ -18,13 +18,7 @@ public abstract class MovableEntity extends Entity implements iMovable {
         this.previousY = y;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
+    public abstract void draw(SpriteBatch batch);
 
     // Extracted common movement logic
     protected void move(float deltaTime, float directionX, float directionY) {
@@ -39,14 +33,6 @@ public abstract class MovableEntity extends Entity implements iMovable {
         this.y = Math.max(0, Math.min(this.y, Gdx.graphics.getHeight() - height));
     }
 
-    public float getPreviousX() {
-        return previousX;
-    }
-
-    public float getPreviousY() {
-        return previousY;
-    }
-
     @Override
     public void moveAIControlled() {
         System.out.println("AI moving entity...");
@@ -57,5 +43,19 @@ public abstract class MovableEntity extends Entity implements iMovable {
         System.out.println("User controlling movement...");
     }
 
-    public abstract void draw(SpriteBatch batch);
+    public float getPreviousX() {
+        return previousX;
+    }
+
+    public float getPreviousY() {
+        return previousY;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
 }
