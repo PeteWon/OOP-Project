@@ -15,10 +15,12 @@ public class Enemy extends MovableEntity {
     private float directionX, directionY; // Movement direction
     private Random random = new Random();
     private boolean hasCollided = false;
+    private EntityManager entityManager;
 
-    public Enemy(float x, float y, float speed) {
+    public Enemy(float x, float y, float speed, EntityManager entityManager) {
         super(x, y, speed);
         this.speed = speed;
+        this.entityManager = entityManager;
         texture = new Texture(Gdx.files.internal("enemy.png"));
 
         // Start moving in a random direction
@@ -66,7 +68,6 @@ public class Enemy extends MovableEntity {
         move(Gdx.graphics.getDeltaTime(), directionX, directionY);
     }
 
-    
     public Rectangle getBoundingBox() {
         return new Rectangle(x, y, width, height);
     }
@@ -90,11 +91,18 @@ public class Enemy extends MovableEntity {
     @Override
     public void handleCollision(iCollidable other) {
         if (other instanceof Player) {
-            System.out.println("Enemy collided with Player!");
+            Player player = (Player) other;
+            if (entityManager != null) {
+                int playerIndex = entityManager.getPlayers().indexOf(player) + 1; // Get player number
+                System.out.println("Enemy collided with Player " + playerIndex + "!");
+            } else {
+                System.out.println("Enemy collided with a player!");
+            }
         } else if (other instanceof Tree) {
             System.out.println("Enemy collided with a tree!");
         }
     }
+
     public void dispose() {
         if (texture != null) {
             texture.dispose();

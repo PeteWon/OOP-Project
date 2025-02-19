@@ -98,7 +98,7 @@ public class EntityManager {
 
             } while (!validPosition); // Keep retrying until a valid position is found
 
-            Enemy enemy = new Enemy(x, y, 200);
+            Enemy enemy = new Enemy(x, y, 200, this);
             addEntity(enemy);
         }
     }
