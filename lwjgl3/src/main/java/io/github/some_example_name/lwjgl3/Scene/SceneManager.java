@@ -7,7 +7,7 @@ import io.github.some_example_name.lwjgl3.IO.Output.Audio;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 
 public class SceneManager {
-    private Map<String, Scene> scenes;
+    private Map<String, Scene> scenes; // Stores all scenes in a map with their names as keys
     private Scene currentScene;
     private String previousScene = "home";
     private Audio backgroundMusic; // Centralized background music
@@ -18,6 +18,7 @@ public class SceneManager {
         backgroundMusic = Audio.getInstance("Music/MainScreenMusic.mp3", 0.5f, true); // Load background music
     }
 
+    // Calls renderScene with a default value frame time of 0.016s (60fps)
     public void renderScene() {
         renderScene(0.016f); // Calls the existing renderScene(float) with a default value
     }
@@ -28,8 +29,9 @@ public class SceneManager {
         }
     }
 
+    // Add scene too scene map
     public void addScene(String name, Scene scene) {
-        if (!scenes.containsKey(name)) {
+        if (!scenes.containsKey(name)) { // prevent adding duplicate scene
             scenes.put(name, scene);
         }
     }
@@ -41,13 +43,19 @@ public class SceneManager {
     public void setScene(String sceneName, boolean restart) {
         if (scenes.containsKey(sceneName)) {
             System.out.println("Switching to scene: " + sceneName);
+
+            // Hide the previous scene before switching
             if (currentScene != null) {
                 System.out.println("Hiding previous scene: " + currentScene.getClass().getSimpleName());
                 currentScene.hide();
             }
+
+            // Restart the "play" scene if required
             if (restart && sceneName.equals("play")) { // Reset GameScene when restarting
                 scenes.put("play", new GameScene(this));
             }
+
+            // Set and show new scene
             currentScene = scenes.get(sceneName);
             System.out.println("New current scene: " + currentScene.getClass().getSimpleName());
             currentScene.show(); // Make sure new scene is shown

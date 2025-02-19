@@ -12,9 +12,14 @@ import io.github.some_example_name.lwjgl3.abstract_classes.AudioHandler;
 
 public class Audio extends AudioHandler {
 
+    // Singleton instance of the Audio class
+    // Only one instance of the Audio class is allowed throughout the app
+    // Acts like a global variable with controlled access to a shared resource
     private static Audio instance;
 
+    // Music object for playback
     private Music gameMusic;
+
     private String music_name;
 
     private Map<String, Sound> soundEffects;
@@ -22,11 +27,12 @@ public class Audio extends AudioHandler {
     private float volume;
     private boolean loop;
 
-    private Audio() { // plays default music
+    private Audio() {
         this("Music/MainScreenMusic.mp3", 0.1f, true);
     }
 
-    private Audio(String music_name, float volume, boolean loop) { // plays selected music
+    // Plays specific music track with volume and loop settings
+    private Audio(String music_name, float volume, boolean loop) {
         this.music_name = music_name;
         this.volume = volume;
         this.loop = loop;
@@ -46,6 +52,7 @@ public class Audio extends AudioHandler {
         return instance;
     }
 
+    // Retrieves or updates the singleton instance with a new track
     public static Audio getInstance(String music_name, float volume, boolean loop) {
         if (instance == null) {
             instance = new Audio(music_name, volume, loop);

@@ -14,7 +14,8 @@ public abstract class MovableEntity extends Entity implements iMovable {
     public MovableEntity(float x, float y, float speed) {
         super(x, y);
         this.speed = speed;
-        this.previousX = x; // Initialize previous positions
+        // Initialize previous position
+        this.previousX = x;
         this.previousY = y;
     }
 
@@ -22,9 +23,12 @@ public abstract class MovableEntity extends Entity implements iMovable {
 
     // Extracted common movement logic
     protected void move(float deltaTime, float directionX, float directionY) {
-        this.previousX = this.x; // Store last position before movement
+        // Store last position before movement
+        this.previousX = this.x;
         this.previousY = this.y;
 
+        // deltaTime ensures that the movement is move - deltaTime = the time taken per
+        // frame
         this.x += speed * deltaTime * directionX;
         this.y += speed * deltaTime * directionY;
 

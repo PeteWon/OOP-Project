@@ -23,8 +23,8 @@ public class Player extends MovableEntity {
     }
 
     @Override
-    public void draw() { // Fix: Ensure correct method signature
-        // System.out.println("Drawing Player at (" + x + ", " + y + ")");
+    public void draw() {
+
     }
 
     public void draw(SpriteBatch batch) { // Draw player image

@@ -2,13 +2,11 @@ package io.github.some_example_name.lwjgl3.Collision;
 
 import java.util.List;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import io.github.some_example_name.lwjgl3.application.Enemy;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 import io.github.some_example_name.lwjgl3.application.Tree;
-import io.github.some_example_name.lwjgl3.IO.Output.Audio;
 
 public class CollisionManager {
     private EntityManager entityManager;
@@ -19,9 +17,11 @@ public class CollisionManager {
     }
 
     public void checkCollisions() {
-        List<Player> players = entityManager.getPlayers(); // Get all players
+        // Get lists of players and trees
+        List<Player> players = entityManager.getPlayers();
         List<Tree> trees = entityManager.getTrees();
 
+        // Check for collisions between player and enemy
         for (Entity entity : entityManager.getEntities()) {
             if (entity instanceof Enemy) {
                 Enemy enemy = (Enemy) entity;
@@ -33,7 +33,7 @@ public class CollisionManager {
                     if (enemy.getBoundingBox().overlaps(player.getBoundingBox())) {
                         if (!enemy.hasCollided()) { // Print only the first time per new collision
                             enemy.handleCollision(player);
-                            audio.playSoundEffect("player");  // This will print "Enemy collided with Player!"
+                            audio.playSoundEffect("player"); // This will print "Enemy collided with Player!"
                             enemy.setCollided(true);
                         }
                         hasCollidedWithPlayer = true;
@@ -41,7 +41,8 @@ public class CollisionManager {
                     }
                 }
 
-                // Reset `hasCollided` only when the enemy is no longer colliding with any player
+                // Reset `hasCollided` only when the enemy is no longer colliding with any
+                // player
                 if (!hasCollidedWithPlayer) {
                     enemy.setCollided(false);
                 }
@@ -76,13 +77,14 @@ public class CollisionManager {
             }
         }
 
+        // Check for collision between enemy and tree
         for (Entity entity : entityManager.getEntities()) {
             if (entity instanceof Enemy) {
                 Enemy enemy = (Enemy) entity;
 
                 for (Tree tree : trees) {
                     if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
-                        enemy.handleCollision(tree);  // This will print "Enemy collided with a tree!"
+                        enemy.handleCollision(tree); // This will print "Enemy collided with a tree!"
 
                         // Reverse movement direction (bounce effect)
                         float newX = enemy.getPreviousX();
@@ -99,8 +101,11 @@ public class CollisionManager {
     }
 
     public void collisionBounce(Enemy enemy, List<Tree> trees) {
+
+        // Track if bounce occurred
         boolean bounced = false;
 
+        // Check if enemy is hitting screen edge
         if (enemy.getX() <= 0 || enemy.getX() + enemy.getWidth() >= Gdx.graphics.getWidth()) {
             enemy.reverseXDirection();
             bounced = true;
@@ -110,6 +115,7 @@ public class CollisionManager {
             bounced = true;
         }
 
+        // Check if enemy collides with trees
         for (Tree tree : trees) {
             if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
                 if (Math.abs(enemy.getPreviousX() - tree.getX()) < Math.abs(enemy.getPreviousY() - tree.getY())) {

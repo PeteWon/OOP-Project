@@ -9,14 +9,16 @@ public class InputManager {
 
     public static void detectInputType() {
         if (controllerInput.isControllerConnected()) {
-            useGamepad = true;
+            useGamepad = true; // Use controller if detected
         } else {
-            useGamepad = false;
+            useGamepad = false; // Default to keyboard if no controller
         }
     }
 
     public static float getMoveX() {
         detectInputType();
+        // ? : is a shortcut for if/else
+        // If useGamepad is true, return controllerInput, else return keyboard input
         return useGamepad ? controllerInput.getLeftStickX() : Keyboard.getHorizontal();
     }
 

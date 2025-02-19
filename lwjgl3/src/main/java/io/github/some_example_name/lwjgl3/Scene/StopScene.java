@@ -22,6 +22,7 @@ public class StopScene extends Scene {
     public StopScene(SceneManager game) {
         super(game, "background2.png");
 
+        // Initialize stage
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -30,6 +31,7 @@ public class StopScene extends Scene {
 
         audio = Audio.getInstance(); // Get the singleton instance of Audio
 
+        // Initialize buttons
         resumeButton();
         quitGameButton();
         restartButton();

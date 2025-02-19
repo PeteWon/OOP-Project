@@ -14,6 +14,7 @@ public class Keyboard {
         boolean leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
         boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
 
+        // Log movement only when the key is initially pressed (not held down)
         if (leftPressed && !lastLeftPressed) {
             System.out.println("Keyboard: Moving Left");
         }
@@ -21,9 +22,11 @@ public class Keyboard {
             System.out.println("Keyboard: Moving Right");
         }
 
+        // Update last pressed state to prevent spam print
         lastLeftPressed = leftPressed;
         lastRightPressed = rightPressed;
 
+        // Return movement direction based on key pressed
         if (leftPressed)
             return -1;
         if (rightPressed)
