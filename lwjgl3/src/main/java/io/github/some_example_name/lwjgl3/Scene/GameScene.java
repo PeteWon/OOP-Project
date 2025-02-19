@@ -41,6 +41,8 @@ public class GameScene extends Scene {
 
         // Initialize Audio
         audio = Audio.getInstance();
+        audio.loadSoundEffect("tree", "Music/tree.mp3");
+        audio.loadSoundEffect("player", "Music/collisioneffect.mp3");
 
         // Load Pause Button
         pauseButton = new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("pause.png"))));
