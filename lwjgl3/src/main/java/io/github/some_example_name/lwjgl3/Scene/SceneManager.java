@@ -83,6 +83,8 @@ public class SceneManager {
 
     public void setBackgroundMusicVolume(float volume) {
         backgroundMusic.setVolume(volume);
+        backgroundMusic.setSoundEffectVolume("player", volume);
+        backgroundMusic.setSoundEffectVolume("tree", volume); 
     }
 
     public float getBackgroundMusicVolume() {
