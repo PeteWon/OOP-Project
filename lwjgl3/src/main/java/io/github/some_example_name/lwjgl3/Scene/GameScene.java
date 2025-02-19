@@ -20,8 +20,8 @@ import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
 
 public class GameScene extends Scene {
-    private Stage stage;
-    private Skin skin;
+    private Stage stage; // Handles UI elemements
+    private Skin skin; // UI skin for button styling
     private ImageButton pauseButton;
     private Player player;
     private EntityManager entityManager;
@@ -32,8 +32,11 @@ public class GameScene extends Scene {
     public GameScene(SceneManager game) {
         super(game, "background2.png");
 
+        // Initialize the stage (used for UI elements)
+        // Stage automatically handles input events, so you don't have to manually check
+        // for clicks
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage); // Set stage to process input
         batch = new SpriteBatch();
 
         // Load UI Skin
@@ -56,6 +59,7 @@ public class GameScene extends Scene {
             }
         });
 
+        // Add pause button to stage
         stage.addActor(pauseButton);
 
         initializeGame();

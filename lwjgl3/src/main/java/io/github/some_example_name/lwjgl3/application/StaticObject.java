@@ -18,7 +18,7 @@ public class StaticObject extends Entity {
     }
 
     @Override
-    public void draw(SpriteBatch batch) { // Implementing the abstract method correctly
+    public void draw(SpriteBatch batch) {
         if (texture != null) {
             batch.draw(texture, x, y, boundingBox.width, boundingBox.height);
         }

@@ -13,11 +13,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
 public class EntityManager {
+    // Use list to track
     private List<Entity> entities;
-    private List<Player> players; // New list to track multiple players
+    private List<Player> players;
     private List<Tree> trees;
     private Random random = new Random();
 
+    // Reference CollisionManager to access the methods
     private CollisionManager collisionManager;
 
     public EntityManager() {
@@ -28,6 +30,7 @@ public class EntityManager {
     }
 
     public void updateEntities(float deltaTime) {
+        // Removes inactive entities from list
         entities.removeIf(entity -> {
             if (!entity.isActive()) {
                 entity.dispose();
@@ -36,10 +39,12 @@ public class EntityManager {
             return false;
         });
 
+        // Updates the behavior of each entity
+        // : means "for each element in the list of"
         for (Entity entity : entities) {
             entity.update(deltaTime);
 
-            // Ensure enemies bounce correctly regardless of player count
+            // If entity is enemy, apply collisionBounce method
             if (entity instanceof Enemy) {
                 Enemy enemy = (Enemy) entity;
                 if (collisionManager != null) {
@@ -77,6 +82,7 @@ public class EntityManager {
             boolean validPosition;
 
             do {
+                // Randomly generates x and y within screen boundary
                 validPosition = true;
                 x = MathUtils.random(50, maxWidth - enemySize);
                 y = MathUtils.random(50, maxHeight - enemySize);
@@ -110,9 +116,10 @@ public class EntityManager {
         };
 
         for (int i = 0; i < count; i++) {
+            // Ensures that the maximum player created is 4
             if (i >= spawnPositions.length) {
                 System.err.println("Too many players! Max allowed: " + spawnPositions.length);
-                break; // Prevent adding more than 4 players
+                break;
             }
 
             float playerX = spawnPositions[i][0];

@@ -22,7 +22,7 @@ public class SettingsScene extends Scene {
     private TextButton muteButton;
     private Texture muteTexture, unmuteTexture;
     private boolean isMuted;
-    private float lastVolume = 0.5f;
+    private float lastVolume = 0.5f; // Stores the last volume before muting
     private Table table;
     private float prevVolume = -1f; // Stores the last printed volume
 
@@ -36,11 +36,12 @@ public class SettingsScene extends Scene {
         // Load mute state
         isMuted = OutputManager.isMuted();
 
+        // Initialize UI components
         volumeSlider(game);
         muteButton(game);
         backButton(game);
 
-        // Create a table for layout
+        // Create a table to organize UI elements
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -69,7 +70,7 @@ public class SettingsScene extends Scene {
     }
 
     private void volumeSlider(SceneManager game) {
-        volumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
+        volumeSlider = new Slider(0f, 1f, 0.05f, false, skin); // Create slider
 
         // Get the current volume from SceneManager instead of IOManager
         lastVolume = game.getBackgroundMusicVolume();
@@ -89,7 +90,8 @@ public class SettingsScene extends Scene {
                     lastVolume = volume; // Store last non-zero volume
                 }
 
-                OutputManager.setVolume(volume); // Persist volume
+                // Update volume in OutputManager
+                OutputManager.setVolume(volume);
                 OutputManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(volume); // Update SceneManager's volume
                 updateMuteButton();
@@ -104,21 +106,22 @@ public class SettingsScene extends Scene {
     }
 
     private void muteButton(SceneManager game) {
-        muteButton = new TextButton(isMuted ? "Unmute" : "Mute", skin);
+        muteButton = new TextButton(isMuted ? "Unmute" : "Mute", skin); // Set initial button text
 
         muteButton.addListener(new com.badlogic.gdx.scenes.scene2d.utils.ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                isMuted = !isMuted;
+                isMuted = !isMuted; // Toggle mute state
 
                 if (isMuted) {
-                    lastVolume = volumeSlider.getValue() > 0 ? volumeSlider.getValue() : lastVolume; // Save last volume
-                                                                                                     // before muting
+                    // Save last volume before muting
+                    lastVolume = volumeSlider.getValue() > 0 ? volumeSlider.getValue() : lastVolume;
                     OutputManager.setVolume(0f);
                 } else {
                     OutputManager.setVolume(lastVolume); // Restore last volume
                 }
 
+                // Update mute state
                 OutputManager.setMuted(isMuted);
                 game.setBackgroundMusicVolume(isMuted ? 0f : lastVolume);
                 volumeSlider.setValue(isMuted ? 0f : lastVolume);

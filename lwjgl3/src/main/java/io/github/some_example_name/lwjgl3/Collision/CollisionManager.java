@@ -21,9 +21,11 @@ public class CollisionManager {
     }
 
     public void checkCollisions() {
-        List<Player> players = entityManager.getPlayers(); // Get all players
+        // Get lists of players and trees
+        List<Player> players = entityManager.getPlayers();
         List<Tree> trees = entityManager.getTrees();
 
+        // Check for collisions between player and enemy
         for (Entity entity : entityManager.getEntities()) {
             if (entity instanceof Enemy) {
                 Enemy enemy = (Enemy) entity;
@@ -77,6 +79,7 @@ public class CollisionManager {
             }
         }
 
+        // Check for collision between enemy and tree
         for (Entity entity : entityManager.getEntities()) {
             if (entity instanceof Enemy) {
                 Enemy enemy = (Enemy) entity;
@@ -102,24 +105,21 @@ public class CollisionManager {
     }
 
     public void collisionBounce(Enemy enemy, List<Tree> trees) {
-        // System.out.println("Checking collision for Enemy at: " + enemy.getX() + ", "
-        // + enemy.getY());
 
-        // FIRST, Check if enemy is hitting screen edges
+        // Track if bounce occurred
         boolean bounced = false;
 
+        // Check if enemy is hitting screen edge
         if (enemy.getX() <= 0 || enemy.getX() + enemy.getWidth() >= Gdx.graphics.getWidth()) {
             enemy.reverseXDirection();
             bounced = true;
-            // System.out.println("Enemy bounced off X wall.");
         }
         if (enemy.getY() <= 0 || enemy.getY() + enemy.getHeight() >= Gdx.graphics.getHeight()) {
             enemy.reverseYDirection();
             bounced = true;
-            // System.out.println("Enemy bounced off Y wall.");
         }
 
-        // THEN, Check if enemy collides with trees
+        // Check if enemy collides with trees
         for (Tree tree : trees) {
             if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
                 System.out.println("Enemy collided with a tree!");

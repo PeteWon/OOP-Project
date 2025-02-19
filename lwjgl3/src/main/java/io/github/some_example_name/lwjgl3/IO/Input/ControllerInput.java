@@ -19,6 +19,7 @@ public class ControllerInput extends ControllerAdapter {
     private static boolean leftStickDownPressed = false;
 
     public ControllerInput() {
+        // Check for available controllers
         if (Controllers.getControllers().size > 0) {
             activeController = Controllers.getControllers().first();
             activeController.addListener(this);
@@ -43,6 +44,7 @@ public class ControllerInput extends ControllerAdapter {
                 leftStickRightPressed = true;
             }
         } else {
+            // Reset movement flags when joystick is back to neutral
             leftStickLeftPressed = false;
             leftStickRightPressed = false;
         }
@@ -54,6 +56,7 @@ public class ControllerInput extends ControllerAdapter {
 
         if (activeController == null)
             return 0f;
+        // Invert Y axis
         float value = -activeController.getAxis(leftStickYAxis);
 
         if (Math.abs(value) > DEAD_ZONE) {
