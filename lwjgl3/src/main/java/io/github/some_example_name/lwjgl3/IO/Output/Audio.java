@@ -19,9 +19,9 @@ public class Audio extends AudioHandler {
 
     // Music object for playback
     private Music gameMusic;
-
     private String music_name;
 
+    // Hash Map for sound effects
     private Map<String, Sound> soundEffects;
 
     private float volume;
@@ -130,6 +130,7 @@ public class Audio extends AudioHandler {
         return this.gameMusic.isPlaying();
     }
 
+    // Load sound effect into memory
     public void loadSoundEffect(String key, String filePath) {
         if (!soundEffects.containsKey(key)) {
             Sound sound = Gdx.audio.newSound(Gdx.files.internal(filePath));
@@ -138,7 +139,7 @@ public class Audio extends AudioHandler {
         }
     }
 
-    // Play a sound effect
+    // Play a specific sound effect
     public void playSoundEffect(String key) {
         Sound sound = soundEffects.get(key);
         if (sound != null) {
@@ -149,7 +150,7 @@ public class Audio extends AudioHandler {
         }
     }
 
-    // Stop a sound effect (only if looping)
+    // Stop a specific sound effect
     public void stopSoundEffect(String key) {
         Sound sound = soundEffects.get(key);
         if (sound != null) {
@@ -158,7 +159,7 @@ public class Audio extends AudioHandler {
         }
     }
 
-    // Set volume for a sound effect
+    // Set the volume of a specific sound effect
     public void setSoundEffectVolume(String key, float volume) {
         Sound sound = soundEffects.get(key);
         if (sound != null) {
@@ -167,7 +168,7 @@ public class Audio extends AudioHandler {
         }
     }
 
-    // Dispose all sounds
+    // Disposes of all audio resources
     public void dispose() {
         this.gameMusic.dispose();
         for (Sound sound : soundEffects.values()) {
