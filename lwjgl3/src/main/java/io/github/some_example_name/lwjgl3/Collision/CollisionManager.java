@@ -2,6 +2,8 @@ package io.github.some_example_name.lwjgl3.Collision;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.lwjgl3.application.Enemy;
@@ -29,7 +31,7 @@ public class CollisionManager {
                 if (entity instanceof Enemy) {
                     Enemy enemy = (Enemy) entity;
 
-                    enemy.collisionBounce(trees);
+                    collisionBounce(enemy, trees); // Call method directly in CollisionManager
 
                     if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
                         if (!enemy.hasCollided()) {
@@ -86,9 +88,36 @@ public class CollisionManager {
                             enemy.setX(newX);
                             enemy.setY(newY);
 
-                            enemy.collisionBounce(trees); // Ensure enemy moves away
+                            collisionBounce(enemy, trees);
+
                         }
                 }
+            }
+        }
+    }
+
+    public void collisionBounce(Enemy enemy, List<Tree> trees) {
+        // Bounce off screen edges
+        if (enemy.getX() <= 0 || enemy.getX() + enemy.getWidth() >= Gdx.graphics.getWidth()) {
+            enemy.reverseXDirection();
+        }
+        if (enemy.getY() <= 0 || enemy.getY() + enemy.getHeight() >= Gdx.graphics.getHeight()) {
+            enemy.reverseYDirection();
+        }
+
+        // Bounce off trees the same way as walls
+        for (Tree tree : trees) {
+            if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
+                System.out.println("Enemy collided with a tree!");
+
+                if (Math.abs(enemy.getPreviousX() - tree.getX()) < Math.abs(enemy.getPreviousY() - tree.getY())) {
+                    enemy.reverseYDirection(); // Bounce vertically
+                } else {
+                    enemy.reverseXDirection(); // Bounce horizontally
+                }
+
+                enemy.setX(enemy.getPreviousX()); // Move back
+                enemy.setY(enemy.getPreviousY());
             }
         }
     }

@@ -1,7 +1,5 @@
 package io.github.some_example_name.lwjgl3.application;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -53,35 +51,12 @@ public class Enemy extends MovableEntity {
         // Enemy should not be controlled by the player, so leave this empty
     }
 
-    // Handles bouncing offs edges and trees
-    public void collisionBounce(List<Tree> trees) {
-        // Bounce off screen edges
-        if (x <= 0 || x + width >= Gdx.graphics.getWidth()) {
-            directionX *= -1; // Reverse X direction
-            x = Math.max(0, Math.min(x, Gdx.graphics.getWidth() - width)); // Prevent sticking to edges
-        }
-        if (y <= 0 || y + height >= Gdx.graphics.getHeight()) {
-            directionY *= -1; // Reverse Y direction
-            y = Math.max(0, Math.min(y, Gdx.graphics.getHeight() - height)); // Prevent sticking to edges
-        }
+    public void reverseXDirection() {
+        directionX *= -1;
+    }
 
-        // Bounce off trees the same way as walls
-        for (Tree tree : trees) {
-            if (getBoundingBox().overlaps(tree.getBoundingBox())) {
-                System.out.println("Enemy collided with a tree!");
-
-                // Reverse direction like hitting a wall
-                if (Math.abs(previousX - tree.getX()) < Math.abs(previousY - tree.getY())) {
-                    directionY *= -1; // More vertical overlap, bounce vertically
-                } else {
-                    directionX *= -1; // More horizontal overlap, bounce horizontally
-                }
-
-                // Move away from the tree slightly to prevent getting stuck
-                x = previousX;
-                y = previousY;
-            }
-        }
+    public void reverseYDirection() {
+        directionY *= -1;
     }
 
     public Rectangle getBoundingBox() {
@@ -94,6 +69,14 @@ public class Enemy extends MovableEntity {
 
     public void setCollided(boolean collided) {
         this.hasCollided = collided;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 
     public void dispose() {
