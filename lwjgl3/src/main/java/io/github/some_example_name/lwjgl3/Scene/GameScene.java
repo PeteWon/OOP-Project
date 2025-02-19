@@ -1,13 +1,9 @@
 package io.github.some_example_name.lwjgl3.Scene;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -16,7 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import io.github.some_example_name.lwjgl3.application.Enemy;
+import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
+import io.github.some_example_name.lwjgl3.IO.Input.Keyboard;
+import io.github.some_example_name.lwjgl3.IO.Output.Audio;
+import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
 import io.github.some_example_name.lwjgl3.application.EntityManager;
 import io.github.some_example_name.lwjgl3.application.Player;
 
@@ -27,7 +26,8 @@ public class GameScene extends Scene {
     private Player player;
     private EntityManager entityManager;
     private SpriteBatch batch;
-    private List<Enemy> enemies; // ✅ Store multiple enemies
+    private Audio audio;
+    private CollisionManager collisionManager;
 
     public GameScene(SceneManager game) {
         super(game, "background2.png");
@@ -39,6 +39,9 @@ public class GameScene extends Scene {
         // Load UI Skin
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
+        // Initialize Audio
+        audio = Audio.getInstance();
+
         // Load Pause Button
         pauseButton = new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("pause.png"))));
         pauseButton.setPosition(Gdx.graphics.getWidth() - 60, Gdx.graphics.getHeight() - 60);
@@ -47,7 +50,8 @@ public class GameScene extends Scene {
         pauseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Pause Button Clicked! Opening StopScene...");
+                System.out.println("Pause Button Clicked! Opening StopScene...");
+                audio.pauseMusic();
                 game.setScene("stop");
             }
         });
@@ -59,21 +63,13 @@ public class GameScene extends Scene {
     }
 
     private void initializeGame() {
-        // ✅ Initialize EntityManager and Player
+        // Initialize EntityManager and Player
         entityManager = new EntityManager();
-        player = new Player(200, 300, 200);
-        entityManager.addEntity(player);
+        collisionManager = new CollisionManager(entityManager); // Initialize CollisionManager
 
-        // ✅ Initialize Enemies (Spawn 5 at random locations)
-        enemies = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            float enemyX = MathUtils.random(50, Gdx.graphics.getWidth() - 50);
-            float enemyY = MathUtils.random(50, Gdx.graphics.getHeight() - 50);
-            Enemy enemy = new Enemy(enemyX, enemyY, 200);
-            enemies.add(enemy);
-            entityManager.addEntity(enemy);
-        }
-
+        entityManager.spawnPlayers(1); // Spawn players using EntityManager
+        entityManager.spawnEnemies(7); // Spawn enemies using EntityManager
+        entityManager.spawnTrees(3); // Spawn trees using EntityManager
     }
 
     @Override
@@ -82,42 +78,26 @@ public class GameScene extends Scene {
 
         batch.begin();
         batch.draw(tex, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        player.draw(batch);
 
-        // ✅ Draw all enemies
-        for (Enemy enemy : enemies) {
-            enemy.draw(batch);
-        }
+        entityManager.renderEntities(batch); // Delegates drawing to EntityManager
+
         batch.end();
 
-        // ✅ Update & Move Entities
+        // Update & Move Entities
         entityManager.updateEntities(delta);
 
-        // ✅ Collision Detection
-        checkCollisions();
+        // Collision Detection
+        collisionManager.checkCollisions();
 
         Gdx.input.setInputProcessor(stage);
-        // ✅ Ensure UI Elements (Buttons) Render Last
+        // Ensure UI Elements (Buttons) Render Last
         stage.act(delta);
-        stage.draw(); // ✅ Move this to the end
+        stage.draw(); // Move this to the end
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+        if (Keyboard.isKeyPressed(Input.Keys.ESCAPE)) {
             game.setScene("stop");
         }
-    }
 
-    // Collision detection between player and enemies
-    private void checkCollisions() {
-        for (Enemy enemy : enemies) {
-            if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                if (!enemy.hasCollided()) { // ✅ Only print the first time collision happens
-                    System.out.println("Enemy collided with player!");
-                    enemy.setCollided(true); // ✅ Mark as collided
-                }
-            } else {
-                enemy.setCollided(false); // ✅ Reset collision flag when separated
-            }
-        }
     }
 
     @Override
@@ -126,5 +106,7 @@ public class GameScene extends Scene {
         stage.dispose();
         skin.dispose();
         batch.dispose();
+        entityManager.dispose();
+        collisionManager.dispose();
     }
 }

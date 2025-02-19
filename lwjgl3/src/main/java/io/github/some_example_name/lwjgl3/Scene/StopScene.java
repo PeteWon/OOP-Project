@@ -8,21 +8,27 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
+import io.github.some_example_name.lwjgl3.IO.Output.Audio;
+
 public class StopScene extends Scene {
     private Stage stage;
     private Skin skin;
     private TextButton resumeButton;
     private TextButton quitButton;
     private TextButton restartButton;
+    private Audio audio;
 
     public StopScene(SceneManager game) {
-        super(game, "background2.png"); // Change to your actual background image
-
+        super(game, "background2.png");
+        
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        // Load UI Skin (Ensure uiskin.json exists in your assets folder)
+        // Load UI Skin
         skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        audio = Audio.getInstance(); // Get the singleton instance of Audio
 
         resumeButton();
         quitGameButton();
@@ -32,19 +38,19 @@ public class StopScene extends Scene {
         stage.addActor(resumeButton);
         stage.addActor(quitButton);
         stage.addActor(restartButton);
-
     }
 
-    public void restartButton() {
-        restartButton = new TextButton("Restart Game", skin);
-        restartButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 50);
-
+    public void resumeButton() {
+        // Create "Resume Game" button
+        resumeButton = new TextButton("Resume Game", skin);
+        resumeButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f);
         // Add button click listener
-        restartButton.addListener(new ClickListener() {
+        resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Restart Game Button Clicked! Restarting game...");
-                game.setScene("play", true); // ✅ Switch back to the game scene
+                System.out.println("Resume Button Clicked! Returning to game...");
+                audio.resumeMusic(); // Resume the music
+                game.setScene("play", false); // Switch back to the game scene
             }
         });
     }
@@ -57,22 +63,26 @@ public class StopScene extends Scene {
         quitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Back to Main Menu Button Clicked! Returning to Main Menu...");
-                game.setScene("home"); // ✅ Switch back to the game scene
+                System.out.println("Back to Main Menu Button Clicked! Returning to Main Menu...");
+                audio.stopMusic(); // Stop the current music
+                audio.playMusic(); // Restart the music
+                game.setScene("home"); // Switch back to the game scene
             }
         });
     }
 
-    public void resumeButton() {
-        // Create "Resume Game" button
-        resumeButton = new TextButton("Resume Game", skin);
-        resumeButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f);
+    public void restartButton() {
+        restartButton = new TextButton("Restart Game", skin);
+        restartButton.setPosition(Gdx.graphics.getWidth() / 2f - 75, Gdx.graphics.getHeight() / 2f - 50);
+
         // Add button click listener
-        resumeButton.addListener(new ClickListener() {
+        restartButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("✅ Resume Button Clicked! Returning to game...");
-                game.setScene("play", false); // ✅ Switch back to the game scene
+                System.out.println("Restart Game Button Clicked! Restarting game...");
+                audio.stopMusic(); // Stop the current music
+                audio.playMusic(); // Restart the music
+                game.setScene("play", true); // Switch back to the game scene
             }
         });
     }
@@ -80,7 +90,7 @@ public class StopScene extends Scene {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("✅ Stop Scene shown");
+        System.out.println("Stop Scene shown");
     }
 
     @Override
@@ -93,7 +103,6 @@ public class StopScene extends Scene {
 
         stage.act(delta);
         stage.draw();
-
     }
 
     @Override
