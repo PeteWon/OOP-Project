@@ -59,6 +59,11 @@ public class Enemy extends MovableEntity {
         directionY *= -1;
     }
 
+    // Ensure direction is updated after bouncing
+    public void updateDirection() {
+        move(Gdx.graphics.getDeltaTime(), directionX, directionY);
+    }
+
     public Rectangle getBoundingBox() {
         return new Rectangle(x, y, width, height);
     }

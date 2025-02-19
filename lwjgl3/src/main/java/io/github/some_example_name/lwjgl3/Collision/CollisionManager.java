@@ -24,23 +24,28 @@ public class CollisionManager {
         List<Player> players = entityManager.getPlayers(); // Get all players
         List<Tree> trees = entityManager.getTrees();
 
-        for (int i = 0; i < players.size(); i++) { // Iterate over all players
-            Player player = players.get(i);
+        for (Entity entity : entityManager.getEntities()) {
+            if (entity instanceof Enemy) {
+                Enemy enemy = (Enemy) entity;
+                boolean hasCollidedWithPlayer = false; // Track if the enemy collides with any player
 
-            for (Entity entity : entityManager.getEntities()) {
-                if (entity instanceof Enemy) {
-                    Enemy enemy = (Enemy) entity;
+                for (int i = 0; i < players.size(); i++) { // Iterate over all players
+                    Player player = players.get(i);
 
-                    collisionBounce(enemy, trees); // Call method directly in CollisionManager
-
-                    if (player.getBoundingBox().overlaps(enemy.getBoundingBox())) {
-                        if (!enemy.hasCollided()) {
-                            System.out.println("Enemy collided with Player " + (i + 1) + "!");
+                    if (enemy.getBoundingBox().overlaps(player.getBoundingBox())) {
+                        if (!enemy.hasCollided()) { // Print only the first time per new collision
+                            System.out.println("Enemy collided with Player " + (i + 1) + "!"); // Print player number
                             enemy.setCollided(true);
                         }
-                    } else {
-                        enemy.setCollided(false);
+                        hasCollidedWithPlayer = true;
+                        break; // Stop checking once an enemy collides with one player
                     }
+                }
+
+                // Reset `hasCollided` only when the enemy is no longer colliding with any
+                // player
+                if (!hasCollidedWithPlayer) {
+                    enemy.setCollided(false);
                 }
             }
         }
@@ -97,28 +102,45 @@ public class CollisionManager {
     }
 
     public void collisionBounce(Enemy enemy, List<Tree> trees) {
-        // Bounce off screen edges
+        // System.out.println("Checking collision for Enemy at: " + enemy.getX() + ", "
+        // + enemy.getY());
+
+        // FIRST, Check if enemy is hitting screen edges
+        boolean bounced = false;
+
         if (enemy.getX() <= 0 || enemy.getX() + enemy.getWidth() >= Gdx.graphics.getWidth()) {
             enemy.reverseXDirection();
+            bounced = true;
+            // System.out.println("Enemy bounced off X wall.");
         }
         if (enemy.getY() <= 0 || enemy.getY() + enemy.getHeight() >= Gdx.graphics.getHeight()) {
             enemy.reverseYDirection();
+            bounced = true;
+            // System.out.println("Enemy bounced off Y wall.");
         }
 
-        // Bounce off trees the same way as walls
+        // THEN, Check if enemy collides with trees
         for (Tree tree : trees) {
             if (enemy.getBoundingBox().overlaps(tree.getBoundingBox())) {
                 System.out.println("Enemy collided with a tree!");
 
+                // Reverse direction like hitting a wall
                 if (Math.abs(enemy.getPreviousX() - tree.getX()) < Math.abs(enemy.getPreviousY() - tree.getY())) {
-                    enemy.reverseYDirection(); // Bounce vertically
+                    enemy.reverseYDirection();
                 } else {
-                    enemy.reverseXDirection(); // Bounce horizontally
+                    enemy.reverseXDirection();
                 }
 
-                enemy.setX(enemy.getPreviousX()); // Move back
+                // Move away from the tree slightly to prevent getting stuck
+                enemy.setX(enemy.getPreviousX());
                 enemy.setY(enemy.getPreviousY());
+                bounced = true;
             }
+        }
+
+        // If enemy bounced, ensure its movement direction updates properly
+        if (bounced) {
+            enemy.updateDirection();
         }
     }
 

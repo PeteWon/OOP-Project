@@ -1,5 +1,6 @@
 package io.github.some_example_name.lwjgl3.application;
 
+import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
 
 import java.util.ArrayList;
@@ -17,16 +18,19 @@ public class EntityManager {
     private List<Tree> trees;
     private Random random = new Random();
 
+    private CollisionManager collisionManager;
+
     public EntityManager() {
         this.entities = new ArrayList<>();
         this.players = new ArrayList<>();
         this.trees = new ArrayList<>();
+        this.collisionManager = new CollisionManager(this);
     }
 
     public void updateEntities(float deltaTime) {
         entities.removeIf(entity -> {
             if (!entity.isActive()) {
-                entity.dispose(); // Dispose of inactive entities
+                entity.dispose();
                 return true;
             }
             return false;
@@ -34,7 +38,16 @@ public class EntityManager {
 
         for (Entity entity : entities) {
             entity.update(deltaTime);
+
+            // Ensure enemies bounce correctly regardless of player count
+            if (entity instanceof Enemy) {
+                Enemy enemy = (Enemy) entity;
+                if (collisionManager != null) {
+                    collisionManager.collisionBounce(enemy, trees);
+                }
+            }
         }
+
     }
 
     public void renderEntities(SpriteBatch batch) {
@@ -54,13 +67,33 @@ public class EntityManager {
         entities.remove(entity);
     }
 
-    // Add enemy spawning method
     public void spawnEnemies(int count) {
+        int maxWidth = Gdx.graphics.getWidth();
+        int maxHeight = Gdx.graphics.getHeight();
+        int enemySize = 50; // Adjust based on actual enemy size
+
         for (int i = 0; i < count; i++) {
-            float enemyX = MathUtils.random(50, 750); // Adjust as needed
-            float enemyY = MathUtils.random(50, 550); // Adjust as needed
-            Enemy enemy = new Enemy(enemyX, enemyY, 200);
-            addEntity(enemy); // Enemies are added to EntityManager
+            float x, y;
+            boolean validPosition;
+
+            do {
+                validPosition = true;
+                x = MathUtils.random(50, maxWidth - enemySize);
+                y = MathUtils.random(50, maxHeight - enemySize);
+                Rectangle newEnemyBounds = new Rectangle(x, y, enemySize, enemySize);
+
+                // Check if new enemy position overlaps any existing enemies
+                for (Entity entity : entities) {
+                    if (entity instanceof Enemy && newEnemyBounds.overlaps(entity.getBoundingBox())) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+
+            } while (!validPosition); // Keep retrying until a valid position is found
+
+            Enemy enemy = new Enemy(x, y, 200);
+            addEntity(enemy);
         }
     }
 
