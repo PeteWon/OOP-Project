@@ -59,7 +59,7 @@ public class CollisionManager {
                     isColliding = true; // Player is colliding
 
                     if (!player.hasCollided()) { // Only print the first time per new collision
-                        System.out.println("Player collided with a tree!");
+                        player.handleCollision(tree);
                         audio.playSoundEffect("tree");
                         player.setCollided(true); // Mark as colliding
                     }
