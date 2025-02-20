@@ -1,12 +1,12 @@
-package io.github.some_example_name.lwjgl3.application;
+package io.github.some_example_name.lwjgl3.application.Classes.Entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 
-import io.github.some_example_name.lwjgl3.Collision.iCollidable;
 import io.github.some_example_name.lwjgl3.abstract_classes.Entity;
+import io.github.some_example_name.lwjgl3.abstract_classes.iCollidable;
 
 public class StaticObject extends Entity {
     protected Texture texture;
@@ -38,6 +38,7 @@ public class StaticObject extends Entity {
     public Rectangle getBoundingBox() {
         return boundingBox; // Ensure bounding box can be accessed for collisions
     }
+
     @Override
     public void handleCollision(iCollidable other) {
     }

@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.IO;
+package io.github.some_example_name.lwjgl3.application.Managers;
 
 public class OutputManager {
     private static float volume = 1.0f; // Default volume

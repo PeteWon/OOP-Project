@@ -3,8 +3,6 @@ package io.github.some_example_name.lwjgl3.abstract_classes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import io.github.some_example_name.lwjgl3.Collision.iCollidable;
-
 public abstract class Entity implements iCollidable {
     protected float x, y; // Position in the game world
     protected boolean isActive; // Determines if the entity is currently active
@@ -60,6 +58,7 @@ public abstract class Entity implements iCollidable {
     public void setY(float y) {
         this.y = y;
     }
+
     @Override
     public abstract void handleCollision(iCollidable other);
 

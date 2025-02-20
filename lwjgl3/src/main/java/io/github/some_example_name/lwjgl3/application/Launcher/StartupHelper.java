@@ -14,7 +14,7 @@
  */
 //Note, the above license and copyright applies to this file only.
 
-package io.github.some_example_name.lwjgl3.Launcher;
+package io.github.some_example_name.lwjgl3.application.Launcher;
 
 import org.lwjgl.system.macosx.LibC;
 
@@ -30,7 +30,10 @@ import java.util.ArrayList;
  * to function. Also helps on Windows when users have names with characters from
  * outside the Latin alphabet, a common cause of startup crashes.
  * <br>
- * <a href="https://jvm-gaming.org/t/starting-jvm-on-mac-with-xstartonfirstthread-programmatically/57547">Based on this java-gaming.org post by kappa</a>
+ * <a href=
+ * "https://jvm-gaming.org/t/starting-jvm-on-mac-with-xstartonfirstthread-programmatically/57547">Based
+ * on this java-gaming.org post by kappa</a>
+ * 
  * @author damios
  */
 public class StartupHelper {
@@ -51,17 +54,21 @@ public class StartupHelper {
      * <p>
      * <u>Usage:</u>
      *
-     * <pre><code>
+     * <pre>
+     * <code>
      * public static void main(String... args) {
      * 	if (StartupHelper.startNewJvmIfRequired(true)) return; // This handles macOS support and helps on Windows.
      * 	// after this is the actual main method code
      * }
-     * </code></pre>
+     * </code>
+     * </pre>
      *
      * @param redirectOutput
-     *            whether the output of the new JVM should be rerouted to the
-     *            old JVM, so it can be accessed in the same place; keeps the
-     *            old JVM running if enabled
+     *                       whether the output of the new JVM should be rerouted to
+     *                       the
+     *                       old JVM, so it can be accessed in the same place; keeps
+     *                       the
+     *                       old JVM running if enabled
      * @return whether a new JVM was started and thus no code should be executed
      *         in this one
      */
@@ -69,10 +76,14 @@ public class StartupHelper {
         String osName = System.getProperty("os.name").toLowerCase();
         if (!osName.contains("mac")) {
             if (osName.contains("windows")) {
-// Here, we are trying to work around an issue with how LWJGL3 loads its extracted .dll files.
-// By default, LWJGL3 extracts to the directory specified by "java.io.tmpdir", which is usually the user's home.
-// If the user's name has non-ASCII (or some non-alphanumeric) characters in it, that would fail.
-// By extracting to the relevant "ProgramData" folder, which is usually "C:\ProgramData", we avoid this.
+                // Here, we are trying to work around an issue with how LWJGL3 loads its
+                // extracted .dll files.
+                // By default, LWJGL3 extracts to the directory specified by "java.io.tmpdir",
+                // which is usually the user's home.
+                // If the user's name has non-ASCII (or some non-alphanumeric) characters in it,
+                // that would fail.
+                // By extracting to the relevant "ProgramData" folder, which is usually
+                // "C:\ProgramData", we avoid this.
                 System.setProperty("java.io.tmpdir", System.getenv("ProgramData") + "/libGDX-temp");
             }
             return false;
@@ -101,10 +112,12 @@ public class StartupHelper {
         // Restart the JVM with -XstartOnFirstThread
         ArrayList<String> jvmArgs = new ArrayList<>();
         String separator = System.getProperty("file.separator");
-        // The following line is used assuming you target Java 8, the minimum for LWJGL3.
+        // The following line is used assuming you target Java 8, the minimum for
+        // LWJGL3.
         String javaExecPath = System.getProperty("java.home") + separator + "bin" + separator + "java";
-        // If targeting Java 9 or higher, you could use the following instead of the above line:
-        //String javaExecPath = ProcessHandle.current().info().command().orElseThrow();
+        // If targeting Java 9 or higher, you could use the following instead of the
+        // above line:
+        // String javaExecPath = ProcessHandle.current().info().command().orElseThrow();
 
         if (!(new File(javaExecPath)).exists()) {
             System.err.println(
@@ -165,8 +178,9 @@ public class StartupHelper {
      *
      * <pre>
      * public static void main(String... args) {
-     * 	if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
-     * 	// the actual main method code
+     *     if (StartupHelper.startNewJvmIfRequired())
+     *         return; // This handles macOS support and helps on Windows.
+     *     // the actual main method code
      * }
      * </pre>
      *

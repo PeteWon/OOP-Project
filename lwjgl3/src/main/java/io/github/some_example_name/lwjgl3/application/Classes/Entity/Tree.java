@@ -1,6 +1,6 @@
-package io.github.some_example_name.lwjgl3.application;
+package io.github.some_example_name.lwjgl3.application.Classes.Entity;
 
-import io.github.some_example_name.lwjgl3.Collision.iCollidable;
+import io.github.some_example_name.lwjgl3.abstract_classes.iCollidable;
 
 public class Tree extends StaticObject {
     public Tree(float x, float y) {

@@ -3,8 +3,6 @@ package io.github.some_example_name.lwjgl3.abstract_classes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import io.github.some_example_name.lwjgl3.Movement.iMovable;
-
 public abstract class MovableEntity extends Entity implements iMovable {
     protected float speed;
     protected float width = 50, height = 50;

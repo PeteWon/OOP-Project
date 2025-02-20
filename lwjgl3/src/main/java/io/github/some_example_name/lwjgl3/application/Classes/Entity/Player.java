@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.application;
+package io.github.some_example_name.lwjgl3.application.Classes.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
-import io.github.some_example_name.lwjgl3.Collision.iCollidable;
-import io.github.some_example_name.lwjgl3.IO.InputManager;
-import io.github.some_example_name.lwjgl3.IO.Input.ControllerInput;
+import io.github.some_example_name.lwjgl3.abstract_classes.iCollidable;
+import io.github.some_example_name.lwjgl3.application.Classes.IO.ControllerInput;
+import io.github.some_example_name.lwjgl3.application.Managers.InputManager;
 
 public class Player extends MovableEntity {
     private Texture texture;
@@ -64,7 +64,7 @@ public class Player extends MovableEntity {
             System.out.println("Player collided with a tree!");
         }
     }
-    
+
     public void dispose() {
         if (texture != null) {
             texture.dispose();

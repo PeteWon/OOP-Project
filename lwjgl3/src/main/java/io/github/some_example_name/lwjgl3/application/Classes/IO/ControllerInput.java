@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.IO.Input;
+package io.github.some_example_name.lwjgl3.application.Classes.IO;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import io.github.some_example_name.lwjgl3.Scene.SceneManager;
+import io.github.some_example_name.lwjgl3.application.Managers.SceneManager;
 
 public abstract class Scene implements Screen {
     protected final SceneManager game;

@@ -1,13 +1,7 @@
-package io.github.some_example_name.lwjgl3;
+package io.github.some_example_name.lwjgl3.application.Managers;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import io.github.some_example_name.lwjgl3.Collision.CollisionManager;
-import io.github.some_example_name.lwjgl3.IO.InputManager;
-import io.github.some_example_name.lwjgl3.IO.OutputManager;
-import io.github.some_example_name.lwjgl3.Scene.SceneManager;
-import io.github.some_example_name.lwjgl3.application.EntityManager;
 
 public class GameMaster extends ApplicationAdapter {
     private EntityManager entityManager;

@@ -1,10 +1,14 @@
-package io.github.some_example_name.lwjgl3.Scene;
+package io.github.some_example_name.lwjgl3.application.Managers;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import io.github.some_example_name.lwjgl3.IO.Output.Audio;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
+import io.github.some_example_name.lwjgl3.application.Classes.IO.Audio;
+import io.github.some_example_name.lwjgl3.application.Classes.Scene.GameScene;
+import io.github.some_example_name.lwjgl3.application.Classes.Scene.MainMenuScene;
+import io.github.some_example_name.lwjgl3.application.Classes.Scene.SettingsScene;
+import io.github.some_example_name.lwjgl3.application.Classes.Scene.StopScene;
 
 public class SceneManager {
     private Map<String, Scene> scenes; // Stores all scenes in a map with their names as keys
@@ -84,7 +88,7 @@ public class SceneManager {
     public void setBackgroundMusicVolume(float volume) {
         backgroundMusic.setVolume(volume);
         backgroundMusic.setSoundEffectVolume("player", volume);
-        backgroundMusic.setSoundEffectVolume("tree", volume); 
+        backgroundMusic.setSoundEffectVolume("tree", volume);
     }
 
     public float getBackgroundMusicVolume() {
