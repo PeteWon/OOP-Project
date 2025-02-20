@@ -106,29 +106,31 @@ public class EntityManager {
     public void spawnPlayers(int count) {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
-
-        // Define fixed spawn positions for up to 4 players
-        float[][] spawnPositions = {
-                { screenWidth * 0.25f, screenHeight * 0.75f }, // Player 1 (Top Left)
-                { screenWidth * 0.75f, screenHeight * 0.75f }, // Player 2 (Top Right)
-                { screenWidth * 0.25f, screenHeight * 0.25f }, // Player 3 (Bottom Left)
-                { screenWidth * 0.75f, screenHeight * 0.25f } // Player 4 (Bottom Right)
+        int playerSize = 50; // Adjust based on actual player size
+    
+        // Define spawn zones (e.g., quadrants of the screen)
+        float[][] spawnZones = {
+                { 0, screenWidth / 2, screenHeight / 2, screenHeight }, // Top Left
+                { screenWidth / 2, screenWidth, screenHeight / 2, screenHeight }, // Top Right
+                { 0, screenWidth / 2, 0, screenHeight / 2 }, // Bottom Left
+                { screenWidth / 2, screenWidth, 0, screenHeight / 2 } // Bottom Right
         };
-
+    
         for (int i = 0; i < count; i++) {
-            // Ensures that the maximum player created is 4
-            if (i >= spawnPositions.length) {
-                System.err.println("Too many players! Max allowed: " + spawnPositions.length);
+            // Ensure max player count is 4 (Number of spawn zones)
+            if (i >= spawnZones.length) {
+                System.err.println("Too many players! Max allowed: " + spawnZones.length);
                 break;
             }
-
-            float playerX = spawnPositions[i][0];
-            float playerY = spawnPositions[i][1];
-
+    
+            float[] zone = spawnZones[i];
+            float playerX = MathUtils.random(zone[0] + playerSize, zone[1] - playerSize);
+            float playerY = MathUtils.random(zone[2] + playerSize, zone[3] - playerSize);
+    
             Player player = new Player(playerX, playerY, 200);
             players.add(player);
             addEntity(player);
-
+    
             System.out.println("Spawned Player " + (i + 1) + " at: " + playerX + ", " + playerY);
         }
     }
