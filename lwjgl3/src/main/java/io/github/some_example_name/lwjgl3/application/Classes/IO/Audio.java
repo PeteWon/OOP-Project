@@ -99,6 +99,10 @@ public class Audio extends AudioHandler {
     }
 
     public void setMusicName(String music_name) {
+        if (this.gameMusic != null) {
+            this.gameMusic.dispose(); // Ensure old music is properly disposed
+        }
+
         this.music_name = music_name;
         this.gameMusic = Gdx.audio.newMusic(Gdx.files.internal(this.music_name));
         this.gameMusic.setVolume(this.volume);

@@ -32,6 +32,7 @@ public class InputManager {
     }
 
     public void dispose() {
+        // Nothing to dispose
     }
 
 }
