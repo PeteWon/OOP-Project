@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.IO.Output;
+package io.github.some_example_name.lwjgl3.application.Classes.IO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.audio.Sound;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.github.some_example_name.lwjgl3.IO.OutputManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.AudioHandler;
+import io.github.some_example_name.lwjgl3.application.Managers.OutputManager;
 
 public class Audio extends AudioHandler {
 
@@ -157,8 +157,7 @@ public class Audio extends AudioHandler {
     public void setSoundEffectVolume(String key, float volume) {
         if (soundEffects.containsKey(key)) {
             soundEffectVolumes.put(key, volume);
-        } 
-        else {
+        } else {
             System.out.println("Sound effect not found: " + key);
         }
     }
@@ -170,7 +169,6 @@ public class Audio extends AudioHandler {
             sound.dispose();
         }
         soundEffects.clear();
-        System.out.println("Audio resources disposed.");
     }
 
 }

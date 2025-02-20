@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.Scene;
+package io.github.some_example_name.lwjgl3.application.Classes.Scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,8 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import io.github.some_example_name.lwjgl3.IO.OutputManager;
 import io.github.some_example_name.lwjgl3.abstract_classes.Scene;
+import io.github.some_example_name.lwjgl3.application.Managers.OutputManager;
+import io.github.some_example_name.lwjgl3.application.Managers.SceneManager;
 
 public class SettingsScene extends Scene {
     private Stage stage;

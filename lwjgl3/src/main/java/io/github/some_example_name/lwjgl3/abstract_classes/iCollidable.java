@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3.Collision;
+package io.github.some_example_name.lwjgl3.abstract_classes;
 
 import com.badlogic.gdx.math.Rectangle;
 

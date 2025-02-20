@@ -1,12 +1,14 @@
-package io.github.some_example_name.lwjgl3.application;
+package io.github.some_example_name.lwjgl3.application.Classes.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import io.github.some_example_name.lwjgl3.Collision.iCollidable;
 import io.github.some_example_name.lwjgl3.abstract_classes.MovableEntity;
+import io.github.some_example_name.lwjgl3.abstract_classes.iCollidable;
+import io.github.some_example_name.lwjgl3.application.Managers.EntityManager;
+
 import java.util.Random;
 
 public class Enemy extends MovableEntity {
