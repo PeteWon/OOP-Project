@@ -7,6 +7,11 @@ public abstract class AudioHandler {
     public abstract void stopMusic();
     public abstract boolean isPlayingMusic();
 
+    //audio controls for sound effects
+    public abstract void loadSoundEffect(String key, String filePath);
+    public abstract void playSoundEffect(String key);
+    public abstract void setSoundEffectVolume(String key, float volume);
+
     // getter/setters for volume controls
     public abstract void setVolume(float volume);
     public abstract float getVolume();
